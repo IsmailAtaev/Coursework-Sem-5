@@ -1,12 +1,11 @@
 package com.example.model.ticket;
 
-
 import com.example.model.iinformation.IInformation;
 import java.util.Objects;
 
 /**
  * @author Atayev Ismayyl
- * */
+ */
 
 public class Ticket implements IInformation {
 
@@ -24,10 +23,6 @@ public class Ticket implements IInformation {
 
     private String arrivalData;
 
-
-    /**
-     * Constructor
-     */
 
     public Ticket() {
     }
