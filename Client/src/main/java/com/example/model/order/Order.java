@@ -2,6 +2,8 @@ package com.example.model.order;
 
 
 import com.example.model.iinformation.IInformation;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**

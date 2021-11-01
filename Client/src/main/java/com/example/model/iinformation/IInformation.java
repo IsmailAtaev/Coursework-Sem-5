@@ -3,7 +3,7 @@ package com.example.model.iinformation;
 import java.io.Serializable;
 
 /**
- * @author Atayev Ismayyl
+ * @author Atayev I.M
  * */
 
 public interface IInformation extends Serializable {

@@ -1,10 +1,16 @@
 package com.example.model.connect;
 
+import com.example.model.client.Client;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+
+/**
+ * @author Atayev.I.M
+ * */
 public class Connect implements Closeable {
 
     private Socket socket;
@@ -42,7 +48,6 @@ public class Connect implements Closeable {
         }
     }
 
-
     private BufferedReader createReader() throws IOException {
         return new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
@@ -73,20 +78,18 @@ public class Connect implements Closeable {
         return (ArrayList<Object>) ois.readObject();
     }
 
-    /*
-    public void writeObj(T obj) throws IOException {
-        oos.writeObject(obj);
-        oos.flush();
-    }
-*/
-
     public void writeObjList(ArrayList<Object> objList) throws IOException {
         oos.writeObject(objList);
         oos.flush();
     }
 
+    public Object readObj() throws IOException, ClassNotFoundException {
+        return  ois.readObject();
+    }
 
-
+    public void writeObj(Object obj) throws IOException {
+        oos.writeObject(obj);
+    }
 
     @Override
     public void close(){
