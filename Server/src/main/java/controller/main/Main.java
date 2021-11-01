@@ -16,6 +16,9 @@ public class Main {
             Connect connect = new Connect(new ServerSocket(port));
             Order client = (Order) connect.readObj();
             System.out.println(client.toString());
+            Client client1 =  (Client) connect.readObj();
+            System.out.println(client1.toString());
+
 
         } catch (IOException e) {
             e.printStackTrace();

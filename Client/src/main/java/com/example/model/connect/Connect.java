@@ -1,7 +1,5 @@
 package com.example.model.connect;
 
-import com.example.model.client.Client;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
