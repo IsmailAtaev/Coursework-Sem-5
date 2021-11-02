@@ -5,11 +5,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
 import com.example.model.connect.Connect;
+import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class MainController {
 
@@ -33,9 +39,6 @@ public class MainController {
     private Button authSignInButton;
 
     @FXML
-    private Button xBtn;
-
-    @FXML
     private Button loginSignUpButton;
 
 
@@ -47,17 +50,29 @@ public class MainController {
     @FXML
     void initialize() {
 
-      xBtn.setOnAction(actionEvent -> {System.exit(1);});
       authSignInButton.setOnAction(actionEvent -> {
           try {
+
               String login = login_field.getText().trim();
               String pass = password_field.getText().trim();
+
+              connect.writeLine("signIn");
               connect.writeLine(login);
               connect.writeLine(pass);
               String flag  = connect.readLine();
-              if(flag.equals(true)){
+              String flagAdminOrClient = connect.readLine();
+
+              if(flag.equals("true")){
                   System.out.println(flag);
-              }else {
+                  if(flagAdminOrClient.equals("adminUI")){
+                      System.out.println(flagAdminOrClient);
+                  }else if(flagAdminOrClient.equals("clientUI")){
+                      openNewScene("client-ui.fxml");
+                      System.out.println(flagAdminOrClient);
+                  }else{
+
+                  }
+              }else if (flag.equals("false")){
                   Shake shakeLogin = new Shake(login_field);
                   Shake shakePass = new Shake(password_field);
                   shakeLogin.playAnim();
@@ -71,5 +86,25 @@ public class MainController {
 
 
 
+    }
+
+
+    public void newWind(ActionEvent actionEvent) {
+        new InputDialog(actionEvent);
+    }
+
+    public void openNewScene(String window) {
+        loginSignUpButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }

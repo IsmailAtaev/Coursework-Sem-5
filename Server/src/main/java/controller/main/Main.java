@@ -14,8 +14,7 @@ public class Main {
         try {
             while (true) {
                 Thread.sleep(1000);
-                Connect connect = new Connect(new ServerSocket(port));
-                MyThread myThread = new MyThread(connect, new Object());
+                MyThread myThread = new MyThread(new ServerSocket(port), new Object());
                 myThread.start();
                 myThread.join();
             }

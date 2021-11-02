@@ -1,6 +1,6 @@
 package controller;
 
-public class AdminController implements IController{
+public class AdminController implements IController {
 
 
     @Override
@@ -25,7 +25,7 @@ public class AdminController implements IController{
 
     @Override
     public void start() {
-
+        System.out.println("start admin");
     }
 
 }

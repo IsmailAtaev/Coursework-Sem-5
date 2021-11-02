@@ -28,13 +28,13 @@ public class DBHClient implements IDBHandler {
 
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, client.getFIO());
-            // prSt.setString(2, client.getClientCode());
-            // prSt.setString(3, client.getPassportId());
-            // prSt.setString(4, client.getMail());
-            //prSt.setString(5, client.getMobileNumber());
-            // prSt.setString(6, client.getLogin());
-            //prSt.setString(7, client.getPassword());
-            //prSt.setInt(8, client.getFlag());
+            prSt.setString(2, client.getClientCode());
+            prSt.setString(3, client.getPassportId());
+            prSt.setString(4, client.getMail());
+            prSt.setString(5, client.getMobileNumber());
+            prSt.setString(6, client.getLogin());
+            prSt.setString(7, client.getPassword());
+            prSt.setInt(8, client.getFlag());
             prSt.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             new MyException(e);
@@ -44,8 +44,8 @@ public class DBHClient implements IDBHandler {
     }
 
     @Override
-    public ArrayList<IInformation> getList() {
-        ArrayList<IInformation> arrayList = new ArrayList<>();
+    public ArrayList<Object> getList() {
+        ArrayList<Object> arrayList = new ArrayList<>();
         try {
             String select = "SELECT * FROM " + ConstClient.CLIENT_TABLE;
             Statement statement = getDbConnection().createStatement();
@@ -53,15 +53,14 @@ public class DBHClient implements IDBHandler {
             while (resSet.next()) {
                 Client client = new Client();
                 client.setFIO(resSet.getString(2));
-                /*client.setClientCode(resSet.getString(3));
+                client.setClientCode(resSet.getString(3));
                 client.setPassportId(resSet.getString(4));
                 client.setMail(resSet.getString(5));
                 client.setMobileNumber(resSet.getString(6));
                 client.setLogin(resSet.getString(7));
                 client.setPassword(resSet.getString(8));
                 client.setFlag(resSet.getInt(9));
-                  */
-                arrayList.add((IInformation) client);
+                arrayList.add(client);
             }
         } catch (SQLException e) {
             new MyException(e);

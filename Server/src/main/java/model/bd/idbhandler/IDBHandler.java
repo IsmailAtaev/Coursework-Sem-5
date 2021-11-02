@@ -21,6 +21,6 @@ public interface IDBHandler {
 
     boolean addObj(IInformation obj);
 
-    ArrayList<IInformation> getList();
+    ArrayList<Object> getList();
 
 }

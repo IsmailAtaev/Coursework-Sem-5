@@ -23,6 +23,6 @@ public class ClientController implements IController {
 
     @Override
     public void start() {
-
+        System.out.println("client");
     }
 }
