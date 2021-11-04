@@ -19,7 +19,7 @@ public interface IDBHandler {
         return dbConnection;
     }
 
-    boolean addObj(IInformation obj);
+    boolean addObj(Object obj);
 
     ArrayList<Object> getList();
 

@@ -44,7 +44,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 8189);
+        connect = new Connect("127.0.0.1", 1024);
     }
 
     @FXML
@@ -59,12 +59,14 @@ public class MainController {
               connect.writeLine("signIn");
               connect.writeLine(login);
               connect.writeLine(pass);
+
               String flag  = connect.readLine();
               String flagAdminOrClient = connect.readLine();
 
               if(flag.equals("true")){
                   System.out.println(flag);
                   if(flagAdminOrClient.equals("adminUI")){
+                      openNewScene("admin-ui.fxml");
                       System.out.println(flagAdminOrClient);
                   }else if(flagAdminOrClient.equals("clientUI")){
                       openNewScene("client-ui.fxml");
@@ -84,7 +86,14 @@ public class MainController {
           }
       });
 
-
+      loginSignUpButton.setOnAction(actionEvent -> {
+          try {
+              connect.writeLine("signUp");
+              openNewScene("sign-up-ui.fxml");
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      });
 
     }
 

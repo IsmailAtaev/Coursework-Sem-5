@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DBHClient implements IDBHandler {
     @Override
-    public boolean addObj(IInformation obj) {
+    public boolean addObj(Object obj) {
         try {
             Client client = (Client) obj;
             String insert = "INSERT INTO " + ConstClient.CLIENT_TABLE + "("
@@ -52,6 +52,7 @@ public class DBHClient implements IDBHandler {
             ResultSet resSet = statement.executeQuery(select);
             while (resSet.next()) {
                 Client client = new Client();
+                client.setId(resSet.getInt(1));
                 client.setFIO(resSet.getString(2));
                 client.setClientCode(resSet.getString(3));
                 client.setPassportId(resSet.getString(4));

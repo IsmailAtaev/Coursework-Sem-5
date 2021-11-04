@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class Client implements Serializable {
 
+    private int id;
+
     private String FIO;//
 
     private String clientCode;
@@ -40,6 +42,14 @@ public class Client implements Serializable {
 
     public String getFIO() {
         return FIO;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setFIO(String FIO) {
@@ -125,7 +135,8 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "FIO='" + FIO + '\'' +
+                "id=" + id +
+                ", FIO='" + FIO + '\'' +
                 ", clientCode='" + clientCode + '\'' +
                 ", passportId='" + passportId + '\'' +
                 ", mail='" + mail + '\'' +

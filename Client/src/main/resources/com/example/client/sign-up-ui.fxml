@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="678.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.SignUpController">
     <children>
         <Label layoutX="222.0" layoutY="14.0" prefHeight="64.0" prefWidth="250.0" text="Регистрация" textFill="#284497" underline="true">
             <font>
@@ -49,6 +49,6 @@
                 <Font size="19.0" />
             </font>
         </TextField>
-        <Button layoutX="674.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="26.0" style="-fx-background-color: #fafafa;" text="X" AnchorPane.rightAnchor="0.0" fx:id="xBtnSingUp" />
+      <Label fx:id="lableErroAddClient" layoutX="232.0" layoutY="288.0" prefHeight="25.0" prefWidth="202.0" />
     </children>
 </AnchorPane>
