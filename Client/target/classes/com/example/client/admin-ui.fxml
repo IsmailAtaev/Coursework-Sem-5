@@ -5,13 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="698.0" prefWidth="928.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.AdminController">
+<AnchorPane prefHeight="730.0" prefWidth="1161.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.AdminController">
     <children>
         <TabPane fx:id="glavnyPane" layoutX="174.0" layoutY="92.0" prefHeight="611.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="92.0">
             <tabs>
@@ -24,13 +26,18 @@
                                         <Tab text="View">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="706.0">
-                                                    <children>
-                                                        <Label layoutX="330.0" layoutY="184.0" prefHeight="69.0" prefWidth="178.0" text="salam">
-                                                            <font>
-                                                                <Font size="30.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </children></AnchorPane>
+                                       <children>
+                                          <TableView fx:id="usersTableView" layoutX="5.0" layoutY="48.0" prefHeight="563.0" prefWidth="957.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="48.0">
+                                            <columns>
+                                              <TableColumn fx:id="fioTableColumn" prefWidth="131.19999408721924" text="ФИО" />
+                                              <TableColumn fx:id="codeClientTableColumn" minWidth="0.0" text="Код лиента " />
+                                                <TableColumn fx:id="passportIdTableColumn" prefWidth="126.40003967285156" text="Номер паспорта" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="viewUsersBtn" layoutX="23.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="view users" AnchorPane.leftAnchor="23.0" />
+                                          <Button fx:id="deleteUsersBtn" layoutX="151.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="delete" />
+                                          <Line endX="-100.00001525878906" endY="-31.400005340576172" layoutX="236.0" layoutY="49.0" startX="-100.00001525878906" startY="-12.200008392333984" />
+                                       </children></AnchorPane>
                                             </content>
                                         </Tab>
                                         <Tab text="Edit user">
@@ -77,10 +84,10 @@
                 <Insets />
             </opaqueInsets>
         </TabPane>
-        <AnchorPane layoutX="-1.0" prefHeight="703.0" prefWidth="204.0" style="-fx-background-color: #2E37FF;">
+        <AnchorPane layoutX="-1.0" prefHeight="730.0" prefWidth="203.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="usersBtn" layoutX="38.0" layoutY="174.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Users" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="usersBtn" layoutX="38.0" layoutY="207.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Users" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/user2.jpg" />
                     </image>
@@ -91,14 +98,14 @@
                     </font>
                 </Label>
                 <Line endX="35.59999084472656" endY="3.814697265625E-6" layoutX="98.0" layoutY="63.0" startX="-73.40000915527344" stroke="WHITE" />
-                <Button fx:id="toursBtn" layoutX="38.0" layoutY="230.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="toursBtn" layoutX="38.0" layoutY="263.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/landscape.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="ticketsBtn" layoutX="38.0" layoutY="281.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tickets" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="ticketsBtn" layoutX="38.0" layoutY="314.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tickets" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/tickets.png" />
                     </image>

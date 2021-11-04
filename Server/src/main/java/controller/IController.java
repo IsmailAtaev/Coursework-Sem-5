@@ -1,6 +1,10 @@
 package controller;
 
+import java.io.IOException;
+
 public interface IController {
+
+
 
     void saveDate();
 
@@ -8,7 +12,7 @@ public interface IController {
 
     void deleteDate();
 
-    void getDate();
+    void getDate(String msg) throws IOException;
 
     void start();
 

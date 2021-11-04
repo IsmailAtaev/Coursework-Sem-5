@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ServerController {
 
     private static int countClient = 0;
-    private Connect connect;
+    public static Connect connect;
 
     public ServerController(ServerSocket serverSocket) {
         this.connect = new Connect(serverSocket);

@@ -1,6 +1,8 @@
 package controller;
 
 public class ClientController implements IController {
+
+
     @Override
     public void saveDate() {
 
@@ -17,7 +19,7 @@ public class ClientController implements IController {
     }
 
     @Override
-    public void getDate() {
+    public void getDate(String msg) {
         System.out.println("client");
     }
 

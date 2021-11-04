@@ -3,7 +3,6 @@ package com.example.client;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.example.model.animation.Shake;
 import com.example.model.check.Check;
 import com.example.model.client.Client;
@@ -69,7 +68,7 @@ public class SignUpController {
                     Client client = new Client();
                     int a = 100;
                     int b = 1000;
-                    int x = a + (int)(Math.random() * ((b - a) + 1));
+                    int x = a + (int) (Math.random() * ((b - a) + 1));
                     System.out.println("random = " + x);
                     client.setFIO(fio);
                     client.setClientCode("C" + String.valueOf(x));
@@ -83,11 +82,13 @@ public class SignUpController {
                     connect.writeObj(client);
                     String flag = connect.readLine();
 
-                    if(flag.equals("false")) {
-                        lableErroAddClient.setText(" ошибка вы не зарегистрированы ");
+                    if (flag.equals("false")) {
+                        lableErroAddClient.setText(" ошибка при регистрации вы не зарегистрированы, Обратитесь админу !!! ");
+                    } else if (flag.equals("true")) {
+                        lableErroAddClient.setText("Регистрация прошла успешна.");
                     }
 
-                }else{
+                } else {
                     shakeFIO.playAnim();
                     shakeLogin.playAnim();
                     shakeMail.playAnim();
@@ -99,7 +100,6 @@ public class SignUpController {
                 e.printStackTrace();
             }
         });
-
 
 
     }
