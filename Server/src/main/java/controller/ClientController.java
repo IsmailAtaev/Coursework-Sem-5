@@ -4,7 +4,7 @@ public class ClientController implements IController {
 
 
     @Override
-    public void saveDate() {
+    public void saveDate(String msg) {
 
     }
 

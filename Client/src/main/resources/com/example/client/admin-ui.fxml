@@ -7,13 +7,14 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="730.0" prefWidth="1161.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.AdminController">
+<AnchorPane prefHeight="742.0" prefWidth="1175.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.AdminController">
     <children>
         <TabPane fx:id="glavnyPane" layoutX="174.0" layoutY="92.0" prefHeight="611.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="92.0">
             <tabs>
@@ -21,17 +22,22 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="607.0" prefWidth="791.0">
                             <children>
-                                <TabPane layoutX="-5.0" prefHeight="607.0" prefWidth="795.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TabPane layoutX="-5.0" layoutY="44.0" prefHeight="594.0" prefWidth="964.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
                                     <tabs>
-                                        <Tab text="View">
+                                        <Tab text="Список пользователей ">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="706.0">
                                        <children>
-                                          <TableView fx:id="usersTableView" layoutX="5.0" layoutY="48.0" prefHeight="563.0" prefWidth="957.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="48.0">
+                                          <TableView fx:id="usersTableView" layoutX="5.0" layoutY="48.0" prefHeight="519.0" prefWidth="957.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="48.0">
                                             <columns>
                                               <TableColumn fx:id="fioTableColumn" prefWidth="131.19999408721924" text="ФИО" />
                                               <TableColumn fx:id="codeClientTableColumn" minWidth="0.0" text="Код лиента " />
                                                 <TableColumn fx:id="passportIdTableColumn" prefWidth="126.40003967285156" text="Номер паспорта" />
+                                                <TableColumn fx:id="mailTableColumn" prefWidth="139.199951171875" text="Mail" />
+                                                <TableColumn fx:id="mobileNumberTableColumn" prefWidth="169.60003662109375" text="телефон номер" />
+                                                <TableColumn fx:id="loginTableColumn" prefWidth="91.20001220703125" text="Логин" />
+                                                <TableColumn fx:id="passwordTableColumn" prefWidth="139.2000732421875" text="Пароль" />
+                                                <TableColumn fx:id="flagTableColumn" prefWidth="75.0" text="флаг" />
                                             </columns>
                                           </TableView>
                                           <Button fx:id="viewUsersBtn" layoutX="23.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="view users" AnchorPane.leftAnchor="23.0" />
@@ -40,13 +46,80 @@
                                        </children></AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Edit user">
+                                        <Tab text="Изменить ползователя">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="579.0" prefWidth="849.0" />
                                             </content>
                                         </Tab>
+                              <Tab text="Добавить пользователя">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="addUserBtn" layoutX="306.0" layoutY="520.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="219.0" style="-fx-background-color: #2E37FF; -fx-background-radius: 5;" text="Добавить" textFill="WHITE" />
+                                          <TextField fx:id="signUpFlagField" layoutX="416.0" layoutY="428.0" prefHeight="38.0" prefWidth="249.0" promptText="Админ или пользователь" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="131.19999999999993" />
+                                          <TextField fx:id="signUpPasswordField" layoutX="416.0" layoutY="370.0" prefHeight="38.0" prefWidth="417.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="131.19999999999993" />
+                                          <TextField fx:id="signUpMailField" layoutX="416.0" layoutY="210.0" prefHeight="38.0" prefWidth="411.0" promptText="Почта" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="137.59999999999997" />
+                                          <TextField fx:id="signUpFIOField" layoutX="416.0" layoutY="33.0" prefHeight="38.0" prefWidth="411.0" promptText="ФИО" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.00000000000006" AnchorPane.rightAnchor="137.59999999999997" />
+                                          <TextField fx:id="signUpClientCodeField" layoutX="416.0" layoutY="95.0" prefHeight="38.0" prefWidth="411.0" promptText="Номер кода клиента" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.00000000000006" AnchorPane.rightAnchor="137.59999999999997" />
+                                          <TextField fx:id="signUpPassportIdField" layoutX="416.0" layoutY="152.0" prefHeight="38.0" prefWidth="410.0" promptText="Номер поспорта " style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="138.39999999999998" />
+                                          <TextField fx:id="signUpMobileNumberField" layoutX="416.0" layoutY="262.0" prefHeight="38.0" prefWidth="410.0" promptText="Номер телефона" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="138.39999999999998" />
+                                          <TextField fx:id="signUpLoginField" layoutX="416.0" layoutY="317.0" prefHeight="38.0" prefWidth="414.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="134.39999999999998" />
+                                          <Label layoutX="158.0" layoutY="36.0" prefHeight="32.0" prefWidth="216.0" text="Фамилия Имя Отчества ">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="98.0" prefHeight="32.0" prefWidth="210.0" text="Код клиента" AnchorPane.leftAnchor="161.0">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="155.0" prefHeight="32.0" prefWidth="210.0" text="Номер паспорта">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="213.0" prefHeight="32.0" prefWidth="210.0" text="Mail">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="265.0" prefHeight="32.0" prefWidth="210.0" text="Номер телефона">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="320.0" prefHeight="32.0" prefWidth="210.0" text="Логин">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="161.0" layoutY="373.0" prefHeight="32.0" prefWidth="210.0" text="Пароль">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="outPutErrorAddUserLabel" layoutX="158.0" layoutY="428.0" prefHeight="32.0" prefWidth="232.0" text="Админ или Пользователь">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="285.0" layoutY="475.0" prefHeight="28.0" prefWidth="390.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="303.80000000000007">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                                     </tabs>
                                 </TabPane>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="408.0" layoutY="9.0" prefHeight="34.0" prefWidth="158.0" text="Пользователи" underline="true" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="392.80000000000007">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
                             </children>
                         </AnchorPane>
                     </content>
@@ -86,8 +159,8 @@
         </TabPane>
         <AnchorPane layoutX="-1.0" prefHeight="730.0" prefWidth="203.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="usersBtn" layoutX="38.0" layoutY="207.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Users" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="usersBtn" layoutX="38.0" layoutY="217.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Users" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/user2.jpg" />
                     </image>
@@ -98,14 +171,14 @@
                     </font>
                 </Label>
                 <Line endX="35.59999084472656" endY="3.814697265625E-6" layoutX="98.0" layoutY="63.0" startX="-73.40000915527344" stroke="WHITE" />
-                <Button fx:id="toursBtn" layoutX="38.0" layoutY="263.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="toursBtn" layoutX="38.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/landscape.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="ticketsBtn" layoutX="38.0" layoutY="314.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tickets" textFill="WHITE" />
-                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="ticketsBtn" layoutX="38.0" layoutY="324.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tickets" textFill="WHITE" />
+                <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/tickets.png" />
                     </image>

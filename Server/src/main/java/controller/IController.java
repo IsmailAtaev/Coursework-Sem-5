@@ -6,7 +6,7 @@ public interface IController {
 
 
 
-    void saveDate();
+    void saveDate(String msg);
 
     void editDate();
 

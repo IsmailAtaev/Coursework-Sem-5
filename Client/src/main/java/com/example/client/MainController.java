@@ -44,7 +44,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 1024);
+        connect = new Connect("127.0.0.1", 1122);
     }
 
     @FXML
