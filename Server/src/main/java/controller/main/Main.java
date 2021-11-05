@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 
 public class Main {
 
-    public static int port = 1122;
+    public static int port = 1024;
 
     public static void main(String[] args) {
         try {
@@ -19,9 +19,9 @@ public class Main {
                 myThread.join();
             }
         } catch (IOException e) {
-            new MyException(e);
+            e.printStackTrace();
         } catch (InterruptedException e) {
-            new MyException(e);
+            e.printStackTrace();
         }
     }
 }

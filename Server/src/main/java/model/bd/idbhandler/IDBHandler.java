@@ -23,4 +23,6 @@ public interface IDBHandler {
 
     ArrayList<Object> getList();
 
+    boolean deleteObj(Object obj);
+
 }

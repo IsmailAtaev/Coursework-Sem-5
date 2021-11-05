@@ -1,10 +1,12 @@
 package controller;
 
+import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import model.bd.dbhclient.DBHClient;
 import model.bd.idbhandler.IDBHandler;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AdminController implements IController {
 
@@ -36,24 +38,51 @@ public class AdminController implements IController {
     }
 
     @Override
-    public void editDate() {
+    public void editDate(String msg) {
 
     }
 
     @Override
-    public void deleteDate() {
+    public void deleteDate(String msg) throws IOException {
+        switch (msg) {
+            case "deleteUser": {
+
+                String login = connect.readLine();
+                String pass = connect.readLine();
+                String clientCode = connect.readLine();
+                ArrayList<Client> list = (ArrayList<Client>) idbHandler.getList().clone();
+                boolean flagDelete = false;
+
+                for (Client c : list) {
+                    if (login.equals(c.getLogin()) && pass.equals(c.getPassword()) && clientCode.equals(c.getClientCode())) {
+                        flagDelete = idbHandler.deleteObj(c);
+                        break;
+                    }
+                }
+
+                if (flagDelete) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
+
+
+        }
+
 
     }
 
     @Override
     public void getDate(String msg) throws IOException {
-        switch (msg){
-            case"viewUser":{
+        switch (msg) {
+            case "viewUser": {
                 connect.writeObjList(idbHandler.getList());
                 break;
                 //TODO i have more db handler and i can getter witch one ticket order client tour more )
             }
-            case "viewTicket":{
+            case "viewTicket": {
 
 
             }
@@ -78,6 +107,14 @@ public class AdminController implements IController {
                         this.saveDate(connect.readLine());
                         break;
                     }
+                    case "delete": {
+                        this.deleteDate(connect.readLine());
+                        break;
+                    }
+                    case "search": {
+                        this.search(connect.readLine());
+                        break;
+                    }
                     default:
                         new MyException("поличичли что-то не то ");
                         break;
@@ -87,4 +124,36 @@ public class AdminController implements IController {
             new MyException(e);
         }
     }
+
+
+    private void search(String msg) throws IOException {
+        switch (msg) {
+            case "searchUser": {
+
+                String fio = connect.readLine();
+                String login = connect.readLine();
+                String pass = connect.readLine();
+                int counter = 0;
+                ArrayList<Client> list = (ArrayList<Client>) idbHandler.getList().clone();
+                for(Client c : list){
+                    if(fio.equals(c.getFIO()) && login.equals(c.getLogin()) && pass.equals(c.getPassword())){
+                        ++counter;
+                        connect.writeLine("true");
+                        connect.writeObj(c);
+                    }
+                }
+
+                if(counter == 0){
+                    connect.writeLine("false");
+                }
+
+
+
+                break;
+            }
+
+
+        }
+    }
+
 }

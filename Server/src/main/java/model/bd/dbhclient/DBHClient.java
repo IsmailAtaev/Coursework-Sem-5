@@ -1,7 +1,6 @@
 package model.bd.dbhclient;
 
 import com.example.model.client.Client;
-import com.example.model.iinformation.IInformation;
 import com.example.model.myexception.MyException;
 import model.bd.idbhandler.IDBHandler;
 import model.configs.clientBD.ConstClient;
@@ -69,5 +68,19 @@ public class DBHClient implements IDBHandler {
             new MyException(e);
         }
         return arrayList;
+    }
+
+    @Override
+    public boolean deleteObj(Object obj) {
+        try {
+            Client client = (Client) obj;
+            String DELETE = "DELETE FROM " + ConstClient.CLIENT_TABLE + " WHERE " + ConstClient.CLIENT_ID + "='" + client.getId() + "'; ";
+            PreparedStatement preparedStatementDelete = getDbConnection().prepareStatement(DELETE);
+            preparedStatementDelete.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
     }
 }

@@ -9,12 +9,12 @@ public class ClientController implements IController {
     }
 
     @Override
-    public void editDate() {
+    public void editDate(String msg) {
 
     }
 
     @Override
-    public void deleteDate() {
+    public void deleteDate(String msg) {
 
     }
 

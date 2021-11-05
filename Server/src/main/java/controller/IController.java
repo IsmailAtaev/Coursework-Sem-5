@@ -8,9 +8,9 @@ public interface IController {
 
     void saveDate(String msg);
 
-    void editDate();
+    void editDate(String msg);
 
-    void deleteDate();
+    void deleteDate(String msg) throws IOException;
 
     void getDate(String msg) throws IOException;
 
