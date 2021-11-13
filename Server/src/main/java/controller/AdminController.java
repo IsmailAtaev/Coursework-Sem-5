@@ -4,6 +4,7 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import model.bd.dbhclient.DBHClient;
+import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,28 +13,28 @@ public class AdminController implements IController {
 
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
-    private  IDBHandler idbHandlerTour;
+    private  IDBHandler idbHandlerTour = new DBHTour();
 
     @Override
-    public void saveDate(String msg) {
+    public void saveDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
             case "addUser": {
-                try {
-                    boolean flagAddClient = idbHandler.addObj(connect.readObj());
-                    if (flagAddClient) {
-                        connect.writeLine("true");
-                    } else {
-                        connect.writeLine("false");
-                    }
-                } catch (IOException e) {
-                    new MyException(e);
-                } catch (ClassNotFoundException e) {
-                    new MyException(e);
+                boolean flagAddClient = idbHandler.addObj(connect.readObj());
+                if (flagAddClient) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
                 }
                 break;
             }
-            case "addTour":{
-                boolean flagAddTour;
+            case "addTour": {
+                boolean flagAddTour = idbHandlerTour.addObj(connect.readObj());
+                if (flagAddTour) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
             }
 
         }
@@ -100,8 +101,11 @@ public class AdminController implements IController {
                 //TODO i have more db handler and i can getter witch one ticket order client tour more )
             }
             case "viewTicket": {
-
-
+                break;
+            }
+            case "viewTour": {
+                connect.writeObjList(idbHandlerTour.getList());
+                break;
             }
 
         }
@@ -132,7 +136,7 @@ public class AdminController implements IController {
                         this.search(connect.readLine());
                         break;
                     }
-                    case "edit":{
+                    case "edit": {
                         this.editDate(connect.readLine());
                         break;
                     }

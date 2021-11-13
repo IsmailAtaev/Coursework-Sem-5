@@ -2,7 +2,6 @@ package com.example.client;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
@@ -11,6 +10,7 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
+import com.example.model.tour.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,6 +65,46 @@ public class AdminController {
     private Button addUserBtn;
 
 
+    /**
+     * Tour
+     * */
+    @FXML
+    private Button viewToursBtn;
+
+    @FXML
+    private TableView<Tour> tabViewTours;
+
+    @FXML
+    private TableColumn<Tour, Integer> idTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> countryTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> cityTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, Float> priceTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> durationTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> tourCodeTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> dateTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> nameTourTabColumn;
+
+    @FXML
+    private TableColumn<Tour, String> typeTourTabColumn;
+
+
+
+
+    /**Client and user*/
     @FXML
     private TableView<Client> usersTableView;
 
@@ -334,7 +374,6 @@ public class AdminController {
                 }
                 errorDeleteUserLabel.setText("");
             } catch (Exception e) {
-
             }
         });
 
@@ -501,15 +540,34 @@ public class AdminController {
             this.errorEditLabel.setText("");
         });
 
-
     }
 
     @FXML
     void addTour(ActionEvent event) {
+        new InputDialog(event, "add-tour.fxml", 530, 475);
+    }
+
+    @FXML
+    void getToursView(ActionEvent event) {
         try {
-            connect.writeLine("add");
-            new InputDialog(event, "add-tour.fxml", 530, 475);
-        } catch (IOException e) {
+            connect.writeLine("view");
+            connect.writeLine("viewTour");
+            ArrayList<Tour> tourArrayList = (ArrayList<Tour>) connect.readObjList().clone();
+            ObservableList<Tour> observableList = FXCollections.observableArrayList(tourArrayList);
+            for(Tour t: tourArrayList){
+                System.out.println(t.toString());
+            }
+            tabViewTours.setItems(observableList);
+            tabViewTours.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+            tabViewTours.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("countryName"));
+            tabViewTours.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("cityName"));
+            tabViewTours.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("price"));
+            tabViewTours.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("duration"));
+            tabViewTours.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("tourCode"));
+            tabViewTours.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("tourDate"));
+            tabViewTours.getColumns().get(7).setCellValueFactory(new PropertyValueFactory("tourName"));
+            tabViewTours.getColumns().get(8).setCellValueFactory(new PropertyValueFactory("tourType"));
+        } catch (IOException | ClassNotFoundException e) {
             new MyException(e);
         }
     }

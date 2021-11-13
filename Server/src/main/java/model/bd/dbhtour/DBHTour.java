@@ -1,12 +1,16 @@
 package model.bd.dbhtour;
 
+import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
 import com.example.model.tour.Tour;
 import model.bd.idbhandler.IDBHandler;
+import model.configs.clientBD.ConstClient;
 import model.configs.tourBD.ConstTour;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DBHTour implements IDBHandler {
@@ -50,7 +54,41 @@ public class DBHTour implements IDBHandler {
 
     @Override
     public ArrayList<Object> getList() {
-        return null;
+        ArrayList<Object> arrayList = new ArrayList<>();
+        try {
+            String select = "SELECT * FROM " + ConstTour.TOUR_TABLE;
+            Statement statement = getDbConnection().createStatement();
+            ResultSet resSet = statement.executeQuery(select);
+            while (resSet.next()) {
+                Tour t = new Tour();
+                t.setId(resSet.getInt(1));
+                t.setCountryName(resSet.getString(2));
+                t.setCityName(resSet.getString(3));
+                t.setPrice(resSet.getFloat(4));
+                t.setDuration(resSet.getString(5));
+                t.setTourCode(resSet.getString(6));
+                t.setTourDate(resSet.getString(7));
+                t.setTourName(resSet.getString(8));
+                t.setTourType(resSet.getString(9));
+                arrayList.add(t);
+               /* Client client = new Client();
+                client.setId(resSet.getInt(1));
+                client.setFIO(resSet.getString(2));
+                client.setClientCode(resSet.getString(3));
+                client.setPassportId(resSet.getString(4));
+                client.setMail(resSet.getString(5));
+                client.setMobileNumber(resSet.getString(6));
+                client.setLogin(resSet.getString(7));
+                client.setPassword(resSet.getString(8));
+                client.setFlag(resSet.getInt(9));*/
+
+            }
+        } catch (SQLException e) {
+            new MyException(e);
+        } catch (ClassNotFoundException e) {
+            new MyException(e);
+        }
+        return arrayList;
     }
 
     @Override

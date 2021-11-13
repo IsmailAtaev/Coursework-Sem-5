@@ -52,7 +52,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label layoutX="58.0" layoutY="421.0" prefHeight="31.0" prefWidth="404.0" underline="true">
+      <Label fx:id="flagTourAddLabel" alignment="CENTER" layoutX="55.0" layoutY="421.0" prefHeight="31.0" prefWidth="407.0" underline="true">
          <font>
             <Font size="21.0" />
          </font>

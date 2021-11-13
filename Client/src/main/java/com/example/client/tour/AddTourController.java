@@ -10,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -28,6 +30,9 @@ public class AddTourController {
 
     @FXML
     private Button addTourPaneBtn;
+
+    @FXML
+    private Label flagTourAddLabel;
 
     @FXML
     private Button closeTourPaneBtn;
@@ -68,7 +73,25 @@ public class AddTourController {
             tour.setTourType(tourTypeField.getText().trim());
             tour.setCountryName(countryNameField.getText().trim());
             tour.setCityName(cityNameField.getText().trim());
-            System.out.println(tour.toString());
+            int a = 10;
+            int b = 10000;
+            int x = a + (int) (Math.random() * ((b - a) + 1));
+            tour.setTourCode("T" + String.valueOf(x));
+            //System.out.println(tour.toString());
+
+            try {
+                connect.writeLine("add");
+                connect.writeLine("addTour");
+                connect.writeObj(tour);
+                String flagAddTout = connect.readLine();
+                if(flagAddTout.equals("true")){
+                    flagTourAddLabel.setText("Тур успешно добавлен!");
+                }else {
+                    flagTourAddLabel.setText("Тур не добавлен!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } else {
 

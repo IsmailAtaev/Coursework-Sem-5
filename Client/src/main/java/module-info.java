@@ -17,6 +17,9 @@ module com.example.client {
     opens com.example.model.client to javafx.fxml;
     exports com.example.model.client;
 
+    opens com.example.model.tour to javafx.fxml;
+    exports com.example.model.tour;
+
     opens com.example.client.tour to javafx.fxml;
     exports com.example.client.tour;
 

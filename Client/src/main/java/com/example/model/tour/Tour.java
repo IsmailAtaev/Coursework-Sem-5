@@ -137,7 +137,8 @@ public class Tour  implements IInformation {
     @Override
     public String toString() {
         return "Tour{" +
-                "countryName='" + countryName + '\'' +
+                "id=" + id +
+                ", countryName='" + countryName + '\'' +
                 ", cityName='" + cityName + '\'' +
                 ", price=" + price +
                 ", duration='" + duration + '\'' +

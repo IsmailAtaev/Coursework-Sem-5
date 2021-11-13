@@ -1,10 +1,13 @@
 package model.bd.dbhtour;
 
+import com.example.model.client.Client;
 import com.example.model.tour.Tour;
 import model.bd.dbhclient.DBHClient;
 import model.bd.idbhandler.IDBHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +24,12 @@ class DBHTourTest {
 
     @Test
     void getList() {
+        IDBHandler handler = new DBHTour();
+        ArrayList<Tour> list = (ArrayList<Tour>) handler.getList().clone();
+        System.out.println(" i am tour ");
+        for (Tour t : list) {
+            System.out.println(t.toString());
+        }
     }
 
     @Test

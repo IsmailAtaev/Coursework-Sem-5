@@ -6,7 +6,7 @@ public interface IController {
 
 
 
-    void saveDate(String msg);
+    void saveDate(String msg) throws IOException, ClassNotFoundException;
 
     void editDate(String msg) throws IOException, ClassNotFoundException;
 

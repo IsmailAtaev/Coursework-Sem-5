@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="691.0" prefWidth="942.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.ClientController">
+<AnchorPane prefHeight="691.0" prefWidth="942.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.ClientController">
     <children>
-        <TabPane fx:id="glvTabPane" layoutX="170.0" layoutY="111.0" prefHeight="580.0" prefWidth="774.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="-2.0">
+        <TabPane fx:id="glvTabPane" layoutX="183.0" layoutY="111.0" prefHeight="580.0" prefWidth="761.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="-2.0">
             <tabs>
                 <Tab fx:id="u1" text="toursU1">
                     <content>
@@ -20,7 +16,7 @@
                             <children>
                                 <TabPane fx:id="secondTabPane" layoutX="1.0" prefHeight="580.0" prefWidth="741.0" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
-                                        <Tab fx:id="uu1" text="local tour">
+                                        <Tab fx:id="uu1" text="Tour">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -54,7 +50,7 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <AnchorPane prefHeight="691.0" prefWidth="203.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="691.0" prefWidth="167.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label layoutX="65.0" layoutY="112.0" prefHeight="8.0" prefWidth="70.0" text="Travel" textFill="WHITE">
                     <font>
