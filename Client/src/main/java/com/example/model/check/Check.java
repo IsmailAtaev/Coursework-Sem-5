@@ -26,17 +26,6 @@ public class Check {
         }
     }
 
-    //TODO bad method for else return zero very bad
-    /**
-     * @return Integer.parseInt(string)
-     * @throws NumberFormatException
-     **/
-    public static int getNumber(String number) {
-        if (Check.isNumber(number))
-            return Integer.parseInt(number);
-        return 0;
-    }
-
     /**
      * Check value zero and null.
      */
