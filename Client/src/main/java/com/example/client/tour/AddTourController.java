@@ -59,7 +59,7 @@ public class AddTourController {
         String price = priceTourField.getText().trim();
         String duration = durationTourField.getText().trim();
         LocalDate dateTour = dateTourField.getValue();
-        if (Check.isFloat(price) && Check.isNumber(duration)) {
+        if (Check.isFloat(price) && Check.isNumber(duration) ) {
 
             tour.setPrice(Float.parseFloat(price));
             tour.setDuration(duration);

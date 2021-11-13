@@ -12,6 +12,7 @@ public class AdminController implements IController {
 
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
+    private  IDBHandler idbHandlerTour;
 
     @Override
     public void saveDate(String msg) {
@@ -31,7 +32,9 @@ public class AdminController implements IController {
                 }
                 break;
             }
-
+            case "addTour":{
+                boolean flagAddTour;
+            }
 
         }
 

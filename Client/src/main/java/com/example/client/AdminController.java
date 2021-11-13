@@ -199,7 +199,6 @@ public class AdminController {
         });
 
 
-
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
                 connect.writeLine("view");
@@ -507,8 +506,11 @@ public class AdminController {
 
     @FXML
     void addTour(ActionEvent event) {
-        //    connect.writeLine("addTour");
-        new InputDialog(event, "add-tour.fxml");
-
+        try {
+            connect.writeLine("add");
+            new InputDialog(event, "add-tour.fxml", 530, 475);
+        } catch (IOException e) {
+            new MyException(e);
+        }
     }
 }
