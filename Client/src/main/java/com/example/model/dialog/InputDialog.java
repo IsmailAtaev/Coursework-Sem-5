@@ -9,8 +9,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-import static javafx.fxml.FXMLLoader.load;
-
 public class InputDialog {
 
     public InputDialog(ActionEvent actionEvent) {
@@ -18,7 +16,7 @@ public class InputDialog {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            root = load(getClass().getResource("../com/example/client/sign-up-ui.fxml"));
+            root = FXMLLoader.load(getClass().getResource("sign-up-ui.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,8 +24,24 @@ public class InputDialog {
         stage.setTitle("Новое окно");
         stage.setScene(new Scene(root, 300, 300));
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(
-                ((Node) actionEvent.getSource()).getScene().getWindow());
+        stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
+        stage.show();
+    }
+
+    public InputDialog(ActionEvent actionEvent,String path) {
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        stage.setTitle("Новое окно");
+        stage.setScene(new Scene(root, 300, 300));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         stage.show();
     }
 }

@@ -67,25 +67,25 @@
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/map.jpg" />
                     </image>
                 </ImageView>
-                <Button fx:id="toursBtn" layoutX="44.0" layoutY="204.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
+                <Button fx:id="toursBtn" layoutX="44.0" layoutY="204.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Туры" textFill="WHITE" />
                 <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="29.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/landscape.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="My Orders" textFill="WHITE" />
+                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Забронировать " textFill="WHITE" />
                 <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="29.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/passport.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="profileBtn" layoutX="44.0" layoutY="258.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0" style="-fx-background-color: #506FFF;" text="Profile" textFill="WHITE" />
+                <Button fx:id="profileBtn" layoutX="44.0" layoutY="258.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0" style="-fx-background-color: #506FFF;" text="Профил" textFill="WHITE" />
                 <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="28.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/user2.jpg" />
                     </image>
                 </ImageView>
-                <Button layoutX="43.0" layoutY="371.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="My tickets" textFill="WHITE" />
+                <Button fx:id="myTicketBtn" layoutX="43.0" layoutY="371.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои Заказы" textFill="WHITE" />
             </children>
         </AnchorPane>
     </children>

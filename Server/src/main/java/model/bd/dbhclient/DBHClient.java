@@ -83,4 +83,33 @@ public class DBHClient implements IDBHandler {
         }
         return true;
     }
+
+    @Override
+    public boolean editObj(Object obj) {
+        try {
+            Client client = (Client) obj;
+            String update = "UPDATE " + ConstClient.CLIENT_TABLE +
+                    " SET " + ConstClient.CLIENT_FIO + "=?, " + ConstClient.CLIENT_CODE + "=?, " + ConstClient.CLIENT_PASSPORT_ID + "=?, " + ConstClient.CLIENT_MAIL + "=?, " + ConstClient.CLIENT_MOBILE_NUMBER + "=?, " + ConstClient.CLIENT_LOGIN + "=?, " + ConstClient.CLIENT_PASSWORD + "=?, " + ConstClient.CLIENT_FLAG + "=? " +
+                    " WHERE " + ConstClient.CLIENT_ID + "=?";
+
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(update);
+
+            preparedStatement.setString(1, client.getFIO());
+            preparedStatement.setString(2, client.getClientCode());
+            preparedStatement.setString(3, client.getPassportId());
+            preparedStatement.setString(4, client.getMail());
+            preparedStatement.setString(5, client.getMobileNumber());
+            preparedStatement.setString(6, client.getLogin());
+            preparedStatement.setString(7, client.getPassword());
+            preparedStatement.setInt(8, client.getFlag());
+            preparedStatement.setInt(9, client.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
+    }
 }

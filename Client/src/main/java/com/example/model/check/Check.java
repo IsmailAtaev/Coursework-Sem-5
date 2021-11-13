@@ -17,6 +17,15 @@ public class Check {
         return !number.equals("") && number != null && number.matches("\\d+?");
     }
 
+    public static boolean isFloat(String fltStr) {
+        try {
+            Float.parseFloat(fltStr);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
     //TODO bad method for else return zero very bad
     /**
      * @return Integer.parseInt(string)

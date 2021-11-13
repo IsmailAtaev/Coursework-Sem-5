@@ -8,7 +8,7 @@ public interface IController {
 
     void saveDate(String msg);
 
-    void editDate(String msg);
+    void editDate(String msg) throws IOException, ClassNotFoundException;
 
     void deleteDate(String msg) throws IOException;
 

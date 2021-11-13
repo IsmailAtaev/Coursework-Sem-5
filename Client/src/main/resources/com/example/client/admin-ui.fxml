@@ -71,6 +71,7 @@
                                           <TextField fx:id="signUpEditLoginField" layoutX="474.0" layoutY="263.0" prefHeight="38.0" prefWidth="350.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
                                           <Button fx:id="editBtn" layoutX="390.0" layoutY="384.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="168.0" style="-fx-background-color: #2E37FF;" text="Изменить" textFill="WHITE" />
                                           <Label fx:id="errorSearchLabel" layoutX="281.0" layoutY="98.0" prefHeight="18.0" prefWidth="433.0" />
+                                          <Label fx:id="errorEditLabel" layoutX="290.0" layoutY="431.0" prefHeight="8.0" prefWidth="367.0" />
                                        </children></AnchorPane>
                                             </content>
                                         </Tab>
@@ -138,7 +139,7 @@
                               </Tab>
                                     </tabs>
                                 </TabPane>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" prefHeight="17.0" prefWidth="173.0" text="Пользователи" underline="true" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="400.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="401.0" prefHeight="17.0" prefWidth="173.0" text="Пользователи" underline="true" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="400.0">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -151,17 +152,46 @@
                 <Tab fx:id="u2" text="Add tour">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <AnchorPane layoutX="33.0" layoutY="141.0" prefHeight="32.0" prefWidth="370.0" style="-fx-background-color: #2C76FF;">
-                                    <children>
-                                        <Label layoutX="143.0" layoutY="-2.0" prefHeight="18.0" prefWidth="82.0" text="Travel" textAlignment="JUSTIFY" textFill="WHITE" underline="true" wrapText="true">
-                                            <font>
-                                                <Font size="22.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                            </children></AnchorPane>
+                     <children>
+                        <TabPane layoutX="-3.0" layoutY="31.0" prefHeight="621.0" prefWidth="976.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Local Tour">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Button layoutX="204.0" layoutY="14.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Список" textFill="WHITE" />
+                                          <TableView layoutX="2.0" layoutY="47.0" prefHeight="542.0" prefWidth="976.0" AnchorPane.bottomAnchor="4.2000000000000455" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="47.0">
+                                            <columns>
+                                              <TableColumn prefWidth="46.39999461174011" text="id" />
+                                              <TableColumn prefWidth="104.0000114440918" text="C2" />
+                                                <TableColumn prefWidth="83.20001220703125" text="Column X" />
+                                                <TableColumn prefWidth="142.3999786376953" text="Column X" />
+                                                <TableColumn minWidth="0.0" prefWidth="72.0" text="Column X" />
+                                                <TableColumn prefWidth="92.800048828125" text="Column X" />
+                                                <TableColumn prefWidth="122.39996337890625" text="Column X" />
+                                                <TableColumn prefWidth="128.00006103515625" text="Column X" />
+                                                <TableColumn prefWidth="44.79998779296875" text="Column X" />
+                                            </columns>
+                                          </TableView>
+                                          <Button layoutX="490.0" layoutY="14.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Измеить" textFill="WHITE" />
+                                          <Button layoutX="638.0" layoutY="14.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Удалить" textFill="WHITE" />
+                                          <Button fx:id="addTourBtn" layoutX="347.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTour" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Добавить" textFill="WHITE" />
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Untitled Tab 2">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                        <Label disable="true" layoutX="457.0" prefHeight="32.0" prefWidth="58.0" text="Туры" underline="true">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="u3" text="Sing Up">
@@ -181,9 +211,9 @@
                 <Insets />
             </opaqueInsets>
         </TabPane>
-        <AnchorPane layoutX="-1.0" prefHeight="742.0" prefWidth="205.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutX="-1.0" prefHeight="742.0" prefWidth="185.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="usersBtn" layoutX="38.0" layoutY="217.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Users" textFill="WHITE" />
+                <Button fx:id="usersBtn" layoutX="38.0" layoutY="217.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Пользователи" textFill="WHITE" />
                 <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/user2.jpg" />
@@ -195,7 +225,7 @@
                     </font>
                 </Label>
                 <Line endX="35.59999084472656" endY="3.814697265625E-6" layoutX="98.0" layoutY="63.0" startX="-73.40000915527344" stroke="WHITE" />
-                <Button fx:id="toursBtn" layoutX="38.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Tours" textFill="WHITE" />
+                <Button fx:id="toursBtn" layoutX="38.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Туры" textFill="WHITE" />
                 <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/landscape.png" />

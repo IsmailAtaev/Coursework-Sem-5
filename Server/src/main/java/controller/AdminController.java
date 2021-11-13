@@ -38,7 +38,21 @@ public class AdminController implements IController {
     }
 
     @Override
-    public void editDate(String msg) {
+    public void editDate(String msg) throws IOException, ClassNotFoundException {
+        switch (msg) {
+            case "editUser": {
+                Client client = (Client) connect.readObj();
+                boolean flag = idbHandler.editObj(client);
+                if (flag) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
+
+
+        }
 
     }
 
@@ -115,6 +129,10 @@ public class AdminController implements IController {
                         this.search(connect.readLine());
                         break;
                     }
+                    case "edit":{
+                        this.editDate(connect.readLine());
+                        break;
+                    }
                     default:
                         new MyException("поличичли что-то не то ");
                         break;
@@ -122,6 +140,8 @@ public class AdminController implements IController {
             }
         } catch (IOException e) {
             new MyException(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

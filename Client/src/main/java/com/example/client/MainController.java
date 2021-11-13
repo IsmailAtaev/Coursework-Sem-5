@@ -34,7 +34,9 @@ public class MainController {
     private PasswordField password_field;
 
 
-    /**Button*/
+    /**
+     * Button
+     */
     @FXML
     private Button authSignInButton;
 
@@ -42,64 +44,47 @@ public class MainController {
     private Button loginSignUpButton;
 
 
-
     static {
-        connect = new Connect("127.0.0.1", 1024);
+        connect = new Connect("127.0.0.1", 1122);
     }
 
     @FXML
     void initialize() {
 
-      authSignInButton.setOnAction(actionEvent -> {
-          try {
+        authSignInButton.setOnAction(actionEvent -> {
+            try {
+                String login = login_field.getText().trim();
+                String pass = password_field.getText().trim();
 
-              String login = login_field.getText().trim();
-              String pass = password_field.getText().trim();
+                connect.writeLine("signIn");
+                connect.writeLine(login);
+                connect.writeLine(pass);
 
-              connect.writeLine("signIn");
-              connect.writeLine(login);
-              connect.writeLine(pass);
+                String flag = connect.readLine();
+                String flagAdminOrClient = connect.readLine();
 
-              String flag  = connect.readLine();
-              String flagAdminOrClient = connect.readLine();
+                if (flag.equals("true")) {
+                    System.out.println(flag);
+                    if (flagAdminOrClient.equals("adminUI")) {
+                        openNewScene("admin-ui.fxml");
+                        System.out.println(flagAdminOrClient);
+                    } else if (flagAdminOrClient.equals("clientUI")) {
+                        openNewScene("client-ui.fxml");
+                        System.out.println(flagAdminOrClient);
+                    } else {
 
-              if(flag.equals("true")){
-                  System.out.println(flag);
-                  if(flagAdminOrClient.equals("adminUI")){
-                      openNewScene("admin-ui.fxml");
-                      System.out.println(flagAdminOrClient);
-                  }else if(flagAdminOrClient.equals("clientUI")){
-                      openNewScene("client-ui.fxml");
-                      System.out.println(flagAdminOrClient);
-                  }else{
+                    }
+                } else if (flag.equals("false")) {
+                    Shake shakeLogin = new Shake(login_field);
+                    Shake shakePass = new Shake(password_field);
+                    shakeLogin.playAnim();
+                    shakePass.playAnim();
+                }
 
-                  }
-              }else if (flag.equals("false")){
-                  Shake shakeLogin = new Shake(login_field);
-                  Shake shakePass = new Shake(password_field);
-                  shakeLogin.playAnim();
-                  shakePass.playAnim();
-              }
-
-          } catch (IOException e) {
-              new MyException(e);
-          }
-      });
-
-      loginSignUpButton.setOnAction(actionEvent -> {
-          try {
-              connect.writeLine("signUp");
-              openNewScene("sign-up-ui.fxml");
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-      });
-
-    }
-
-
-    public void newWind(ActionEvent actionEvent) {
-        new InputDialog(actionEvent);
+            } catch (IOException e) {
+                new MyException(e);
+            }
+        });
     }
 
     public void openNewScene(String window) {
@@ -116,4 +101,15 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.showAndWait();
     }
+
+
+    public void getOpenSignUp(ActionEvent actionEvent) {
+        try {
+            connect.writeLine("signUp");
+            new InputDialog(actionEvent, "sign-up-ui.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

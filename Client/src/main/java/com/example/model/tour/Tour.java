@@ -1,7 +1,6 @@
 package com.example.model.tour;
 
 import com.example.model.iinformation.IInformation;
-
 import java.util.Objects;
 
 /**
@@ -9,6 +8,9 @@ import java.util.Objects;
  * */
 
 public class Tour  implements IInformation {
+
+    private int id;
+
     private String countryName;
 
     private String cityName;
@@ -38,6 +40,14 @@ public class Tour  implements IInformation {
         this.tourDate = tourDate;
         this.tourName = tourName;
         this.tourType = tourType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCountryName() {

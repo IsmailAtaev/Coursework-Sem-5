@@ -2,20 +2,27 @@ package com.example.client;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
 import com.example.model.check.Check;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
+import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AdminController {
+
+    private Client clientSearch;
+    private String flagSearchClient;
+
 
     private Connect connect = MainController.connect;
 
@@ -126,6 +133,10 @@ public class AdminController {
     @FXML
     private Label errorSearchLabel;
 
+
+    @FXML
+    private Label errorEditLabel;
+
     /**
      * edit table
      */
@@ -169,10 +180,12 @@ public class AdminController {
     @FXML
     private Button editBtn;
 
+    @FXML
+    private Button addTourBtn;
 
     @FXML
     void initialize() {
-
+        //this.errorEditLabel.getText();
         usersBtn.setOnAction(actionEvent -> {
             glavnyPane.getSelectionModel().select(u1);
         });
@@ -184,6 +197,8 @@ public class AdminController {
         ticketsBtn.setOnAction(actionEvent -> {
             glavnyPane.getSelectionModel().select(u3);
         });
+
+
 
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
@@ -343,10 +358,13 @@ public class AdminController {
                     connect.writeLine(searchLogin);
                     connect.writeLine(searchPassword);
                     String flagSearchUser = connect.readLine();
+                    this.flagSearchClient = flagSearchUser;
                     Client client;
 
                     if (flagSearchUser.equals("true")) {
+                        this.clientSearch = null;
                         client = (Client) connect.readObj();
+                        this.clientSearch = client;
                         if (client != null) {
                             signUpEditFIOField.setText(client.getFIO());
                             signUpEditClientCodeField.setText(client.getClientCode());
@@ -398,20 +416,99 @@ public class AdminController {
             } catch (Exception e) {
                 new MyException(e);
             }
+            signUpSearchFIOField.setText("");
+            signUpSearchLoginField.setText("");
+            signUpSearchPasswordField.setText("");
         });
 
-
-        //TODO надо закончить отправку send and и проверку коректности и надо дописать UPDATE in database in sever tomorrow fixing
         editBtn.setOnAction(actionEvent -> {
+            Shake shakeFIO = new Shake(signUpEditFIOField);
+            Shake shakeClientCode = new Shake(signUpEditClientCodeField);
+            Shake shakeMobileNumber = new Shake(signUpEditMobileNumberField);
+            Shake shakePassword = new Shake(signUpEditPasswordField);
+            Shake shakeMail = new Shake(signUpEditMailField);
+            Shake shakeLogin = new Shake(signUpEditLoginField);
+            Shake shakePassportId = new Shake(signUpEditPassportIdField);
+            Shake shakeFlag = new Shake(signUpEditFlagField);
+
             Client client = new Client();
-            client.setFIO(signUpEditFIOField.getText().trim());
-            client.setClientCode(signUpEditClientCodeField.getText().trim());
-            client.setPassportId(signUpEditPassportIdField.getText().trim());
-            client.setMail(signUpEditMailField.getText().trim());
-            client.setPassword(signUpEditPasswordField.getText().trim());
-            client.setLogin(signUpEditLoginField.getText().trim());
-            client.setMobileNumber(signUpEditMobileNumberField.getText().trim());
-            client.setFlag(Integer.parseInt(signUpEditFlagField.getText().trim()));
+            String fio = signUpEditFIOField.getText().trim();
+            String clientCode = signUpEditClientCodeField.getText().trim();
+            String passportId = signUpEditPassportIdField.getText().trim();
+            String mail = signUpEditMailField.getText().trim();
+            String pass = signUpEditPasswordField.getText().trim();
+            String login = signUpEditLoginField.getText().trim();
+            String mobileNumber = signUpEditMobileNumberField.getText().trim();
+            String flag = signUpEditFlagField.getText().trim();
+
+
+            if (this.flagSearchClient.equals("true") && clientSearch != null
+                    && Check.isString(fio) && Check.isString(clientCode)
+                    && Check.isString(passportId) && Check.isString(mail)
+                    && Check.isString(pass) && Check.isString(login)
+                    && Check.isString(mobileNumber) && Check.isNumber(flag)) {
+                client.setId(this.clientSearch.getId());
+                client.setFIO(fio);
+                client.setClientCode(clientCode);
+                client.setPassportId(passportId);
+                client.setMail(mail);
+                client.setPassword(pass);
+                client.setLogin(login);
+                client.setMobileNumber(mobileNumber);
+                client.setFlag(Integer.parseInt(flag));
+                try {
+                    connect.writeLine("edit");
+                    connect.writeLine("editUser");
+                    connect.writeObj(client);
+                    String flagEdit = connect.readLine();
+                    System.out.println(flagEdit + " i am flagEdit ");
+                    if (flagEdit.equals("true")) {
+                        signUpEditFIOField.setText("");
+                        signUpEditClientCodeField.setText("");
+                        signUpEditPassportIdField.setText("");
+                        signUpEditMailField.setText("");
+                        signUpEditPasswordField.setText("");
+                        signUpEditLoginField.setText("");
+                        signUpEditMobileNumberField.setText("");
+                        signUpEditFlagField.setText("");
+                        this.errorEditLabel.setText("пользователь успешно обнавлён.");
+                    } else {
+                        shakeFIO.playAnim();
+                        shakeClientCode.playAnim();
+                        shakeMobileNumber.playAnim();
+                        shakePassword.playAnim();
+                        shakeMail.playAnim();
+                        shakeLogin.playAnim();
+                        shakePassportId.playAnim();
+                        shakeFlag.playAnim();
+                        this.errorEditLabel.setText("пользователь не изменён ошибка на сервере ");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+
+                shakeFIO.playAnim();
+                shakeClientCode.playAnim();
+                shakeMobileNumber.playAnim();
+                shakePassword.playAnim();
+                shakeMail.playAnim();
+                shakeLogin.playAnim();
+                shakePassportId.playAnim();
+                shakeFlag.playAnim();
+            }
+            this.errorEditLabel.setText("");
         });
+
+
+    }
+
+    @FXML
+    void addTour(ActionEvent event) {
+        //    connect.writeLine("addTour");
+        new InputDialog(event, "add-tour.fxml");
+
     }
 }
