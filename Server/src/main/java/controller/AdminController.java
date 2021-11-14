@@ -39,6 +39,10 @@ public class AdminController implements IController {
                 }
                 break;
             }
+            case "addTicket":{
+
+                break;
+            }
 
         }
 
