@@ -19,6 +19,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author Ataeyv Ismayyl
+ *
+ * it is class create Ticket get user, tour code and create ticket.
+ * */
+
 public class CheckAndCreateTicketController {
 
     private Connect connect = MainController.connect;
