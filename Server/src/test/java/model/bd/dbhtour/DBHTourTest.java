@@ -33,7 +33,12 @@ class DBHTourTest {
     }
 
     @Test
-    void deleteObj() {
+    void deleteObjTest() {
+        IDBHandler handler = new DBHTour();
+        Tour t = new Tour();
+        t.setId(1);
+        boolean actually = handler.deleteObj(t);
+        Assertions.assertEquals(true, actually);
     }
 
     @Test

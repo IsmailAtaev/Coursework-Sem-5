@@ -2,7 +2,6 @@ package com.example.model.order;
 
 
 import com.example.model.iinformation.IInformation;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,7 +9,9 @@ import java.util.Objects;
  * @author Atayev Ismayyl
  * */
 
-public class Order implements IInformation {
+public class Order implements IInformation,Serializable {
+
+    private int id;
 
     private String clientCode;
 
@@ -22,6 +23,14 @@ public class Order implements IInformation {
     public Order(String clientCode, String tourCode) {
         this.clientCode = clientCode;
         this.tourCode = tourCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getClientCode() {
@@ -56,7 +65,8 @@ public class Order implements IInformation {
     @Override
     public String toString() {
         return "Order{" +
-                "clientCode='" + clientCode + '\'' +
+                "id=" + id +
+                ", clientCode='" + clientCode + '\'' +
                 ", tourCode='" + tourCode + '\'' +
                 '}';
     }

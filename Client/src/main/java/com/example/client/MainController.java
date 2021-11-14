@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
+import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 public class MainController {
 
     public static Connect connect;
+    public static Client client;
+
 
     @FXML
     private ResourceBundle resources;
@@ -64,11 +67,14 @@ public class MainController {
                 String flagAdminOrClient = connect.readLine();
 
                 if (flag.equals("true")) {
+
                     System.out.println(flag);
                     if (flagAdminOrClient.equals("adminUI")) {
+
                         openNewScene("admin-ui.fxml");
                         System.out.println(flagAdminOrClient);
                     } else if (flagAdminOrClient.equals("clientUI")) {
+                        client = (Client) connect.readObj();
                         openNewScene("client-ui.fxml");
                         System.out.println(flagAdminOrClient);
                     } else {
@@ -83,6 +89,8 @@ public class MainController {
 
             } catch (IOException e) {
                 new MyException(e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         });
     }

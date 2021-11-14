@@ -10,7 +10,7 @@ public interface IController {
 
     void editDate(String msg) throws IOException, ClassNotFoundException;
 
-    void deleteDate(String msg) throws IOException;
+    void deleteDate(String msg) throws IOException, ClassNotFoundException;
 
     void getDate(String msg) throws IOException;
 

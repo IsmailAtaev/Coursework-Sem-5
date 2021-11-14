@@ -1,13 +1,15 @@
 package com.example.model.tour;
 
 import com.example.model.iinformation.IInformation;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Ataeyv Ismayyl
  * */
 
-public class Tour  implements IInformation {
+public class Tour  implements IInformation, Serializable {
 
     private int id;
 

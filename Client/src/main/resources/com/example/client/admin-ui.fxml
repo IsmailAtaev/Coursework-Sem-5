@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="742.0" prefWidth="1175.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.AdminController">
     <children>
-        <TabPane fx:id="glavnyPane" layoutX="174.0" layoutY="92.0" prefHeight="611.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="92.0">
+        <TabPane fx:id="glavnyPane" layoutX="174.0" layoutY="95.0" prefHeight="647.0" prefWidth="1002.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="95.0">
             <tabs>
                 <Tab fx:id="u1" text="Users">
                     <content>
@@ -151,7 +151,7 @@
                 </Tab>
                 <Tab fx:id="u2" text="Add tour">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="674.0" prefWidth="974.0">
                      <children>
                         <TabPane layoutX="-3.0" layoutY="31.0" prefHeight="621.0" prefWidth="976.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.6000000000000227">
                           <tabs>
@@ -159,7 +159,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="viewToursBtn" layoutX="204.0" layoutY="14.0" mnemonicParsing="false" onAction="#getToursView" prefHeight="8.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Список" textFill="WHITE" />
+                                          <Button fx:id="viewToursBtn" layoutX="76.0" layoutY="10.0" mnemonicParsing="false" onAction="#getToursView" prefHeight="26.0" prefWidth="104.0" style="-fx-background-color: #2E37FF;" text="Список туров" textFill="WHITE" />
                                           <TableView fx:id="tabViewTours" layoutX="2.0" layoutY="47.0" prefHeight="542.0" prefWidth="976.0" AnchorPane.bottomAnchor="4.2000000000000455" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="47.0">
                                             <columns>
                                               <TableColumn fx:id="idTourTabColumn" prefWidth="46.39999461174011" text="id" />
@@ -173,10 +173,12 @@
                                                 <TableColumn fx:id="typeTourTabColumn" prefWidth="156.00006103515625" text="Тип тура" />
                                             </columns>
                                           </TableView>
-                                          <Button layoutX="490.0" layoutY="14.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Измеить" textFill="WHITE" />
-                                          <Button layoutX="638.0" layoutY="14.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Удалить" textFill="WHITE" />
-                                          <Button fx:id="addTourBtn" layoutX="347.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTour" prefHeight="1.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Добавить" textFill="WHITE" />
-                                          <Line endX="-100.0" endY="15.000007629394531" layoutX="717.0" layoutY="19.0" startX="-100.0" startY="-6.400001525878906" />
+                                          <Button layoutX="323.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #2E37FF;" text="Измеить" textFill="WHITE" />
+                                          <Button fx:id="deleteTourBtn" layoutX="447.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteTour" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: #2E37FF;" text="Удалить" textFill="WHITE" />
+                                          <Button fx:id="addTourBtn" layoutX="201.0" layoutY="10.0" mnemonicParsing="false" onAction="#addTour" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #2E37FF;" text="Добавить" textFill="WHITE" />
+                                          <Line endX="-100.0" endY="15.000007629394531" layoutX="533.0" layoutY="19.0" startX="-100.0" startY="-6.400001525878906" />
+                                          <TextField fx:id="deleteIdTourField" alignment="CENTER" layoutX="571.0" layoutY="10.0" prefHeight="26.0" prefWidth="158.0" promptText="Введите id тура" AnchorPane.rightAnchor="247.0" />
+                                          <Label fx:id="errorTourDeleteId" alignment="CENTER" layoutX="744.0" layoutY="12.0" prefHeight="21.0" prefWidth="214.0" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
@@ -207,12 +209,38 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
+            <Tab fx:id="u4" text="OrderTouru4">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tabViewOrders" layoutX="-1.0" layoutY="109.0" prefHeight="539.0" prefWidth="975.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="109.0">
+                          <columns>
+                            <TableColumn fx:id="idOrderTabColumn" prefWidth="107.20000916719437" text="id" />
+                            <TableColumn fx:id="orderClientCodeTabColumn" prefWidth="146.39996337890625" text="Код клиента" />
+                              <TableColumn fx:id="orderTourCodeTabColumn" prefWidth="148.0000457763672" text="Код тура" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="viewOrderBtn" layoutX="367.0" layoutY="65.0" mnemonicParsing="false" onAction="#getOrderView" prefHeight="16.0" prefWidth="110.0" style="-fx-background-color: #2E37FF;" text="Посмотреть" textFill="WHITE" />
+                        <Line endX="-100.0" endY="-24.400009155273438" layoutX="588.0" layoutY="90.0" startX="-100.0" />
+                        <AnchorPane layoutY="7.0" prefHeight="32.0" prefWidth="974.0" style="-fx-background-color: #2E37FF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.7999999999999545">
+                           <children>
+                              <Label alignment="CENTER" layoutX="459.0" prefHeight="35.0" prefWidth="96.0" text="Заказы " textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="checkAndCreateTicketBtn" layoutX="498.0" layoutY="65.0" mnemonicParsing="false" onAction="#checkAndCreateTicket" prefHeight="21.0" prefWidth="196.0" style="-fx-background-color: #2E37FF;" text="Подвердить и создать билет" textFill="WHITE" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
             </tabs>
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
         </TabPane>
-        <AnchorPane layoutX="-1.0" prefHeight="742.0" prefWidth="185.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutX="-1.0" prefHeight="742.0" prefWidth="186.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button fx:id="usersBtn" layoutX="38.0" layoutY="217.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Пользователи" textFill="WHITE" />
                 <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
@@ -220,12 +248,12 @@
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/user2.jpg" />
                     </image>
                 </ImageView>
-                <Label layoutX="56.0" layoutY="27.0" prefHeight="27.0" prefWidth="70.0" text="Admin" textFill="WHITE">
+                <Label layoutX="58.0" layoutY="35.0" prefHeight="27.0" prefWidth="70.0" text="Admin" textFill="WHITE">
                     <font>
                         <Font size="19.0" />
                     </font>
                 </Label>
-                <Line endX="35.59999084472656" endY="3.814697265625E-6" layoutX="98.0" layoutY="63.0" startX="-73.40000915527344" stroke="WHITE" />
+                <Line endX="23.400009155273438" endY="7.62939453125E-6" layoutX="111.0" layoutY="72.0" startX="-73.40000915527344" stroke="WHITE" />
                 <Button fx:id="toursBtn" layoutX="38.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Туры" textFill="WHITE" />
                 <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="22.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -238,9 +266,10 @@
                         <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/tickets.png" />
                     </image>
                 </ImageView>
+            <Button fx:id="orderBtn" layoutX="38.0" layoutY="371.0" mnemonicParsing="false" onAction="#getOrder" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Заказы на тур" textFill="WHITE" />
             </children>
         </AnchorPane>
-        <ImageView fitHeight="89.0" fitWidth="83.0" layoutX="154.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="89.0" fitWidth="83.0" layoutX="164.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="file:/C:/Users/admin/Desktop/CourseWorkClient/ClientAdmin/src/main/java/com/example/clientadmin/icons/map.jpg" />
             </image>

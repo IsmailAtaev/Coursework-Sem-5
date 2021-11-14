@@ -10,7 +10,7 @@ public class Client implements Serializable {
 
     private String FIO;//
 
-    private String clientCode;
+    private String clientCode;//
 
     private String passportId;
 

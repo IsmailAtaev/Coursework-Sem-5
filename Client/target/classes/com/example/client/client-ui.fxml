@@ -4,27 +4,47 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="691.0" prefWidth="942.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.ClientController">
+<AnchorPane prefHeight="688.0" prefWidth="1062.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.ClientController">
     <children>
-        <TabPane fx:id="glvTabPane" layoutX="170.0" layoutY="111.0" prefHeight="580.0" prefWidth="774.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="-2.0">
+        <TabPane fx:id="glvTabPane" layoutX="183.0" prefHeight="692.0" prefWidth="881.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="u1" text="toursU1">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="329.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="796.0">
                             <children>
-                                <TabPane fx:id="secondTabPane" layoutX="1.0" prefHeight="580.0" prefWidth="741.0" tabClosingPolicy="UNAVAILABLE">
+                                <TabPane fx:id="secondTabPane" layoutX="1.0" layoutY="52.0" prefHeight="638.0" prefWidth="852.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-2.3999999999999773" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-0.20000000000004547" AnchorPane.topAnchor="52.0">
                                     <tabs>
-                                        <Tab fx:id="uu1" text="local tour">
+                                        <Tab fx:id="uu1" text="Tour">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
                                                         <ImageView fitHeight="140.0" fitWidth="172.0" layoutX="162.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="makeOrderTourBtn" alignment="CENTER" layoutX="151.0" layoutY="14.0" mnemonicParsing="false" onAction="#makeOrderTour" prefHeight="19.0" prefWidth="106.0" style="-fx-background-color: #2E37FF;" text="Бронировать" textFill="WHITE" />
+                                          <TextField fx:id="inputTourCodeMakeOrderField" alignment="CENTER" layoutX="271.0" layoutY="14.0" prefHeight="26.0" prefWidth="151.0" promptText="Ведите код тура" />
+                                          <TableView fx:id="tabViewTours" layoutX="1.0" layoutY="52.0" prefHeight="557.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+                                             <columns>
+                                                <TableColumn fx:id="countryTourTabColumn" prefWidth="127.99996566772461" text="Страна" />
+                                                <TableColumn fx:id="cityTourTabColumn" prefWidth="116.80006408691406" text="Город" />
+                                                <TableColumn fx:id="priceTourTabColumn" prefWidth="85.60005187988281" text="Цена" />
+                                                <TableColumn fx:id="durationTourTabColumn" minWidth="0.0" prefWidth="88.7999267578125" text="Длитеоьность" />
+                                                <TableColumn fx:id="tourCodeTabColumn" prefWidth="105.5999755859375" text="Код тура" />
+                                                <TableColumn fx:id="dateTourTabColumn" prefWidth="87.199951171875" text="Дата" />
+                                                <TableColumn fx:id="nameTourTabColumn" minWidth="0.0" prefWidth="120.00006103515625" text="Название тура" />
+                                                <TableColumn fx:id="typeTourTabColumn" maxWidth="365.5999633789063" prefWidth="111.199951171875" text="Тип тура" />
+                                             </columns>
+                                          </TableView>
+                                          <Label fx:id="errorOrderTour" layoutX="463.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" />
+                                          <Button fx:id="tourViewBtn" alignment="CENTER" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#tourViewMethod" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Посматреть" textFill="WHITE" />
+                                          <Line endX="-100.00001525878906" endY="23.00000762939453" layoutX="240.0" layoutY="15.0" startX="-100.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -36,15 +56,66 @@
                                         </Tab>
                                     </tabs>
                                 </TabPane>
+                        <Label alignment="CENTER" layoutX="391.0" layoutY="14.0" prefHeight="30.0" prefWidth="70.0" text="Туры" textFill="#2e37ff" underline="true" AnchorPane.leftAnchor="391.0" AnchorPane.rightAnchor="392.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
                             </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="u2" text="profileU2">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Label layoutX="280.0" layoutY="217.0" text="Label" />
-                            </children></AnchorPane>
+                     <children>
+                        <TextField fx:id="signUpPasswordField" alignment="CENTER" layoutX="351.0" layoutY="403.0" prefHeight="38.0" prefWidth="417.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpMailField" alignment="CENTER" layoutX="353.0" layoutY="243.0" prefHeight="38.0" prefWidth="411.0" promptText="Почта" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpFIOField" alignment="CENTER" layoutX="351.0" layoutY="123.0" prefHeight="38.0" prefWidth="413.0" promptText="ФИО" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpClientCodeField" alignment="CENTER" layoutX="348.0" layoutY="466.0" prefHeight="38.0" prefWidth="417.0" promptText="Кода пользователя" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpPassportIdField" alignment="CENTER" layoutX="353.0" layoutY="185.0" prefHeight="38.0" prefWidth="410.0" promptText="Номер поспорта " style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpMobileNumberField" alignment="CENTER" layoutX="353.0" layoutY="296.0" prefHeight="38.0" prefWidth="410.0" promptText="Номер телефона" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <TextField fx:id="signUpLoginField" alignment="CENTER" layoutX="353.0" layoutY="349.0" prefHeight="38.0" prefWidth="414.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;" />
+                        <Label layoutX="114.0" layoutY="123.0" prefHeight="32.0" prefWidth="216.0" text="Фамилия Имя Отчества ">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="114.0" layoutY="469.0" prefHeight="32.0" prefWidth="169.0" text="Код пользователя">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="116.0" layoutY="188.0" prefHeight="32.0" prefWidth="152.0" text="Номер паспорта">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="116.0" layoutY="246.0" prefHeight="32.0" prefWidth="56.0" text="Почта">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="116.0" layoutY="302.0" prefHeight="32.0" prefWidth="150.0" text="Номер телефона">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="116.0" layoutY="352.0" prefHeight="32.0" prefWidth="57.0" text="Логин">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="114.0" layoutY="406.0" prefHeight="32.0" prefWidth="78.0" text="Пароль">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="330.0" layoutY="40.0" prefHeight="35.0" prefWidth="148.0" text="Ваш профил" textFill="BLUE" underline="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="u3" text="my ordersU3">
@@ -54,7 +125,7 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <AnchorPane prefHeight="691.0" prefWidth="203.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="688.0" prefWidth="215.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label layoutX="65.0" layoutY="112.0" prefHeight="8.0" prefWidth="70.0" text="Travel" textFill="WHITE">
                     <font>

@@ -71,17 +71,6 @@ public class DBHTour implements IDBHandler {
                 t.setTourName(resSet.getString(8));
                 t.setTourType(resSet.getString(9));
                 arrayList.add(t);
-               /* Client client = new Client();
-                client.setId(resSet.getInt(1));
-                client.setFIO(resSet.getString(2));
-                client.setClientCode(resSet.getString(3));
-                client.setPassportId(resSet.getString(4));
-                client.setMail(resSet.getString(5));
-                client.setMobileNumber(resSet.getString(6));
-                client.setLogin(resSet.getString(7));
-                client.setPassword(resSet.getString(8));
-                client.setFlag(resSet.getInt(9));*/
-
             }
         } catch (SQLException e) {
             new MyException(e);
@@ -93,7 +82,16 @@ public class DBHTour implements IDBHandler {
 
     @Override
     public boolean deleteObj(Object obj) {
-        return false;
+        try {
+            Tour tour = (Tour) obj;
+            String DELETE = "DELETE FROM " + ConstTour.TOUR_TABLE + " WHERE " + ConstTour.TOUR_ID + "='" + tour.getId() + "'; ";
+            PreparedStatement preparedStatementDelete = getDbConnection().prepareStatement(DELETE);
+            preparedStatementDelete.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
     }
 
     @Override

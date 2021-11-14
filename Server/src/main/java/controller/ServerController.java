@@ -49,10 +49,12 @@ public class ServerController {
                                 connect.writeLine("true");
                                 if (client.getFlag() == 1) {
                                     connect.writeLine("adminUI");
+
                                     IController iController = FactoryController.getType("admin");
                                     iController.start();
                                 } else if (client.getFlag() == 2) {
                                     connect.writeLine("clientUI");
+                                    connect.writeObj(client);
                                     IController iController = FactoryController.getType("client");
                                     iController.start();
                                 } else {
@@ -82,7 +84,6 @@ public class ServerController {
                 }
             }
         } catch (Exception e) {
-            new MyException(e);
         }
     }
 }

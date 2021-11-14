@@ -23,5 +23,7 @@ module com.example.client {
     opens com.example.client.tour to javafx.fxml;
     exports com.example.client.tour;
 
+    opens com.example.model.order to javafx.fxml;
+    exports com.example.model.order;
 
 }

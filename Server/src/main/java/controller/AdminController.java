@@ -4,6 +4,7 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import model.bd.dbhclient.DBHClient;
+import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import java.io.IOException;
@@ -14,6 +15,8 @@ public class AdminController implements IController {
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
     private  IDBHandler idbHandlerTour = new DBHTour();
+    private IDBHandler idbHandlerOrder = new DBHOrder();
+
 
     @Override
     public void saveDate(String msg) throws IOException, ClassNotFoundException {
@@ -61,23 +64,20 @@ public class AdminController implements IController {
     }
 
     @Override
-    public void deleteDate(String msg) throws IOException {
+    public void deleteDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
             case "deleteUser": {
-
                 String login = connect.readLine();
                 String pass = connect.readLine();
                 String clientCode = connect.readLine();
                 ArrayList<Client> list = (ArrayList<Client>) idbHandler.getList().clone();
                 boolean flagDelete = false;
-
                 for (Client c : list) {
                     if (login.equals(c.getLogin()) && pass.equals(c.getPassword()) && clientCode.equals(c.getClientCode())) {
                         flagDelete = idbHandler.deleteObj(c);
                         break;
                     }
                 }
-
                 if (flagDelete) {
                     connect.writeLine("true");
                 } else {
@@ -85,11 +85,16 @@ public class AdminController implements IController {
                 }
                 break;
             }
-
-
+            case "deleteTour": {
+                boolean flagTour = idbHandlerTour.deleteObj(connect.readObj());
+                if (flagTour) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
         }
-
-
     }
 
     @Override
@@ -105,6 +110,10 @@ public class AdminController implements IController {
             }
             case "viewTour": {
                 connect.writeObjList(idbHandlerTour.getList());
+                break;
+            }
+            case "viewOrder":{
+                connect.writeObjList(idbHandlerOrder.getList());
                 break;
             }
 

@@ -10,6 +10,7 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
+import com.example.model.order.Order;
 import com.example.model.tour.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,9 @@ public class AdminController {
     @FXML
     private Tab u3;
 
+    @FXML
+    private Tab u4;
+
 
     @FXML
     private Button usersBtn;
@@ -65,67 +69,84 @@ public class AdminController {
     private Button addUserBtn;
 
 
+
+    /**
+     * Order
+     */
+
+    private ArrayList<Order> orderArrayList = new ArrayList<>();
+
+    @FXML
+    private Button viewOrderBtn;
+
+    @FXML
+    private TableView<Order> tabViewOrders;
+    @FXML
+    private TableColumn<Order, Integer> idOrderTabColumn;
+    @FXML
+    private TableColumn<Order, String> orderClientCodeTabColumn;
+    @FXML
+    private TableColumn<Order, String> orderTourCodeTabColumn;
+
     /**
      * Tour
-     * */
+     */
+
+    @FXML
+    private Button orderBtn;
+
+    @FXML
+    private Label errorTourDeleteId;
+
+    @FXML
+    private TextField deleteIdTourField;
+
     @FXML
     private Button viewToursBtn;
 
     @FXML
-    private TableView<Tour> tabViewTours;
+    private Button deleteTourBtn;
 
+
+    @FXML
+    private TableView<Tour> tabViewTours;
     @FXML
     private TableColumn<Tour, Integer> idTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> countryTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> cityTourTabColumn;
-
     @FXML
     private TableColumn<Tour, Float> priceTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> durationTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> tourCodeTabColumn;
-
     @FXML
     private TableColumn<Tour, String> dateTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> nameTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> typeTourTabColumn;
 
 
-
-
-    /**Client and user*/
+    /**
+     * Client and user
+     */
     @FXML
     private TableView<Client> usersTableView;
-
     @FXML
     private TableColumn<Client, String> fioTableColumn;
-
     @FXML
     private TableColumn<Client, String> codeClientTableColumn;
-
     @FXML
     private TableColumn<Client, String> passportIdTableColumn;
-
     @FXML
     private TableColumn<Client, String> mailTableColumn;
-
     @FXML
     private TableColumn<Client, String> mobileNumberTableColumn;
-
     @FXML
     private TableColumn<Client, String> loginTableColumn;
-
     @FXML
     private TableColumn<Client, Integer> flagTableColumn;
 
@@ -222,6 +243,9 @@ public class AdminController {
 
     @FXML
     private Button addTourBtn;
+
+    private ArrayList<Tour> tourArrayList = new ArrayList<>();
+
 
     @FXML
     void initialize() {
@@ -548,15 +572,58 @@ public class AdminController {
     }
 
     @FXML
+    void deleteTour(ActionEvent event) {
+        try {
+            boolean flagId = false;
+            int idTour;
+            Tour tour = new Tour();
+            String flagDeleteTourServer = null;
+            String id = deleteIdTourField.getText().trim();
+
+            if (Check.isNumber(id)) {
+                idTour = Integer.parseInt(id);
+                for (Tour t : this.tourArrayList) {
+                    if (t.getId() == idTour) {
+                        tour = t;
+                        flagId = true;
+                        break;
+                    }
+                }
+
+                if (flagId) {
+                    connect.writeLine("delete");
+                    connect.writeLine("deleteTour");
+                    connect.writeObj(tour);
+                    flagDeleteTourServer = connect.readLine();
+                    if (flagDeleteTourServer.equals("true")) {
+                        errorTourDeleteId.setText("Тур успешно удален");
+                    } else {
+                        errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
+                    }
+
+                } else {
+                    errorTourDeleteId.setText("нету тура с таким id !!! ");
+                }
+
+            } else {
+                Shake shakeTourDelete = new Shake(deleteIdTourField);
+                shakeTourDelete.playAnim();
+                errorTourDeleteId.setText("Введите число");
+            }
+        } catch (IOException e) {
+            new MyException(e);
+        }
+        // errorTourDeleteId.setText("");
+    }
+
+    @FXML
     void getToursView(ActionEvent event) {
         try {
             connect.writeLine("view");
             connect.writeLine("viewTour");
             ArrayList<Tour> tourArrayList = (ArrayList<Tour>) connect.readObjList().clone();
+            this.tourArrayList = tourArrayList;
             ObservableList<Tour> observableList = FXCollections.observableArrayList(tourArrayList);
-            for(Tour t: tourArrayList){
-                System.out.println(t.toString());
-            }
             tabViewTours.setItems(observableList);
             tabViewTours.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
             tabViewTours.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("countryName"));
@@ -570,5 +637,32 @@ public class AdminController {
         } catch (IOException | ClassNotFoundException e) {
             new MyException(e);
         }
+    }
+
+    @FXML
+    void getOrder(ActionEvent event) {
+        glavnyPane.getSelectionModel().select(u4);
+    }
+
+    @FXML
+    void getOrderView(ActionEvent event) {
+        try {
+            connect.writeLine("view");
+            connect.writeLine("viewOrder");
+            ArrayList<Order> orderArrayList = (ArrayList<Order>) connect.readObjList().clone();
+            this.orderArrayList = orderArrayList;
+            ObservableList<Order> observableList = FXCollections.observableArrayList(orderArrayList);
+            tabViewOrders.setItems(observableList);
+            tabViewOrders.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+            tabViewOrders.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
+            tabViewOrders.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
+        } catch (IOException | ClassNotFoundException e) {
+            new MyException(e);
+        }
+    }
+
+    @FXML
+    void checkAndCreateTicket(ActionEvent event){
+        new InputDialog(event,"check-create-ticket.fxml",530, 475);
     }
 }
