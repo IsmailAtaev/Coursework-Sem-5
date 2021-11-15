@@ -88,9 +88,9 @@ public class MainController {
                 }
 
             } catch (IOException e) {
-                new MyException(e);
+                e.getMessage();
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         });
     }

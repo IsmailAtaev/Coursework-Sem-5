@@ -1,13 +1,17 @@
 package com.example.model.ticket;
 
 import com.example.model.iinformation.IInformation;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Atayev Ismayyl
  */
 
-public class Ticket implements IInformation {
+public class Ticket implements IInformation, Serializable {
+
+    private  int id;
 
     private String ticketCode;
 
@@ -21,23 +25,28 @@ public class Ticket implements IInformation {
 
     private String departureData;
 
-    private String arrivalData;
 
 
     public Ticket() {
     }
 
     public Ticket(String ticketCode, String userCode, String transportType,
-                  String departurePoint, String arrivalPoint, String departureData, String arrivalData) {
+                  String departurePoint, String arrivalPoint, String departureData) {
         this.ticketCode = ticketCode;
         this.userCode = userCode;
         this.transportType = transportType;
         this.departurePoint = departurePoint;
         this.arrivalPoint = arrivalPoint;
         this.departureData = departureData;
-        this.arrivalData = arrivalData;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTicketCode() {
         return ticketCode;
@@ -87,14 +96,6 @@ public class Ticket implements IInformation {
         this.departureData = departureData;
     }
 
-    public String getArrivalData() {
-        return arrivalData;
-    }
-
-    public void setArrivalData(String arrivalData) {
-        this.arrivalData = arrivalData;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,26 +106,25 @@ public class Ticket implements IInformation {
                 && Objects.equals(transportType, ticket.transportType)
                 && Objects.equals(departurePoint, ticket.departurePoint)
                 && Objects.equals(arrivalPoint, ticket.arrivalPoint)
-                && Objects.equals(departureData, ticket.departureData)
-                && Objects.equals(arrivalData, ticket.arrivalData);
+                && Objects.equals(departureData, ticket.departureData);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(ticketCode, userCode, transportType,
-                departurePoint, arrivalPoint, departureData, arrivalData);
+                departurePoint, arrivalPoint, departureData);
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
-                "ticketCode='" + ticketCode + '\'' +
+                "id=" + id +
+                ", ticketCode='" + ticketCode + '\'' +
                 ", userCode='" + userCode + '\'' +
                 ", transportType='" + transportType + '\'' +
                 ", departurePoint='" + departurePoint + '\'' +
                 ", arrivalPoint='" + arrivalPoint + '\'' +
                 ", departureData='" + departureData + '\'' +
-                ", arrivalData='" + arrivalData + '\'' +
                 '}';
     }
 

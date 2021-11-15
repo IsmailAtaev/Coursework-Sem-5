@@ -3,8 +3,11 @@ package controller;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
+import com.example.model.order.Order;
+import com.example.model.ticket.Ticket;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
+import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import java.io.IOException;
@@ -14,8 +17,9 @@ public class AdminController implements IController {
 
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
-    private  IDBHandler idbHandlerTour = new DBHTour();
+    private IDBHandler idbHandlerTour = new DBHTour();
     private IDBHandler idbHandlerOrder = new DBHOrder();
+    private IDBHandler idbHandlerTicket = new DBHTicket();
 
 
     @Override
@@ -39,8 +43,10 @@ public class AdminController implements IController {
                 }
                 break;
             }
-            case "addTicket":{
-
+            case "addTicket": {
+                String idOrder = connect.readLine();
+                Ticket ticket = (Ticket) connect.readObj();
+                connect.writeLine(makeOrder(Integer.parseInt(idOrder), ticket));
                 break;
             }
 
@@ -116,7 +122,7 @@ public class AdminController implements IController {
                 connect.writeObjList(idbHandlerTour.getList());
                 break;
             }
-            case "viewOrder":{
+            case "viewOrder": {
                 connect.writeObjList(idbHandlerOrder.getList());
                 break;
             }
@@ -175,18 +181,17 @@ public class AdminController implements IController {
                 String pass = connect.readLine();
                 int counter = 0;
                 ArrayList<Client> list = (ArrayList<Client>) idbHandler.getList().clone();
-                for(Client c : list){
-                    if(fio.equals(c.getFIO()) && login.equals(c.getLogin()) && pass.equals(c.getPassword())){
+                for (Client c : list) {
+                    if (fio.equals(c.getFIO()) && login.equals(c.getLogin()) && pass.equals(c.getPassword())) {
                         ++counter;
                         connect.writeLine("true");
                         connect.writeObj(c);
                     }
                 }
 
-                if(counter == 0){
+                if (counter == 0) {
                     connect.writeLine("false");
                 }
-
 
 
                 break;
@@ -196,4 +201,39 @@ public class AdminController implements IController {
         }
     }
 
+    /**
+     * 1-й исход работы) Возврашаем Order из бд прохотимся по списку заказов, и если есть такоей id,
+     * то вызываем запрос на добавление, если билет создан успешно, то возврашаем (CreateTicket),
+     * иначе (NoCreateTicket).
+     * <p>
+     * 2-й исход работы) Создаём счетчик int i
+     * Возврашаем Order из бд прохотимся по списку заказов, если i равен нулю, то (NoOrder)
+     * если i больше и менше или равно Order.size то,(NoIdOrder) нету такого заказа.
+     *
+     * @param idOrder
+     * @param ticket
+     */
+    private String makeOrder(int idOrder, Ticket ticket) {
+        ArrayList<Order> orderArrayList = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        int i = 0;
+        boolean flagAddTicket;
+        for (Order o : orderArrayList) {
+            if (idOrder == o.getId()) {
+                ticket.setUserCode(o.getClientCode());
+                flagAddTicket = idbHandlerTicket.addObj(ticket);
+                if (flagAddTicket) {
+                    return "CreateTicket";
+                } else {
+                    return "NoCreateTicket";
+                }
+            }
+            ++i;
+        }
+        if (i > 0 && i <= orderArrayList.size()) {
+            return "NoIdOrder";
+        } else if (i == 0) {
+            return "NoOrder";
+        }
+        return "false";
+    }
 }

@@ -464,17 +464,6 @@ public class AdminController {
                     shakeSearchPassword.playAnim();
                     errorSearchLabel.setText("заполните пустые поля для поиска!!!");
                 }
-                /*signUpSearchFIOField.setText("");
-                signUpSearchLoginField.setText("");
-                signUpSearchPasswordField.setText("");
-                signUpEditFIOField.setText("");
-                signUpEditClientCodeField.setText("");
-                signUpEditPassportIdField.setText("");
-                signUpEditMailField.setText("");
-                signUpEditPasswordField.setText("");
-                signUpEditLoginField.setText("");
-                signUpEditMobileNumberField.setText("");
-                signUpEditFlagField.setText("");*/
             } catch (Exception e) {
                 new MyException(e);
             }
