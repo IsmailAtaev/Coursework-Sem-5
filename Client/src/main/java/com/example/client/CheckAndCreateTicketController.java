@@ -44,11 +44,8 @@ public class CheckAndCreateTicketController {
     private TextField transportTypeField;
     @FXML
     private TextField departurePointField;
-    @FXML
-    private TextField arrivalPointField;
 
-    @FXML
-    private DatePicker departureDataFiled;
+
 
     @FXML
     private Label errorIdOrderLabel;
@@ -64,24 +61,17 @@ public class CheckAndCreateTicketController {
     @FXML
     void createTicket(ActionEvent event) {
         try {
-            LocalDate dateTour = departureDataFiled.getValue();
             String idOrder = idOrderField.getText().trim();
             String transportType = transportTypeField.getText().trim();
             String departurePoint = departurePointField.getText().trim();
-            String arrivalPoint = arrivalPointField.getText().trim();
 
-           // String date = dateTour.toString();
-
-            if (Check.isString(transportType)
-                    && Check.isString(departurePoint) && Check.isString(arrivalPoint)) {
-
+            if (Check.isString(transportType) && Check.isString(departurePoint)) {
                 if (Check.isNumber(idOrder)) {
+
                     Ticket ticket = new Ticket();
                     ticket.setTransportType(transportType);
                     ticket.setDeparturePoint(departurePoint);
-                    ticket.setArrivalPoint(arrivalPoint);
                     ticket.setTicketCode("B" + String.valueOf(Rand.random(10, 10000)));
-                    ticket.setDepartureData(dateTour.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
 
                     connect.writeLine("add");
                     connect.writeLine("addTicket");
@@ -89,12 +79,13 @@ public class CheckAndCreateTicketController {
                     connect.writeObj(ticket);
                     String flagAddTicketAndCheckOrder = connect.readLine();
 
+                    System.out.println(flagAddTicketAndCheckOrder);
+
                     if (flagAddTicketAndCheckOrder.equals("CreateTicket")) {
                         errorIdOrderLabel.setText("Билет создан");
 
                     } else if (flagAddTicketAndCheckOrder.equals("NoCreateTicket")) {
                         errorIdOrderLabel.setText("Билет не создан обратитесь к администрации ");
-
                     } else if (flagAddTicketAndCheckOrder.equals("NoIdOrder")) {
                         errorIdOrderLabel.setText("Нету такого id введите правильные значение");
 
@@ -103,7 +94,6 @@ public class CheckAndCreateTicketController {
 
                     } else if (flagAddTicketAndCheckOrder.equals("false")) {
                         errorIdOrderLabel.setText("Ошибка обратитесь к администрации");
-
                     } else {
                         errorIdOrderLabel.setText("Фатальная Ошибка обратитесь к администрации");
                     }

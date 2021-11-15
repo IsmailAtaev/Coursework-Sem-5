@@ -112,12 +112,7 @@ public class MainController {
 
 
     public void getOpenSignUp(ActionEvent actionEvent) {
-        try {
-            connect.writeLine("signUp");
-            new InputDialog(actionEvent, "sign-up-ui.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new InputDialog(actionEvent, "sign-up-ui.fxml");
     }
 
 }

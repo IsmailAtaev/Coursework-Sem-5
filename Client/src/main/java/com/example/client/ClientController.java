@@ -21,42 +21,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ClientController {
 
     private Connect connect = MainController.connect;
-
     private Client profile = new Client();
 
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
 
     @FXML
     private TabPane glvTabPane;
-
     @FXML
     private Tab u1;
+    @FXML
+    private Tab u2;
+    @FXML
+    private Tab u3;
+    @FXML
+    private Tab u4;
+
 
     @FXML
     private TabPane secondTabPane;
-
     @FXML
     private Tab uu1;
-
     @FXML
     private Tab uu2;
 
-    @FXML
-    private Tab u2;
-
-    @FXML
-    private Tab u3;
 
     @FXML
     private Button toursBtn;
-
     @FXML
     private Button myOrderBtn;
-
     @FXML
     private Button profileBtn;
 
@@ -65,22 +60,16 @@ public class ClientController {
      */
     @FXML
     private TextField signUpFIOField;
-
     @FXML
     private TextField signUpClientCodeField;
-
     @FXML
     private TextField signUpPassportIdField;
-
     @FXML
     private TextField signUpMailField;
-
     @FXML
     private TextField signUpMobileNumberField;
-
     @FXML
     private TextField signUpLoginField;
-
     @FXML
     private TextField signUpPasswordField;
 
@@ -90,40 +79,28 @@ public class ClientController {
 
     @FXML
     private Label errorOrderTour;
-
     @FXML
     private TextField inputTourCodeMakeOrderField;
-
     @FXML
     private Button makeOrderTourBtn;
-
     @FXML
     private Button tourViewBtn;
-
     @FXML
     private TableView<Tour> tabViewTours;
-
     @FXML
     private TableColumn<Tour, String> countryTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> cityTourTabColumn;
-
     @FXML
     private TableColumn<Tour, Float> priceTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> durationTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> tourCodeTabColumn;
-
     @FXML
     private TableColumn<Tour, String> dateTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> nameTourTabColumn;
-
     @FXML
     private TableColumn<Tour, String> typeTourTabColumn;
 
@@ -131,12 +108,14 @@ public class ClientController {
     @FXML
     void initialize() {
         System.out.println(profile.toString());
+
         toursBtn.setOnAction(ActionEvent -> {
             errorOrderTour.setText("");
             glvTabPane.getSelectionModel().select(u1);
         });
-        profileBtn.setOnAction(ActionEvent -> {
 
+
+        profileBtn.setOnAction(ActionEvent -> {
             this.profile = MainController.client;
             errorOrderTour.setText("");
             glvTabPane.getSelectionModel().select(u2);
@@ -198,5 +177,15 @@ public class ClientController {
         } catch (IOException e) {
             new MyException(e);
         }
+    }
+
+    @FXML
+    void myTicket(ActionEvent event) {
+        glvTabPane.getSelectionModel().select(u3);
+    }
+
+    @FXML
+    void myOrder(ActionEvent event) {
+        glvTabPane.getSelectionModel().select(u4);
     }
 }

@@ -5,6 +5,7 @@ import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.ticket.Ticket;
+import com.example.model.tour.Tour;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
@@ -46,7 +47,8 @@ public class AdminController implements IController {
             case "addTicket": {
                 String idOrder = connect.readLine();
                 Ticket ticket = (Ticket) connect.readObj();
-                connect.writeLine(makeOrder(Integer.parseInt(idOrder), ticket));
+                String flag = makeOrder(Integer.parseInt(idOrder), ticket);
+                connect.writeLine(flag);
                 break;
             }
 
@@ -135,7 +137,8 @@ public class AdminController implements IController {
 
     @Override
     public void start() {
-        System.out.println("start admin");
+        System.out.println("start admin controller");
+
         try {
             while (true) {
                 switch (connect.readLine()) {
@@ -165,7 +168,7 @@ public class AdminController implements IController {
                 }
             }
         } catch (IOException e) {
-            new MyException(e);
+            e.getMessage();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -213,27 +216,82 @@ public class AdminController implements IController {
      * @param idOrder
      * @param ticket
      */
+
     private String makeOrder(int idOrder, Ticket ticket) {
-        ArrayList<Order> orderArrayList = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+
         int i = 0;
-        boolean flagAddTicket;
+        boolean flag = false;
+        boolean flagAddTicket = false;
+        boolean flagClient = false;
+        boolean flagTour = false;
+        boolean flagCT = false; // client and tour
+        ArrayList<Tour> tourArrayList = (ArrayList<Tour>) idbHandlerTour.getList().clone();
+        ArrayList<Order> orderArrayList = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        ArrayList<Client> clientArrayList = (ArrayList<Client>) idbHandler.getList().clone();
+
+
+        System.out.println(" i am idOrder " + idOrder);
+        for (Order a : orderArrayList) {
+            System.out.println(a.toString());
+        }
+
         for (Order o : orderArrayList) {
             if (idOrder == o.getId()) {
-                ticket.setUserCode(o.getClientCode());
-                flagAddTicket = idbHandlerTicket.addObj(ticket);
-                if (flagAddTicket) {
-                    return "CreateTicket";
+                flagClient = checkClient(o.getClientCode(), clientArrayList);
+                flagTour = checkTour(o.getTourCode(), tourArrayList);
+                if (flagClient == true && flagTour == true) {
+                    ticket.setUserCode(o.getClientCode());
+                    for (Tour t : tourArrayList) {
+                        if (o.getTourCode().equals(t.getTourCode())) {
+                            ticket.setDepartureData(t.getTourDate());
+                            ticket.setArrivalPoint(t.getCountryName() + "-" + t.getCityName());
+                            flagAddTicket = idbHandlerTicket.addObj(ticket);
+                            flagCT = true;
+                            i = 0;
+                            break;
+                        }
+                    }
                 } else {
-                    return "NoCreateTicket";
+                    flagCT = false;
+                    break;
                 }
             }
+            flag = true;
             ++i;
         }
-        if (i > 0 && i <= orderArrayList.size()) {
-            return "NoIdOrder";
-        } else if (i == 0) {
+
+        if (flagCT == false && flagClient == false || flagTour == false) {
+            return "NoClientOrTour";
+        } else if (flagAddTicket == true) {
+            return "CreateTicket";
+        } else if (flag == false) {
             return "NoOrder";
+        } else if (i > 0 && i <= orderArrayList.size()) {
+            return "NoIdOrder";
+        } else {
+            return "NoCreateTicket";
         }
-        return "false";
     }
+
+
+
+
+    private boolean checkClient(String clientCode,ArrayList<Client> clients) {
+        for (Client c : clients) {
+            if (clientCode.equals(c.getClientCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
+        for (Tour t : tours) {
+            if (tourCode.equals(t.getTourCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -22,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class AdminController {
 
     private Client clientSearch;
-    private String flagSearchClient;
+    private String flagSearchClient = "false";
 
 
     private Connect connect = MainController.connect;
@@ -540,7 +540,6 @@ public class AdminController {
 
 
             } else {
-
                 shakeFIO.playAnim();
                 shakeClientCode.playAnim();
                 shakeMobileNumber.playAnim();

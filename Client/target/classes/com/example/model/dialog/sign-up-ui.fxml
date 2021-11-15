@@ -29,7 +29,7 @@
                 <Font size="19.0" />
             </font>
         </PasswordField>
-        <Button fx:id="singUpButton" layoutX="232.0" layoutY="325.0" mnemonicParsing="false" onAction="#clickOnSignUpBtn" prefHeight="44.0" prefWidth="202.0" style="-fx-background-color: #003FFF;" text="Зарегестрироваться" textFill="WHITE">
+        <Button fx:id="singUpButton" layoutX="153.0" layoutY="322.0" mnemonicParsing="false" onAction="#clickOnSignUpBtn" prefHeight="44.0" prefWidth="202.0" style="-fx-background-color: #003FFF;" text="Зарегестрироваться" textFill="WHITE">
             <font>
                 <Font name="Dyuthi Regular" size="19.0" />
             </font>
@@ -49,6 +49,11 @@
                 <Font size="19.0" />
             </font>
         </TextField>
-      <Label fx:id="lableErroAddClient" layoutX="176.0" layoutY="288.0" prefHeight="26.0" prefWidth="415.0" />
+      <Label fx:id="lableErroAddClient" alignment="CENTER" layoutX="109.0" layoutY="288.0" prefHeight="26.0" prefWidth="482.0" textFill="RED" />
+      <Button fx:id="closeSignUpBtn" layoutX="390.0" layoutY="322.0" mnemonicParsing="false" onAction="#closeSignUp" prefHeight="44.0" prefWidth="102.0" style="-fx-background-color: #003FFF;" text="Закрыть" textFill="WHITE">
+         <font>
+            <Font name="Dyuthi Regular" size="19.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
