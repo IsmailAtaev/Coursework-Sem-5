@@ -47,8 +47,14 @@ public class AdminController implements IController {
             case "addTicket": {
                 String idOrder = connect.readLine();
                 Ticket ticket = (Ticket) connect.readObj();
-                String flag = makeOrder(Integer.parseInt(idOrder), ticket);
-                connect.writeLine(flag);
+                boolean flag = makeOrderrr(Integer.parseInt(idOrder), ticket);
+                if(flag){
+                    connect.writeLine("true");
+                }else {
+                    connect.writeLine("false");
+                }
+
+              //  connect.writeLine(flag);
                 break;
             }
 
@@ -294,4 +300,35 @@ public class AdminController implements IController {
         return false;
     }
 
+    private boolean makeOrderrr(int idOrder, Ticket ticket) {
+
+        boolean flagAddTicket;
+        boolean flagClient;
+        boolean flagTour;
+
+        ArrayList<Tour> tourArrayList = (ArrayList<Tour>) idbHandlerTour.getList().clone();
+        ArrayList<Order> orderArrayList = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        ArrayList<Client> clientArrayList = (ArrayList<Client>) idbHandler.getList().clone();
+
+        for (Order o : orderArrayList) {
+            if (idOrder == o.getId()) {
+                flagClient = checkClient(o.getClientCode(), clientArrayList);
+                flagTour = checkTour(o.getTourCode(), tourArrayList);
+                if (flagClient == true && flagTour == true) {
+                    ticket.setUserCode(o.getClientCode());
+                    for (Tour t : tourArrayList) {
+                        if (o.getTourCode().equals(t.getTourCode())) {
+                            ticket.setDepartureData(t.getTourDate());
+                            ticket.setArrivalPoint(t.getCountryName() + "-" + t.getCityName());
+                            flagAddTicket = idbHandlerTicket.addObj(ticket);
+                            return flagAddTicket;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }

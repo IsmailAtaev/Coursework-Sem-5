@@ -7,7 +7,6 @@ import com.example.model.animation.Shake;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
-import com.example.model.myexception.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

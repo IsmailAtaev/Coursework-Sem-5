@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import com.example.model.animation.Shake;
 import com.example.model.check.Check;
 import com.example.model.client.Client;
@@ -107,6 +106,7 @@ public class ClientController {
 
     @FXML
     void initialize() {
+        this.profile = MainController.client;
         System.out.println(profile.toString());
 
         toursBtn.setOnAction(ActionEvent -> {
@@ -114,9 +114,10 @@ public class ClientController {
             glvTabPane.getSelectionModel().select(u1);
         });
 
-
+        /**
+         * Профил пользователя
+         * */
         profileBtn.setOnAction(ActionEvent -> {
-            this.profile = MainController.client;
             errorOrderTour.setText("");
             glvTabPane.getSelectionModel().select(u2);
 
@@ -129,6 +130,38 @@ public class ClientController {
             signUpPasswordField.setText(profile.getPassword());
         });
 
+        /**
+         * Броноруем тур
+         * @throws IOException
+         * */
+        makeOrderTourBtn.setOnAction(ActionEvent -> {
+            try {
+                errorOrderTour.setText("");
+                String inputTourCode = inputTourCodeMakeOrderField.getText().trim();
+                if (Check.isString(inputTourCode)) {
+                    connect.writeLine("add");
+                    connect.writeLine("orderTour");
+                    connect.writeLine(inputTourCode);
+                    connect.writeObj(profile);
+                    String flagOrderAddOrNot = connect.readLine();
+                    System.out.println(flagOrderAddOrNot + " i am flag order");
+                    if (flagOrderAddOrNot.equals("true")) {
+                        errorOrderTour.setText("Тур забронирован");
+                    } else if (flagOrderAddOrNot.equals("false")) {
+                        errorOrderTour.setText("Тур не забронирован");
+                    } else {
+                        errorOrderTour.setText("ошибка в работе");
+                    }
+                } else {
+                    Shake shakeOrderTour = new Shake(inputTourCodeMakeOrderField);
+                    shakeOrderTour.playAnim();
+                    errorOrderTour.setText("ведите код тура");
+                }
+            } catch (IOException e) {
+                new MyException(e);
+            }
+            inputTourCodeMakeOrderField.setText("");
+        });
     }
 
 
@@ -149,32 +182,6 @@ public class ClientController {
             tabViewTours.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("tourName"));
             tabViewTours.getColumns().get(7).setCellValueFactory(new PropertyValueFactory("tourType"));
         } catch (IOException | ClassNotFoundException e) {
-            new MyException(e);
-        }
-    }
-
-    @FXML
-    void makeOrderTour(ActionEvent event) {
-        try {
-            errorOrderTour.setText("");
-            String idTour = inputTourCodeMakeOrderField.getText().trim();
-            if (Check.isString(idTour)) {
-                connect.writeLine("add");
-                connect.writeLine("orderTour");
-                connect.writeLine(idTour);
-                connect.writeObj(profile);
-                String flagOrderAddOrNot = connect.readLine();
-                if (flagOrderAddOrNot.equals("true")) {
-                    errorOrderTour.setText("Тур забронирован");
-                } else {
-                    errorOrderTour.setText("Тур не забронирован");
-                }
-            } else {
-                Shake shakeOrderTour = new Shake(inputTourCodeMakeOrderField);
-                shakeOrderTour.playAnim();
-                errorOrderTour.setText("ведите код тура");
-            }
-        } catch (IOException e) {
             new MyException(e);
         }
     }

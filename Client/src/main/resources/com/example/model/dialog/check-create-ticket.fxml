@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="274.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.CheckAndCreateTicketController">
    <children>
-      <Button fx:id="createTicketBtn" layoutX="169.0" layoutY="218.0" mnemonicParsing="false" onAction="#createTicket" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2E37FF;" text="Создать" textFill="WHITE" />
+      <Button fx:id="createTicketBtn" layoutX="169.0" layoutY="218.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2E37FF;" text="Создать" textFill="WHITE" />
       <Button layoutX="247.0" layoutY="218.0" mnemonicParsing="false" onAction="#closeCreateTicketPane" style="-fx-background-color: #2E37FF;" text="Закрыть" textFill="WHITE" />
       <TextField fx:id="transportTypeField" alignment="CENTER" layoutX="30.0" layoutY="111.0" prefHeight="26.0" prefWidth="190.0" />
       <TextField fx:id="departurePointField" layoutX="260.0" layoutY="111.0" prefHeight="26.0" prefWidth="190.0" />

@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * @author Atayev I.M.
+ * @author Atayev I.M. (ataewisma@gmial@gmail.com)
  * */
 
 public class Main extends Application {

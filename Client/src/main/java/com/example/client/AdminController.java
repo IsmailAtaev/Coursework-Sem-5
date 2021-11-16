@@ -19,6 +19,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+
+/* onAction="#getOrder"*/
+
 public class AdminController {
 
     private Client clientSearch;
@@ -36,6 +39,9 @@ public class AdminController {
     @FXML
     private TabPane glavnyPane;
 
+
+    @FXML
+    private Label putText4;
 
     @FXML
     private Tab u1;
@@ -249,17 +255,25 @@ public class AdminController {
 
     @FXML
     void initialize() {
-        //this.errorEditLabel.getText();
+
         usersBtn.setOnAction(actionEvent -> {
+            putText4.setText("Пользователи");
             glavnyPane.getSelectionModel().select(u1);
         });
 
         toursBtn.setOnAction(actionEvent -> {
+            putText4.setText("Туры");
             glavnyPane.getSelectionModel().select(u2);
         });
 
         ticketsBtn.setOnAction(actionEvent -> {
+            putText4.setText("Билеты");
             glavnyPane.getSelectionModel().select(u3);
+        });
+
+        orderBtn.setOnAction(ActionEvent -> {
+            putText4.setText("Заказы");
+            glavnyPane.getSelectionModel().select(u4);
         });
 
 
@@ -552,6 +566,9 @@ public class AdminController {
             this.errorEditLabel.setText("");
         });
 
+
+
+
     }
 
     @FXML
@@ -625,11 +642,6 @@ public class AdminController {
         } catch (IOException | ClassNotFoundException e) {
             new MyException(e);
         }
-    }
-
-    @FXML
-    void getOrder(ActionEvent event) {
-        glavnyPane.getSelectionModel().select(u4);
     }
 
     @FXML

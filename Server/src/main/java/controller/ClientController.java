@@ -28,13 +28,15 @@ public class ClientController implements IController {
                 String tourCode = connect.readLine();
                 Client client = (Client) connect.readObj();
                 ArrayList<Tour> tourArrayList = (ArrayList<Tour>) idbHandlerTour.getList().clone();
-                if (makeOrderTour(tourCode, client, tourArrayList)) {
+                boolean flagAddOrder = makeOrderTour(tourCode, client, tourArrayList);
+                if (flagAddOrder) {
                     connect.writeLine("true");
                 } else {
                     connect.writeLine("false");
                 }
                 break;
             }
+
         }
     }
 
@@ -111,7 +113,8 @@ public class ClientController implements IController {
                 Order order = new Order();
                 order.setClientCode(client.getClientCode());
                 order.setTourCode(t.getTourCode());
-                return idbHandlerOrder.addObj(order);
+                boolean flagAddOrder = idbHandlerOrder.addObj(order);
+                return flagAddOrder;
             }
         }
         return false;

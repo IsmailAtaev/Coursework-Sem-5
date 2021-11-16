@@ -96,7 +96,7 @@ public class Connect implements Closeable {
             bufferedWriter.close();
             oos.close();
             ois.close();
-            //socket.close();
+            socket.close();// on comment edilendi isma dosty
         } catch (IOException e) {
             e.printStackTrace();
         }
