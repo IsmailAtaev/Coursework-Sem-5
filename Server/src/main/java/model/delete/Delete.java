@@ -1,12 +1,15 @@
 package model.delete;
 
+import com.example.model.client.Client;
 import com.example.model.tour.Tour;
+import model.bd.dbhclient.DBHClient;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import java.util.ArrayList;
 
 public class Delete {
 
+    private IDBHandler idbHandlerClient = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
 
     public boolean deleteTour(int id, ArrayList<Object> objects) {
@@ -18,4 +21,15 @@ public class Delete {
         }
         return false;
     }
+
+    public boolean deleteUser(String login, String pass, String clientCode, ArrayList<Object> objects) {
+        ArrayList<Client> clients = (ArrayList<Client>) objects.clone();
+        for (Client c : clients) {
+            if (login.equals(c.getLogin()) && pass.equals(c.getPassword()) && clientCode.equals(c.getClientCode())) {
+                return idbHandlerClient.deleteObj(c);
+            }
+        }
+        return false;
+    }
+
 }

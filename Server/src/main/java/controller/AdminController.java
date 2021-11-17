@@ -80,25 +80,20 @@ public class AdminController implements IController {
     @Override
     public void deleteDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
+
             case "deleteUser": {
                 String login = connect.readLine();
                 String pass = connect.readLine();
                 String clientCode = connect.readLine();
-                ArrayList<Client> list = (ArrayList<Client>) idbHandler.getList().clone();
-                boolean flagDelete = false;
-                for (Client c : list) {
-                    if (login.equals(c.getLogin()) && pass.equals(c.getPassword()) && clientCode.equals(c.getClientCode())) {
-                        flagDelete = idbHandler.deleteObj(c);
-                        break;
-                    }
-                }
-                if (flagDelete) {
+                Delete delete = new Delete();
+                if (delete.deleteUser(login, pass, clientCode, idbHandler.getList())) {
                     connect.writeLine("true");
                 } else {
                     connect.writeLine("false");
                 }
                 break;
             }
+
             case "deleteTour": {
                 String idTour = connect.readLine();
                 Delete delete = new Delete();

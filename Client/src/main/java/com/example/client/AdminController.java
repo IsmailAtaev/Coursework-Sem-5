@@ -364,7 +364,6 @@ public class AdminController {
 
         deleteUsersBtn.setOnAction(actionEvent -> {
             try {
-
                 String loginDelete = loginDeleteField.getText().trim();
                 String passwordDelete = passwordDeleteField.getText().trim();
                 String clientCodeDelete = clientCodeDeleteField.getText().trim();
@@ -402,6 +401,7 @@ public class AdminController {
                 }
                 errorDeleteUserLabel.setText("");
             } catch (Exception e) {
+                new MyException(e);
             }
         });
 
@@ -577,7 +577,6 @@ public class AdminController {
                 new MyException(e);
             }
         });
-
     }
 
     @FXML
