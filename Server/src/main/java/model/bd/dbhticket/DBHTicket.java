@@ -1,11 +1,15 @@
 package model.bd.dbhticket;
 
+import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
 import com.example.model.ticket.Ticket;
 import model.bd.idbhandler.IDBHandler;
+import model.configs.clientBD.ConstClient;
 import model.configs.ticketBD.ConstTicket;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -43,11 +47,30 @@ public class DBHTicket implements IDBHandler {
     }
 
 
-
-
     @Override
     public ArrayList<Object> getList() {
-        return null;
+        ArrayList<Object> arrayList = new ArrayList<>();
+        try {
+            String select = "SELECT * FROM " + ConstTicket.TICKET_TABLE;
+            Statement statement = getDbConnection().createStatement();
+            ResultSet resSet = statement.executeQuery(select);
+            while (resSet.next()) {
+                Ticket t = new Ticket();
+                t.setId(resSet.getInt(1));
+                t.setTicketCode(resSet.getString(2));
+                t.setUserCode(resSet.getString(3));
+                t.setTransportType(resSet.getString(4));
+                t.setDeparturePoint(resSet.getString(5));
+                t.setArrivalPoint(resSet.getString(6));
+                t.setDepartureData(resSet.getString(7));
+                arrayList.add(t);
+            }
+        } catch (SQLException e) {
+            new MyException(e);
+        } catch (ClassNotFoundException e) {
+            new MyException(e);
+        }
+        return arrayList;
     }
 
     @Override

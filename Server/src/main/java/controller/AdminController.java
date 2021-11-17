@@ -124,6 +124,7 @@ public class AdminController implements IController {
                 //TODO i have more db handler and i can getter witch one ticket order client tour more )
             }
             case "viewTicket": {
+                connect.writeObjList(idbHandlerTicket.getList());
                 break;
             }
             case "viewTour": {

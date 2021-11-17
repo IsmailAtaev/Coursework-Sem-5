@@ -11,6 +11,7 @@ import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
+import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,71 +20,81 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
-/* onAction="#getOrder"*/
+/**
+ * @author Ataeyv I.M. (ataewisma@gmail.com)
+ * */
 
 public class AdminController {
 
     private Client clientSearch;
     private String flagSearchClient = "false";
-
-
     private Connect connect = MainController.connect;
+
 
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
 
+
     @FXML
     private TabPane glavnyPane;
-
-
     @FXML
     private Label putText4;
-
     @FXML
     private Tab u1;
-
     @FXML
     private Tab u2;
-
     @FXML
     private Tab u3;
-
     @FXML
     private Tab u4;
 
 
     @FXML
     private Button usersBtn;
-
     @FXML
     private Button toursBtn;
-
     @FXML
     private Button ticketsBtn;
-
     @FXML
     private Button viewUsersBtn;
-
     @FXML
     private Button deleteUsersBtn;
-
     @FXML
     private Button addUserBtn;
 
 
+    /**
+     * Ticket
+     * */
+    @FXML
+    private Button ticketViewBtn;
+    @FXML
+    private TableView<Ticket> ticketTableColumn;
+    @FXML
+    private TableColumn<Ticket, Integer> idTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> ticketCodeTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> clientCodeTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> typeTransportTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> departurePointTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> arrivalPointTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> departureDateTicketTableColumn;
 
+
+    
     /**
      * Order
      */
 
     private ArrayList<Order> orderArrayList = new ArrayList<>();
 
-    @FXML
-    private Button viewOrderBtn;
 
     @FXML
     private TableView<Order> tabViewOrders;
@@ -94,25 +105,25 @@ public class AdminController {
     @FXML
     private TableColumn<Order, String> orderTourCodeTabColumn;
 
+
     /**
      * Tour
      */
 
     @FXML
     private Button orderBtn;
-
     @FXML
     private Label errorTourDeleteId;
-
     @FXML
     private TextField deleteIdTourField;
-
+    @FXML
+    private Button viewOrderBtn;
     @FXML
     private Button viewToursBtn;
-
     @FXML
     private Button deleteTourBtn;
-
+    @FXML
+    private Button addTourBtn;
 
     @FXML
     private TableView<Tour> tabViewTours;
@@ -156,51 +167,36 @@ public class AdminController {
     @FXML
     private TableColumn<Client, Integer> flagTableColumn;
 
-
     @FXML
     private TextField signUpFIOField;
-
     @FXML
     private TextField signUpClientCodeField;
-
     @FXML
     private TextField signUpPassportIdField;
-
     @FXML
     private TextField signUpMailField;
-
     @FXML
     private TextField signUpMobileNumberField;
-
     @FXML
     private TextField signUpLoginField;
-
     @FXML
     private TextField signUpPasswordField;
-
     @FXML
     private TextField signUpFlagField;
-
     @FXML
     private TextField loginDeleteField;
-
     @FXML
     private TextField passwordDeleteField;
-
     @FXML
     private TextField clientCodeDeleteField;
 
 
     @FXML
     private Label outPutErrorAddUserLabel;
-
     @FXML
     private Label errorDeleteUserLabel;
-
     @FXML
     private Label errorSearchLabel;
-
-
     @FXML
     private Label errorEditLabel;
 
@@ -210,45 +206,32 @@ public class AdminController {
 
     @FXML
     private TextField signUpSearchFIOField;
-
     @FXML
     private TextField signUpSearchLoginField;
-
     @FXML
     private Button searchBtn;
-
     @FXML
     private TextField signUpSearchPasswordField;
-
     @FXML
     private TextField signUpEditFlagField;
-
     @FXML
     private TextField signUpEditPasswordField;
-
     @FXML
     private TextField signUpEditMailField;
-
     @FXML
     private TextField signUpEditFIOField;
-
     @FXML
     private TextField signUpEditClientCodeField;
-
     @FXML
     private TextField signUpEditPassportIdField;
-
     @FXML
     private TextField signUpEditMobileNumberField;
-
     @FXML
     private TextField signUpEditLoginField;
-
     @FXML
     private Button editBtn;
 
-    @FXML
-    private Button addTourBtn;
+
 
     private ArrayList<Tour> tourArrayList = new ArrayList<>();
 
@@ -566,8 +549,27 @@ public class AdminController {
             this.errorEditLabel.setText("");
         });
 
-
-
+        /**
+         * Ticket
+         * */
+        ticketViewBtn.setOnAction(actionEvent -> {
+            try {
+                connect.writeLine("view");
+                connect.writeLine("viewTicket");
+                ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
+                ObservableList<Ticket> observableList = FXCollections.observableArrayList(ticketArrayList);
+                ticketTableColumn.setItems(observableList);
+                ticketTableColumn.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+                ticketTableColumn.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("ticketCode"));
+                ticketTableColumn.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("userCode"));
+                ticketTableColumn.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("transportType"));
+                ticketTableColumn.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("departurePoint"));
+                ticketTableColumn.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("arrivalPoint"));
+                ticketTableColumn.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("departureData"));
+            } catch (IOException | ClassNotFoundException e) {
+                new MyException(e);
+            }
+        });
 
     }
 

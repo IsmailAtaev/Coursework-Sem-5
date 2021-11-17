@@ -9,6 +9,7 @@ import com.example.model.check.Check;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
+import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +54,34 @@ public class ClientController {
     private Button myOrderBtn;
     @FXML
     private Button profileBtn;
+
+
+
+    /**
+     *Ticket
+     * */
+    @FXML
+    private Button ticketClientViewBtn;
+    @FXML
+    private Button ticketViewBtn;
+    @FXML
+    private TableView<Ticket> ticketTableColumn;
+    @FXML
+    private TableColumn<Ticket, Integer> idTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> ticketCodeTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> clientCodeTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> typeTransportTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> departurePointTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> arrivalPointTicketTableColumn;
+    @FXML
+    private TableColumn<Ticket, String> departureDateTicketTableColumn;
+
+
 
     /**
      * User
@@ -162,6 +191,35 @@ public class ClientController {
             }
             inputTourCodeMakeOrderField.setText("");
         });
+
+        ticketClientViewBtn.setOnAction(ActionEvent -> {
+            try {
+                connect.writeLine("view");
+                connect.writeLine("viewTicket");
+                connect.writeObj(profile);
+                String msg = connect.readLine();
+                if(msg.equals("true")){
+                    ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
+                    ObservableList<Ticket> observableList = FXCollections.observableArrayList(ticketArrayList);
+                    ticketTableColumn.setItems(observableList);
+                    ticketTableColumn.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+                    ticketTableColumn.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("ticketCode"));
+                    ticketTableColumn.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("userCode"));
+                    ticketTableColumn.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("transportType"));
+                    ticketTableColumn.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("departurePoint"));
+                    ticketTableColumn.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("arrivalPoint"));
+                    ticketTableColumn.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("departureData"));
+                } else {
+                    System.out.println("do not ticket your profile");
+                }
+
+            } catch (IOException | ClassNotFoundException e) {
+                new MyException(e);
+            }
+
+        });
+
+
     }
 
 

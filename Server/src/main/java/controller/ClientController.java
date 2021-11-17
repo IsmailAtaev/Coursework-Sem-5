@@ -4,9 +4,11 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
+import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
+import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 
@@ -19,6 +21,8 @@ public class ClientController implements IController {
     private IDBHandler idbHandler = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
     private IDBHandler idbHandlerOrder = new DBHOrder();
+    private IDBHandler idbHandlerTicket = new DBHTicket();
+
 
 
     @Override
@@ -42,22 +46,36 @@ public class ClientController implements IController {
 
     @Override
     public void editDate(String msg) throws IOException, ClassNotFoundException {
-
     }
 
     @Override
     public void deleteDate(String msg) throws IOException, ClassNotFoundException {
-
     }
 
     @Override
-    public void getDate(String msg) throws IOException {
+    public void getDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
             case "viewUser": {
                 connect.writeObjList(idbHandler.getList());
                 break;
             }
             case "viewTicket": {
+                Client c = (Client) connect.readObj();
+                ArrayList<Ticket> tickets = (ArrayList<Ticket>) idbHandlerTicket.getList().clone();
+                ArrayList<Ticket> t = new ArrayList<>();
+                for (Ticket ticket : tickets) {
+                    if (c.getClientCode().equals(ticket.getUserCode())) {
+                        t.add(ticket);
+                    }
+                }
+
+                if (!t.isEmpty()) {
+                    ArrayList<Object> tt = (ArrayList<Object>) t.clone();
+                    connect.writeLine("true");
+                    connect.writeObjList(tt);
+                } else {
+                    connect.writeLine("false");
+                }
                 break;
             }
             case "viewTour": {
@@ -93,7 +111,6 @@ public class ClientController implements IController {
                         this.editDate(connect.readLine());
                         break;
                     }
-
                     default:
                         new MyException("поличичли что-то не то ");
                         break;
@@ -102,7 +119,7 @@ public class ClientController implements IController {
         } catch (IOException e) {
             new MyException(e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            new MyException(e);
         }
     }
 

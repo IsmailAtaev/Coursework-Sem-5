@@ -197,7 +197,7 @@
                         <TableView fx:id="ticketTableColumn" layoutX="-3.0" layoutY="80.0" prefHeight="568.0" prefWidth="976.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="80.0">
                           <columns>
                             <TableColumn fx:id="idTicketTableColumn" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="tourCodeTicketTableColumn" prefWidth="120.0" text="Код тура" />
+                            <TableColumn fx:id="ticketCodeTicketTableColumn" prefWidth="120.0" text="Код тура" />
                               <TableColumn fx:id="clientCodeTicketTableColumn" prefWidth="143.9999237060547" text="Код клиента" />
                               <TableColumn fx:id="typeTransportTicketTableColumn" prefWidth="105.5999755859375" text="Тип транспорта" />
                               <TableColumn fx:id="departurePointTicketTableColumn" prefWidth="164.79998779296875" text="Вылит" />
@@ -205,7 +205,7 @@
                               <TableColumn fx:id="departureDateTicketTableColumn" prefWidth="149.5999755859375" text="Время Вылита" />
                           </columns>
                         </TableView>
-                        <Button alignment="CENTER" layoutX="434.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: #2E37FF;" text="Посматреть билеты" textFill="WHITE">
+                        <Button fx:id="ticketViewBtn" alignment="CENTER" layoutX="407.0" layoutY="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: #2E37FF;" text="Посматреть билеты" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -306,7 +306,7 @@
                </font></Button>
                 <ImageView fitHeight="32.0" fitWidth="53.0" layoutX="18.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../java/com/example/icons/passport.png" />
+                        <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/passport.png" />
                     </image>
                 </ImageView>
             <Button fx:id="orderBtn" layoutX="38.0" layoutY="381.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="142.0" style="-fx-background-color: #506FFF;" text="Заказы на тур" textFill="WHITE">
@@ -315,7 +315,7 @@
                </font></Button>
             <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="22.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../java/com/example/icons/icon-basket.png" />
+                  <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/icon-basket.png" />
                </image>
             </ImageView>
             </children>
