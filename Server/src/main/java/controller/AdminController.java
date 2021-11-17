@@ -48,27 +48,23 @@ public class AdminController implements IController {
                 String idOrder = connect.readLine();
                 Ticket ticket = (Ticket) connect.readObj();
                 boolean flag = makeOrderrr(Integer.parseInt(idOrder), ticket);
-                if(flag){
+                if (flag) {
                     connect.writeLine("true");
-                }else {
+                } else {
                     connect.writeLine("false");
                 }
-
-              //  connect.writeLine(flag);
                 break;
             }
-
         }
-
     }
 
     @Override
     public void editDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
             case "editUser": {
-                Client client = (Client) connect.readObj();
-                boolean flag = idbHandler.editObj(client);
-                if (flag) {
+                ///Client client = (Client) connect.readObj();
+                //boolean flag = idbHandler.editObj(connect.readObj());
+                if (idbHandler.editObj(connect.readObj())) {
                     connect.writeLine("true");
                 } else {
                     connect.writeLine("false");
