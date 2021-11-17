@@ -107,14 +107,6 @@ public class AdminController implements IController {
                 } else {
                     connect.writeLine("false");
                 }
-
-
-
-                /*if (idbHandlerTour.deleteObj(connect.readObj())) {
-                    connect.writeLine("true");
-                } else {
-                    connect.writeLine("false");
-                }*/
                 break;
             }
         }

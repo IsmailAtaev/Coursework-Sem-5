@@ -588,46 +588,19 @@ public class AdminController {
     @FXML
     void deleteTour(ActionEvent event) {
         try {
-            boolean flagId = false;
-            int idTour;
-            Tour tour = new Tour();
             String flagDeleteTourServer = null;
             String id = deleteIdTourField.getText().trim();
-
             if (Check.isNumber(id)) {
                 connect.writeLine("delete");
                 connect.writeLine("deleteTour");
                 connect.writeLine(id);
                 flagDeleteTourServer = connect.readLine();
+
                 if(flagDeleteTourServer.equals("true")){
                     errorTourDeleteId.setText("Тур успешно удален");
                 } else {
                     errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
                 }
-
-             /*   idTour = Integer.parseInt(id);
-                for (Tour t : this.tourArrayList) {
-                    if (t.getId() == idTour) {
-                        tour = t;
-                        flagId = true;
-                        break;
-                    }
-                }
-
-                if (flagId) {
-                    connect.writeLine("delete");
-                    connect.writeLine("deleteTour");
-                    connect.writeObj(tour);
-                    flagDeleteTourServer = connect.readLine();
-                    if (flagDeleteTourServer.equals("true")) {
-                        errorTourDeleteId.setText("Тур успешно удален");
-                    } else {
-                        errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
-                    }
-                } else {
-                    errorTourDeleteId.setText("нету тура с таким id !!! ");
-                }*/
-
             } else {
                 Shake shakeTourDelete = new Shake(deleteIdTourField);
                 shakeTourDelete.playAnim();
