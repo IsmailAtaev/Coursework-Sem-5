@@ -11,6 +11,8 @@ import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
+import model.delete.Delete;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,8 +64,6 @@ public class AdminController implements IController {
     public void editDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
             case "editUser": {
-                ///Client client = (Client) connect.readObj();
-                //boolean flag = idbHandler.editObj(connect.readObj());
                 if (idbHandler.editObj(connect.readObj())) {
                     connect.writeLine("true");
                 } else {
@@ -100,12 +100,21 @@ public class AdminController implements IController {
                 break;
             }
             case "deleteTour": {
-                boolean flagTour = idbHandlerTour.deleteObj(connect.readObj());
-                if (flagTour) {
+                String idTour = connect.readLine();
+                Delete delete = new Delete();
+                if (delete.deleteTour(Integer.parseInt(idTour), idbHandlerTour.getList())) {
                     connect.writeLine("true");
                 } else {
                     connect.writeLine("false");
                 }
+
+
+
+                /*if (idbHandlerTour.deleteObj(connect.readObj())) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }*/
                 break;
             }
         }
@@ -165,9 +174,9 @@ public class AdminController implements IController {
                 }
             }
         } catch (IOException e) {
-            e.getMessage();
+            new MyException(e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            new MyException(e);
         }
     }
 
@@ -175,7 +184,6 @@ public class AdminController implements IController {
     private void search(String msg) throws IOException {
         switch (msg) {
             case "searchUser": {
-
                 String fio = connect.readLine();
                 String login = connect.readLine();
                 String pass = connect.readLine();
@@ -192,8 +200,6 @@ public class AdminController implements IController {
                 if (counter == 0) {
                     connect.writeLine("false");
                 }
-
-
                 break;
             }
 
@@ -322,4 +328,7 @@ public class AdminController implements IController {
         }
         return false;
     }
+
+
+
 }

@@ -595,7 +595,17 @@ public class AdminController {
             String id = deleteIdTourField.getText().trim();
 
             if (Check.isNumber(id)) {
-                idTour = Integer.parseInt(id);
+                connect.writeLine("delete");
+                connect.writeLine("deleteTour");
+                connect.writeLine(id);
+                flagDeleteTourServer = connect.readLine();
+                if(flagDeleteTourServer.equals("true")){
+                    errorTourDeleteId.setText("Тур успешно удален");
+                } else {
+                    errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
+                }
+
+             /*   idTour = Integer.parseInt(id);
                 for (Tour t : this.tourArrayList) {
                     if (t.getId() == idTour) {
                         tour = t;
@@ -614,10 +624,9 @@ public class AdminController {
                     } else {
                         errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
                     }
-
                 } else {
                     errorTourDeleteId.setText("нету тура с таким id !!! ");
-                }
+                }*/
 
             } else {
                 Shake shakeTourDelete = new Shake(deleteIdTourField);
@@ -627,7 +636,6 @@ public class AdminController {
         } catch (IOException e) {
             new MyException(e);
         }
-        // errorTourDeleteId.setText("");
     }
 
     @FXML
