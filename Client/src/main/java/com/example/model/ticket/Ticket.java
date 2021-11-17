@@ -1,17 +1,15 @@
 package com.example.model.ticket;
 
-import com.example.model.iinformation.IInformation;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author Atayev Ismayyl
+ * @author Atayev I.M.
  */
 
-public class Ticket implements IInformation, Serializable {
+public class Ticket implements  Serializable {
 
-    private  int id;
+    private int id;
 
     private String ticketCode;
 
@@ -24,8 +22,6 @@ public class Ticket implements IInformation, Serializable {
     private String arrivalPoint;
 
     private String departureData;
-
-
 
     public Ticket() {
     }
@@ -111,8 +107,7 @@ public class Ticket implements IInformation, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketCode, userCode, transportType,
-                departurePoint, arrivalPoint, departureData);
+        return Objects.hash(ticketCode, userCode, transportType, departurePoint, arrivalPoint, departureData);
     }
 
     @Override
@@ -126,10 +121,5 @@ public class Ticket implements IInformation, Serializable {
                 ", arrivalPoint='" + arrivalPoint + '\'' +
                 ", departureData='" + departureData + '\'' +
                 '}';
-    }
-
-    @Override
-    public void getToString() {
-        System.out.println(toString());
     }
 }

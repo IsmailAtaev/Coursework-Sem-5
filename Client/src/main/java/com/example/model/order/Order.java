@@ -1,15 +1,14 @@
 package com.example.model.order;
 
 
-import com.example.model.iinformation.IInformation;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author Atayev Ismayyl
+ * @author Atayev I.M.
  * */
 
-public class Order implements IInformation,Serializable {
+public class Order implements Serializable {
 
     private int id;
 
@@ -74,10 +73,5 @@ public class Order implements IInformation,Serializable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return new Order(clientCode, tourCode);
-    }
-
-    @Override
-    public void getToString() {
-        System.out.println(this.toString());
     }
 }

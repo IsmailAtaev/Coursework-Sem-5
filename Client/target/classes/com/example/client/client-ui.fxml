@@ -15,11 +15,11 @@
 
 <AnchorPane prefHeight="688.0" prefWidth="1062.0" style="-fx-background-color: #fafafa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.ClientController">
     <children>
-        <TabPane fx:id="glvTabPane" layoutX="183.0" prefHeight="692.0" prefWidth="881.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+        <TabPane fx:id="glvTabPane" layoutX="183.0" prefHeight="688.0" prefWidth="877.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="u1" text="toursU1">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="796.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="796.0" style="-fx-background-color: #ffffff;">
                             <children>
                                 <TabPane fx:id="secondTabPane" layoutX="1.0" layoutY="52.0" prefHeight="638.0" prefWidth="852.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-2.3999999999999773" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-0.20000000000004547" AnchorPane.topAnchor="52.0">
                                     <tabs>
@@ -43,15 +43,10 @@
                                              </columns>
                                           </TableView>
                                           <Label fx:id="errorOrderTour" alignment="CENTER" layoutX="463.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" textFill="RED" />
-                                          <Button fx:id="tourViewBtn" alignment="CENTER" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#tourViewMethod" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Посматреть" textFill="WHITE" />
+                                          <Button fx:id="tourViewBtn" alignment="CENTER" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Посматреть" textFill="WHITE" />
                                           <Line endX="-100.00001525878906" endY="23.00000762939453" layoutX="240.0" layoutY="15.0" startX="-100.0" />
                                                     </children>
                                                 </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab fx:id="uu2" text="sea tour">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                             </content>
                                         </Tab>
                                     </tabs>
@@ -61,6 +56,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
+                        <Button fx:id="closeBtn" layoutX="804.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" style="-fx-background-color: #ffffff;" text="X" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -120,7 +116,25 @@
                 </Tab>
                 <Tab fx:id="u3" text="my ticketsU3">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="ticketTableColumn" layoutY="165.0" prefHeight="524.0" prefWidth="851.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.400000000000091" AnchorPane.topAnchor="165.0">
+                           <columns>
+                              <TableColumn fx:id="idTicketTableColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="ticketCodeTicketTableColumn" prefWidth="74.4000244140625" text="Код тура" />
+                              <TableColumn fx:id="clientCodeTicketTableColumn" prefWidth="92.0" text="Код клиента" />
+                              <TableColumn fx:id="typeTransportTicketTableColumn" prefWidth="126.40003967285156" text="Тип транспорта" />
+                              <TableColumn fx:id="departurePointTicketTableColumn" prefWidth="150.39996337890625" text="Вылит" />
+                              <TableColumn fx:id="arrivalPointTicketTableColumn" prefWidth="168.0001220703125" text="Прилёт" />
+                              <TableColumn fx:id="departureDateTicketTableColumn" prefWidth="161.599853515625" text="Дата вылита" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="ticketClientViewBtn" layoutX="37.0" layoutY="113.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #2E37FF;" text="Посматреть " textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
             <Tab fx:id="u4" text="my ordersU4">
@@ -130,7 +144,7 @@
             </Tab>
             </tabs>
         </TabPane>
-        <AnchorPane fx:id="myOrdersBtn" prefHeight="688.0" prefWidth="197.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="myOrdersBtn" prefHeight="688.0" prefWidth="211.0" style="-fx-background-color: #2E37FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label layoutX="65.0" layoutY="112.0" prefHeight="8.0" prefWidth="70.0" text="Travel" textFill="WHITE">
                     <font>
@@ -149,7 +163,7 @@
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/landscape.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="myTicketBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" onAction="#myTicket" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои билеты" textFill="WHITE" />
+                <Button fx:id="myTicketBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои билеты" textFill="WHITE" />
                 <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="29.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/passport.png" />
@@ -161,7 +175,7 @@
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/user2.jpg" />
                     </image>
                 </ImageView>
-                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="371.0" mnemonicParsing="false" onAction="#myOrder" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои Заказы" textFill="WHITE" />
+                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="371.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои Заказы" textFill="WHITE" />
             <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="29.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/icon-basket.png" />

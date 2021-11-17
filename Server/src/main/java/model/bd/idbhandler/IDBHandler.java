@@ -1,6 +1,5 @@
 package model.bd.idbhandler;
 
-import com.example.model.iinformation.IInformation;
 import model.configs.constBD.Const;
 
 import java.sql.Connection;

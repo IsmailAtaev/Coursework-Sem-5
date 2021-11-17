@@ -49,6 +49,8 @@ public class AdminController {
     private Tab u3;
     @FXML
     private Tab u4;
+    @FXML
+    private Button closeBtn;
 
 
     @FXML
@@ -238,6 +240,11 @@ public class AdminController {
 
     @FXML
     void initialize() {
+
+        closeBtn.setOnAction(ActionEvent ->{
+            connect.close();
+            System.exit(1);
+        });
 
         usersBtn.setOnAction(actionEvent -> {
             putText4.setText("Пользователи");
@@ -556,8 +563,8 @@ public class AdminController {
             try {
                 connect.writeLine("view");
                 connect.writeLine("viewTicket");
-                ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
-                ObservableList<Ticket> observableList = FXCollections.observableArrayList(ticketArrayList);
+                ArrayList<Ticket> ticketAdminArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
+                ObservableList<Ticket> observableList = FXCollections.observableArrayList(ticketAdminArrayList);
                 ticketTableColumn.setItems(observableList);
                 ticketTableColumn.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
                 ticketTableColumn.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("ticketCode"));

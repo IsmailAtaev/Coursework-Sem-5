@@ -6,7 +6,6 @@ package controller;
  * */
 
 public class FactoryController {
-
     public static synchronized IController getType(String type) {
         switch (type) {
             case "admin":

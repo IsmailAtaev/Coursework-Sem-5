@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -134,27 +135,9 @@ public class CheckAndCreateTicketController {
                         } else {
                             errorIdOrderLabel.setText("БИЛЕТ НЕ СОЗДАН");
                         }
-                      /*  if (flagAddTicketAndCheckOrder.equals("CreateTicket")) {
-                            errorIdOrderLabel.setText("Билет создан");
-
-                        } else if (flagAddTicketAndCheckOrder.equals("NoCreateTicket")) {
-                            errorIdOrderLabel.setText("Билет не создан обратитесь к администрации ");
-                        } else if (flagAddTicketAndCheckOrder.equals("NoIdOrder")) {
-                            errorIdOrderLabel.setText("Нету такого id введите правильные значение");
-
-                        } else if (flagAddTicketAndCheckOrder.equals("NoOrder")) {
-                            errorIdOrderLabel.setText("Нету заказов для создание билета");
-
-                        } else if (flagAddTicketAndCheckOrder.equals("false")) {
-                            errorIdOrderLabel.setText("Ошибка обратитесь к администрации");
-                        } else {
-                            errorIdOrderLabel.setText("Фатальная Ошибка обратитесь к администрации");
-                        }*/
-
                     } else {
                         errorIdOrderLabel.setText("Введите число в поле id заказов!!!");
                     }
-
                 } else {
                     errorIdOrderLabel.setText("Запольните поля!!!");
                 }

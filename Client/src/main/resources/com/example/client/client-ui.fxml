@@ -19,7 +19,7 @@
             <tabs>
                 <Tab fx:id="u1" text="toursU1">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="796.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="796.0" style="-fx-background-color: #ffffff;">
                             <children>
                                 <TabPane fx:id="secondTabPane" layoutX="1.0" layoutY="52.0" prefHeight="638.0" prefWidth="852.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-2.3999999999999773" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-0.20000000000004547" AnchorPane.topAnchor="52.0">
                                     <tabs>
@@ -43,15 +43,10 @@
                                              </columns>
                                           </TableView>
                                           <Label fx:id="errorOrderTour" alignment="CENTER" layoutX="463.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" textFill="RED" />
-                                          <Button fx:id="tourViewBtn" alignment="CENTER" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#tourViewMethod" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Посматреть" textFill="WHITE" />
+                                          <Button fx:id="tourViewBtn" alignment="CENTER" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #2E37FF;" text="Посматреть" textFill="WHITE" />
                                           <Line endX="-100.00001525878906" endY="23.00000762939453" layoutX="240.0" layoutY="15.0" startX="-100.0" />
                                                     </children>
                                                 </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab fx:id="uu2" text="sea tour">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                             </content>
                                         </Tab>
                                     </tabs>
@@ -61,6 +56,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
+                        <Button fx:id="closeBtn" layoutX="804.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" style="-fx-background-color: #ffffff;" text="X" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -133,7 +129,7 @@
                               <TableColumn fx:id="departureDateTicketTableColumn" prefWidth="161.599853515625" text="Дата вылита" />
                            </columns>
                         </TableView>
-                        <Button fx:id="ticketClientViewBtn" layoutX="39.0" layoutY="98.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #2E37FF;" text="Посматреть " textFill="WHITE">
+                        <Button fx:id="ticketClientViewBtn" layoutX="37.0" layoutY="113.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #2E37FF;" text="Посматреть " textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -167,7 +163,7 @@
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/landscape.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="myTicketBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" onAction="#myTicket" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои билеты" textFill="WHITE" />
+                <Button fx:id="myTicketBtn" layoutX="43.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои билеты" textFill="WHITE" />
                 <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="29.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/passport.png" />
@@ -179,7 +175,7 @@
                         <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/user2.jpg" />
                     </image>
                 </ImageView>
-                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="371.0" mnemonicParsing="false" onAction="#myOrder" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои Заказы" textFill="WHITE" />
+                <Button fx:id="myOrderBtn" layoutX="43.0" layoutY="371.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="138.0" style="-fx-background-color: #506FFF;" text="Мои Заказы" textFill="WHITE" />
             <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="29.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/admin/Desktop/KursagSem5/Client/src/main/java/com/example/icons/icon-basket.png" />

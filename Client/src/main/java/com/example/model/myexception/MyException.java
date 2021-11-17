@@ -1,15 +1,14 @@
 package com.example.model.myexception;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Ataev Ismayll
  * on class create logger for write error
  * логер должен создоватся в проекте 1 раз
  */
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MyException extends Exception {
 

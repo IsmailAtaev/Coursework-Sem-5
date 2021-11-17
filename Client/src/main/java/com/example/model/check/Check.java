@@ -5,7 +5,7 @@ package com.example.model.check;
  * @author Ataev Ismayll
  * class Check intended for check String and Integer.
  * All methods static.
- * I things, what is use thread then will bad ideas or call methods for static. :-)
+ * I thing, what is use thread then will bad ideas or call methods for static. :-)
  * */
 
 public class Check {

@@ -121,7 +121,6 @@ public class AdminController implements IController {
             case "viewUser": {
                 connect.writeObjList(idbHandler.getList());
                 break;
-                //TODO i have more db handler and i can getter witch one ticket order client tour more )
             }
             case "viewTicket": {
                 connect.writeObjList(idbHandlerTicket.getList());
@@ -135,17 +134,12 @@ public class AdminController implements IController {
                 connect.writeObjList(idbHandlerOrder.getList());
                 break;
             }
-
         }
-
-
-        System.out.println("admin");
     }
 
     @Override
     public void start() {
         System.out.println("start admin controller");
-
         try {
             while (true) {
                 switch (connect.readLine()) {

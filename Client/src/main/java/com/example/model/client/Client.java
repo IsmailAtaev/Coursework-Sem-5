@@ -8,19 +8,19 @@ public class Client implements Serializable {
 
     private int id;
 
-    private String FIO;//
+    private String FIO;
 
-    private String clientCode;//
+    private String clientCode;
 
     private String passportId;
 
-    private String mail; //
+    private String mail;
 
-    private String mobileNumber; //
+    private String mobileNumber;
 
-    private String login;//
+    private String login;
 
-    private String password;//
+    private String password;
 
     private int flag;
 

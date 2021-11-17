@@ -11,7 +11,6 @@ import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,7 +21,6 @@ public class ClientController implements IController {
     private IDBHandler idbHandlerTour = new DBHTour();
     private IDBHandler idbHandlerOrder = new DBHOrder();
     private IDBHandler idbHandlerTicket = new DBHTicket();
-
 
 
     @Override
@@ -60,22 +58,7 @@ public class ClientController implements IController {
                 break;
             }
             case "viewTicket": {
-                Client c = (Client) connect.readObj();
-                ArrayList<Ticket> tickets = (ArrayList<Ticket>) idbHandlerTicket.getList().clone();
-                ArrayList<Ticket> t = new ArrayList<>();
-                for (Ticket ticket : tickets) {
-                    if (c.getClientCode().equals(ticket.getUserCode())) {
-                        t.add(ticket);
-                    }
-                }
-
-                if (!t.isEmpty()) {
-                    ArrayList<Object> tt = (ArrayList<Object>) t.clone();
-                    connect.writeLine("true");
-                    connect.writeObjList(tt);
-                } else {
-                    connect.writeLine("false");
-                }
+                connect.writeObjList(idbHandlerTicket.getList());
                 break;
             }
             case "viewTour": {
@@ -103,10 +86,6 @@ public class ClientController implements IController {
                         this.deleteDate(connect.readLine());
                         break;
                     }
-                    case "search": {
-                        //     this.search(connect.readLine());
-                        break;
-                    }
                     case "edit": {
                         this.editDate(connect.readLine());
                         break;
@@ -124,16 +103,42 @@ public class ClientController implements IController {
     }
 
 
-    private boolean makeOrderTour(String tourCode, Client client, ArrayList<Tour> tourArrayList) {
-        for (Tour t : tourArrayList) {
+    private boolean makeOrderTour(String tourCode, Client client, ArrayList<Tour> tours) {
+        boolean flagCheckTour = checkTour(tourCode, tours);
+        if (flagCheckTour) {
+            for (Tour t : tours) {
+                if (tourCode.equals(t.getTourCode())) {
+                    Order order = new Order();
+                    order.setClientCode(client.getClientCode());
+                    order.setTourCode(t.getTourCode());
+                    boolean flagAddOrder = idbHandlerOrder.addObj(order);
+                    System.out.println("i am flag add order if ==> " + flagAddOrder);
+                    return flagAddOrder;
+                }
+            }
+        } else {
+            return false;
+        }
+        /*for (Tour t : tourArrayList) {
             if (tourCode.equals(t.getTourCode())) {
                 Order order = new Order();
                 order.setClientCode(client.getClientCode());
                 order.setTourCode(t.getTourCode());
                 boolean flagAddOrder = idbHandlerOrder.addObj(order);
+                System.out.println("i am flag add order if ==> " + flagAddOrder);
                 return flagAddOrder;
+            }
+        }*/
+        return false;
+    }
+
+    private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
+        for (Tour t : tours) {
+            if (tourCode.equals(t.getTourCode())) {
+                return true;
             }
         }
         return false;
     }
+
 }

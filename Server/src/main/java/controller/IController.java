@@ -4,8 +4,6 @@ import java.io.IOException;
 
 public interface IController {
 
-
-
     void saveDate(String msg) throws IOException, ClassNotFoundException;
 
     void editDate(String msg) throws IOException, ClassNotFoundException;
@@ -15,6 +13,4 @@ public interface IController {
     void getDate(String msg) throws IOException, ClassNotFoundException;
 
     void start();
-
-
 }

@@ -10,7 +10,6 @@ import java.net.ServerSocket;
 public class MyThread extends Thread {
 
     private ServerSocket serverSocket;
-
     public MyThread(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }

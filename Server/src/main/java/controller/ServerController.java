@@ -81,6 +81,9 @@ public class ServerController {
                         }
                         break;
                     }
+                    default:
+                        new MyException("class ServerController switch(connect.readLine()) error");
+                        break;
                 }
             }
         } catch (Exception e) {

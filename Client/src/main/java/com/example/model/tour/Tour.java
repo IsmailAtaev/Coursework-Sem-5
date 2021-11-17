@@ -1,15 +1,14 @@
 package com.example.model.tour;
 
-import com.example.model.iinformation.IInformation;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author Ataeyv Ismayyl
+ * @author Ataeyv I.M.
+ * @implNote Serializable
  * */
 
-public class Tour  implements IInformation, Serializable {
+public class Tour  implements Serializable {
 
     private int id;
 
@@ -149,10 +148,5 @@ public class Tour  implements IInformation, Serializable {
                 ", tourName='" + tourName + '\'' +
                 ", tourType='" + tourType + '\'' +
                 '}';
-    }
-
-    @Override
-    public void getToString() {
-        System.out.println(toString());
     }
 }

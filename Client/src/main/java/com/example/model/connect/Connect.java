@@ -1,14 +1,15 @@
 package com.example.model.connect;
 
+import com.example.model.myexception.MyException;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
 /**
  * @author Atayev.I.M
  * */
+
 public class Connect implements Closeable {
 
     private Socket socket;
@@ -72,6 +73,14 @@ public class Connect implements Closeable {
         return bufferedReader.readLine();
     }
 
+    public Object readObj() throws IOException, ClassNotFoundException {
+        return ois.readObject();
+    }
+
+    public void writeObj(Object obj) throws IOException {
+        oos.writeObject(obj);
+    }
+
     public ArrayList<Object> readObjList() throws IOException, ClassNotFoundException {
         return (ArrayList<Object>) ois.readObject();
     }
@@ -81,24 +90,16 @@ public class Connect implements Closeable {
         oos.flush();
     }
 
-    public Object readObj() throws IOException, ClassNotFoundException {
-        return  ois.readObject();
-    }
-
-    public void writeObj(Object obj) throws IOException {
-        oos.writeObject(obj);
-    }
-
     @Override
-    public void close(){
+    public void close() {
         try {
             bufferedReader.close();
             bufferedWriter.close();
             oos.close();
             ois.close();
-            socket.close();// on comment edilendi isma dosty
+            socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            new MyException("Class Connect ",e);
         }
     }
 }

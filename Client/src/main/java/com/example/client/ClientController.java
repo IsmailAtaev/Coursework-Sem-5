@@ -29,6 +29,8 @@ public class ClientController {
     private URL location;
 
     @FXML
+    private Button closeBtn;
+    @FXML
     private TabPane glvTabPane;
     @FXML
     private Tab u1;
@@ -54,12 +56,13 @@ public class ClientController {
     private Button myOrderBtn;
     @FXML
     private Button profileBtn;
-
+    @FXML
+    private Button myTicketBtn;
 
 
     /**
-     *Ticket
-     * */
+     * Ticket
+     */
     @FXML
     private Button ticketClientViewBtn;
     @FXML
@@ -80,7 +83,6 @@ public class ClientController {
     private TableColumn<Ticket, String> arrivalPointTicketTableColumn;
     @FXML
     private TableColumn<Ticket, String> departureDateTicketTableColumn;
-
 
 
     /**
@@ -134,14 +136,33 @@ public class ClientController {
 
 
     @FXML
+    private Button ticketClientViewClearBtn;
+
+    @FXML
     void initialize() {
         this.profile = MainController.client;
         System.out.println(profile.toString());
+
+        closeBtn.setOnAction(ActionEvent -> {
+            connect.close();
+            System.exit(2);
+        });
 
         toursBtn.setOnAction(ActionEvent -> {
             errorOrderTour.setText("");
             glvTabPane.getSelectionModel().select(u1);
         });
+
+        myTicketBtn.setOnAction(ActionEvent ->{
+            glvTabPane.getSelectionModel().select(u3);
+        });
+
+        myOrderBtn.setOnAction(ActionEvent -> {
+            glvTabPane.getSelectionModel().select(u4);
+        });
+
+
+
 
         /**
          * Профил пользователя
@@ -181,6 +202,7 @@ public class ClientController {
                     } else {
                         errorOrderTour.setText("ошибка в работе");
                     }
+                    flagOrderAddOrNot = "";
                 } else {
                     Shake shakeOrderTour = new Shake(inputTourCodeMakeOrderField);
                     shakeOrderTour.playAnim();
@@ -194,13 +216,47 @@ public class ClientController {
 
         ticketClientViewBtn.setOnAction(ActionEvent -> {
             try {
+                ArrayList<Ticket> tickets = new ArrayList<>();
+
                 connect.writeLine("view");
                 connect.writeLine("viewTicket");
-                connect.writeObj(profile);
+                ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
+
+                String clientCode = profile.getClientCode();
+
+                for (Ticket t : ticketArrayList) {
+                    if (clientCode.equals(t.getUserCode())) {
+                        tickets.add(t);
+                    }
+                }
+
+                if (tickets.isEmpty()) {
+                    System.out.println(tickets.isEmpty() + " i am client ticket");
+                } else {
+                    ObservableList<Ticket> observableList = FXCollections.observableArrayList(tickets);
+                    ticketTableColumn.setItems(observableList);
+                    ticketTableColumn.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+                    ticketTableColumn.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("ticketCode"));
+                    ticketTableColumn.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("userCode"));
+                    ticketTableColumn.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("transportType"));
+                    ticketTableColumn.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("departurePoint"));
+                    ticketTableColumn.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("arrivalPoint"));
+                    ticketTableColumn.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("departureData"));
+                }
+
+
+              /*  connect.writeObj(profile);
                 String msg = connect.readLine();
-                if(msg.equals("true")){
+                if (msg.equals("true")) {
                     ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
                     ObservableList<Ticket> observableList = FXCollections.observableArrayList(ticketArrayList);
+
+                    System.out.println("======================================");
+                   for (Ticket t : ticketArrayList){
+                       System.out.println(t.toString());
+                   }
+                    System.out.println("=========================================");
+
                     ticketTableColumn.setItems(observableList);
                     ticketTableColumn.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
                     ticketTableColumn.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("ticketCode"));
@@ -211,46 +267,33 @@ public class ClientController {
                     ticketTableColumn.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("departureData"));
                 } else {
                     System.out.println("do not ticket your profile");
-                }
-
+                }*/
             } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
             }
 
         });
 
+        tourViewBtn.setOnAction(ActionEvent -> {
+            try {
+                connect.writeLine("view");
+                connect.writeLine("viewTour");
+                ArrayList<Tour> tourArrayList = (ArrayList<Tour>) connect.readObjList().clone();
+                ObservableList<Tour> observableList = FXCollections.observableArrayList(tourArrayList);
+                tabViewTours.setItems(observableList);
+                tabViewTours.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("countryName"));
+                tabViewTours.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("cityName"));
+                tabViewTours.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("price"));
+                tabViewTours.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("duration"));
+                tabViewTours.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("tourCode"));
+                tabViewTours.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("tourDate"));
+                tabViewTours.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("tourName"));
+                tabViewTours.getColumns().get(7).setCellValueFactory(new PropertyValueFactory("tourType"));
+            } catch (IOException | ClassNotFoundException e) {
+                new MyException(e);
+            }
+        });
 
-    }
 
-
-    @FXML
-    void tourViewMethod(ActionEvent event) {
-        try {
-            connect.writeLine("view");
-            connect.writeLine("viewTour");
-            ArrayList<Tour> tourArrayList = (ArrayList<Tour>) connect.readObjList().clone();
-            ObservableList<Tour> observableList = FXCollections.observableArrayList(tourArrayList);
-            tabViewTours.setItems(observableList);
-            tabViewTours.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("countryName"));
-            tabViewTours.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("cityName"));
-            tabViewTours.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("price"));
-            tabViewTours.getColumns().get(3).setCellValueFactory(new PropertyValueFactory("duration"));
-            tabViewTours.getColumns().get(4).setCellValueFactory(new PropertyValueFactory("tourCode"));
-            tabViewTours.getColumns().get(5).setCellValueFactory(new PropertyValueFactory("tourDate"));
-            tabViewTours.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("tourName"));
-            tabViewTours.getColumns().get(7).setCellValueFactory(new PropertyValueFactory("tourType"));
-        } catch (IOException | ClassNotFoundException e) {
-            new MyException(e);
-        }
-    }
-
-    @FXML
-    void myTicket(ActionEvent event) {
-        glvTabPane.getSelectionModel().select(u3);
-    }
-
-    @FXML
-    void myOrder(ActionEvent event) {
-        glvTabPane.getSelectionModel().select(u4);
     }
 }

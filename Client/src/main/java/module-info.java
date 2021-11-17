@@ -28,5 +28,4 @@ module com.example.client {
 
     opens com.example.model.ticket to javafx.fxml;
     exports com.example.model.ticket;
-
 }

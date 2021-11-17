@@ -1,14 +1,11 @@
 package model.bd.dbhclient;
 
 import com.example.model.client.Client;
-import com.example.model.iinformation.IInformation;
 import model.bd.idbhandler.IDBHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DBHClientTest {
 
