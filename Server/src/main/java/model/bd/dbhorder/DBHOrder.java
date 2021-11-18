@@ -1,20 +1,19 @@
 package model.bd.dbhorder;
 
-import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
-import com.example.model.ticket.Ticket;
 import model.bd.idbhandler.IDBHandler;
-import model.configs.clientBD.ConstClient;
 import model.configs.orderBD.ConstOrder;
-import model.configs.ticketBD.ConstTicket;
-import model.configs.tourBD.ConstTour;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+/**
+ * @author Ataeyv I.M.
+ * @implNote IDBHandler
+ * */
 
 public class DBHOrder implements IDBHandler {
 

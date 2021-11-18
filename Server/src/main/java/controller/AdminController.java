@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class AdminController implements IController {
 
+    static int anInt;
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
@@ -129,9 +130,11 @@ public class AdminController implements IController {
 
     @Override
     public void start() {
+        ++anInt;
         System.out.println("start admin controller");
         try {
             while (true) {
+                System.out.println("while true admin controller" + anInt);
                 switch (connect.readLine()) {
                     case "view": {
                         this.getDate(connect.readLine());
@@ -153,8 +156,12 @@ public class AdminController implements IController {
                         this.editDate(connect.readLine());
                         break;
                     }
+                    case "close": {
+                        connect.close();
+                        return;
+                    }
                     default:
-                        new MyException("поличичли что-то не то ");
+                        new MyException("поличичли что-то не то  то client controller ");
                         break;
                 }
             }

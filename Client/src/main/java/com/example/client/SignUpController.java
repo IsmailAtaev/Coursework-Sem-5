@@ -7,6 +7,7 @@ import com.example.model.animation.Shake;
 import com.example.model.check.Check;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
+import com.example.model.myexception.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -75,7 +76,6 @@ public class SignUpController {
                 int a = 100;
                 int b = 1000;
                 int x = a + (int) (Math.random() * ((b - a) + 1));
-                System.out.println("random = " + x);
                 client.setFIO(fio);
                 client.setClientCode("C" + String.valueOf(x));
                 client.setMobileNumber(phoneNumber);
@@ -105,7 +105,7 @@ public class SignUpController {
                 shakePassportId.playAnim();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+           new MyException(e);
         }
     }
 

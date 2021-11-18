@@ -17,8 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * @author Ataeyv I.M. (ataewisma@gmail.com)
@@ -29,14 +31,10 @@ public class AdminController {
     private Client clientSearch;
     private String flagSearchClient = "false";
     private Connect connect = MainController.connect;
-
-
     @FXML
     private ResourceBundle resources;
     @FXML
     private URL location;
-
-
     @FXML
     private TabPane glavnyPane;
     @FXML
@@ -52,7 +50,6 @@ public class AdminController {
     @FXML
     private Button closeBtn;
 
-
     @FXML
     private Button usersBtn;
     @FXML
@@ -66,10 +63,9 @@ public class AdminController {
     @FXML
     private Button addUserBtn;
 
-
     /**
      * Ticket
-     * */
+     */
     @FXML
     private Button ticketViewBtn;
     @FXML
@@ -89,15 +85,10 @@ public class AdminController {
     @FXML
     private TableColumn<Ticket, String> departureDateTicketTableColumn;
 
-
-    
     /**
      * Order
      */
-
     private ArrayList<Order> orderArrayList = new ArrayList<>();
-
-
     @FXML
     private TableView<Order> tabViewOrders;
     @FXML
@@ -107,11 +98,9 @@ public class AdminController {
     @FXML
     private TableColumn<Order, String> orderTourCodeTabColumn;
 
-
     /**
      * Tour
      */
-
     @FXML
     private Button orderBtn;
     @FXML
@@ -147,7 +136,6 @@ public class AdminController {
     private TableColumn<Tour, String> nameTourTabColumn;
     @FXML
     private TableColumn<Tour, String> typeTourTabColumn;
-
 
     /**
      * Client and user
@@ -192,7 +180,6 @@ public class AdminController {
     @FXML
     private TextField clientCodeDeleteField;
 
-
     @FXML
     private Label outPutErrorAddUserLabel;
     @FXML
@@ -205,7 +192,6 @@ public class AdminController {
     /**
      * edit table
      */
-
     @FXML
     private TextField signUpSearchFIOField;
     @FXML
@@ -233,17 +219,19 @@ public class AdminController {
     @FXML
     private Button editBtn;
 
-
-
     private ArrayList<Tour> tourArrayList = new ArrayList<>();
-
 
     @FXML
     void initialize() {
 
-        closeBtn.setOnAction(ActionEvent ->{
-            connect.close();
-            System.exit(1);
+        closeBtn.setOnAction(ActionEvent -> {
+            try {
+                connect.writeLine("close");
+                connect.close();
+                System.exit(1);
+            } catch (IOException e) {
+                new MyException(e);
+            }
         });
 
         usersBtn.setOnAction(actionEvent -> {
@@ -265,7 +253,6 @@ public class AdminController {
             putText4.setText("Заказы");
             glavnyPane.getSelectionModel().select(u4);
         });
-
 
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
@@ -496,7 +483,6 @@ public class AdminController {
             String mobileNumber = signUpEditMobileNumberField.getText().trim();
             String flag = signUpEditFlagField.getText().trim();
 
-
             if (this.flagSearchClient.equals("true") && clientSearch != null
                     && Check.isString(fio) && Check.isString(clientCode)
                     && Check.isString(passportId) && Check.isString(mail)
@@ -539,10 +525,8 @@ public class AdminController {
                         this.errorEditLabel.setText("пользователь не изменён ошибка на сервере ");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new MyException(e);
                 }
-
-
             } else {
                 shakeFIO.playAnim();
                 shakeClientCode.playAnim();
@@ -580,11 +564,6 @@ public class AdminController {
     }
 
     @FXML
-    void addTour(ActionEvent event) {
-        new InputDialog(event, "add-tour.fxml", 530, 475);
-    }
-
-    @FXML
     void deleteTour(ActionEvent event) {
         try {
             String flagDeleteTourServer = null;
@@ -595,7 +574,7 @@ public class AdminController {
                 connect.writeLine(id);
                 flagDeleteTourServer = connect.readLine();
 
-                if(flagDeleteTourServer.equals("true")){
+                if (flagDeleteTourServer.equals("true")) {
                     errorTourDeleteId.setText("Тур успешно удален");
                 } else {
                     errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
@@ -651,7 +630,18 @@ public class AdminController {
     }
 
     @FXML
-    void checkAndCreateTicket(ActionEvent event){
-        new InputDialog(event,"check-create-ticket.fxml",530, 475);
+    void addTour(ActionEvent event) {
+        new InputDialog(event, "add-tour.fxml", 530, 475);
+    }
+
+    @FXML
+    void checkAndCreateTicket(ActionEvent event) {
+        new InputDialog(event, "check-create-ticket.fxml", 530, 475);
+    }
+
+    private void closeStage(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

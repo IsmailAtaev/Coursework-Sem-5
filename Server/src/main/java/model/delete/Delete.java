@@ -1,8 +1,10 @@
 package model.delete;
 
 import com.example.model.client.Client;
+import com.example.model.order.Order;
 import com.example.model.tour.Tour;
 import model.bd.dbhclient.DBHClient;
+import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import java.util.ArrayList;
@@ -11,6 +13,17 @@ public class Delete {
 
     private IDBHandler idbHandlerClient = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
+    private IDBHandler idbHandlerOrder = new DBHOrder();
+
+    public boolean deleteOrder(int id,ArrayList<Object> objects) {
+        ArrayList<Order> orders = (ArrayList<Order>) objects.clone();
+        for (Order o : orders) {
+            if (id == o.getId()) {
+                return idbHandlerOrder.deleteObj(o);
+            }
+        }
+        return false;
+    }
 
     public boolean deleteTour(int id, ArrayList<Object> objects) {
         ArrayList<Tour> tours = (ArrayList<Tour>) objects.clone();

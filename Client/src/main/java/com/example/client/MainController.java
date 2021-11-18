@@ -21,8 +21,8 @@ import javafx.stage.Stage;
 public class MainController {
 
     public static Connect connect;
-    public static Client client;
 
+    public static Client client;
 
     @FXML
     private ResourceBundle resources;
@@ -36,10 +36,6 @@ public class MainController {
     @FXML
     private PasswordField password_field;
 
-
-    /**
-     * Button
-     */
     @FXML
     private Button authSignInButton;
 
@@ -48,7 +44,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 1122);
+        connect = new Connect("127.0.0.1", 1112);
     }
 
     @FXML
@@ -64,21 +60,29 @@ public class MainController {
                 connect.writeLine(pass);
 
                 String flag = connect.readLine();
+
                 String flagAdminOrClient = connect.readLine();
 
                 if (flag.equals("true")) {
 
                     System.out.println(flag);
+                    System.out.println(flagAdminOrClient);
+
                     if (flagAdminOrClient.equals("adminUI")) {
 
+                        System.out.println("admin");
                         openNewScene("admin-ui.fxml");
                         System.out.println(flagAdminOrClient);
+
                     } else if (flagAdminOrClient.equals("clientUI")) {
-                        client = (Client) connect.readObj();
+                        Client c = (Client) connect.readObj();
+                        client = c;
+                        System.out.println("client");
                         openNewScene("client-ui.fxml");
                         System.out.println(flagAdminOrClient);
+
                     } else {
-                        new MyException("do not user ");
+                        System.out.println("do not user ");
                     }
                 } else if (flag.equals("false")) {
                     Shake shakeLogin = new Shake(login_field);
@@ -88,28 +92,27 @@ public class MainController {
                 }
 
             } catch (IOException e) {
-                e.getMessage();
+                new MyException(e);
             } catch (ClassNotFoundException e) {
-                e.getMessage();
+                new MyException(e);
             }
         });
     }
 
     public void openNewScene(String window) {
-        loginSignUpButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
         try {
+            loginSignUpButton.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(window));
             loader.load();
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            new MyException(e);
         }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
     }
-
 
     public void getOpenSignUp(ActionEvent actionEvent) {
         new InputDialog(actionEvent, "sign-up-ui.fxml");

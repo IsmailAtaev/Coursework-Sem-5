@@ -4,18 +4,19 @@ import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
-import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
+import model.delete.Delete;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientController implements IController {
 
+    static int anInt;
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
@@ -29,9 +30,8 @@ public class ClientController implements IController {
             case "orderTour": {
                 String tourCode = connect.readLine();
                 Client client = (Client) connect.readObj();
-                ArrayList<Tour> tourArrayList = (ArrayList<Tour>) idbHandlerTour.getList().clone();
-                boolean flagAddOrder = makeOrderTour(tourCode, client, tourArrayList);
-                if (flagAddOrder) {
+                System.out.println("order client -> " + client);
+                if (makeOrderTour(tourCode, client, idbHandlerTour.getList())) {
                     connect.writeLine("true");
                 } else {
                     connect.writeLine("false");
@@ -48,6 +48,18 @@ public class ClientController implements IController {
 
     @Override
     public void deleteDate(String msg) throws IOException, ClassNotFoundException {
+        switch (msg) {
+            case "deleteOrder": {
+                String id = connect.readLine();
+                Delete delete = new Delete();
+                if (delete.deleteOrder(Integer.parseInt(id), idbHandlerOrder.getList())) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -65,14 +77,30 @@ public class ClientController implements IController {
                 connect.writeObjList(idbHandlerTour.getList());
                 break;
             }
+            case "viewOrder": {
+                final String clientCode = connect.readLine();
+                boolean flagOrder = checkOrderClient(clientCode, idbHandlerOrder.getList());
+                if (flagOrder) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+
+                if (flagOrder) {
+                    ArrayList<Object> objects = getClientOrder(clientCode, idbHandlerOrder.getList());
+                    connect.writeObjList(objects);
+                }
+            }
         }
     }
 
     @Override
     public void start() {
+        ++anInt;
         System.out.println("start client controller");
         try {
             while (true) {
+                System.out.println("while true client controller" + anInt);
                 switch (connect.readLine()) {
                     case "view": {
                         this.getDate(connect.readLine());
@@ -90,8 +118,12 @@ public class ClientController implements IController {
                         this.editDate(connect.readLine());
                         break;
                     }
+                    case "close": {
+                        connect.close();
+                        return;
+                    }
                     default:
-                        new MyException("поличичли что-то не то ");
+                        new MyException("поличичли что-то не то client controller ");
                         break;
                 }
             }
@@ -103,38 +135,45 @@ public class ClientController implements IController {
     }
 
 
-    private boolean makeOrderTour(String tourCode, Client client, ArrayList<Tour> tours) {
-        boolean flagCheckTour = checkTour(tourCode, tours);
-        if (flagCheckTour) {
+    private boolean makeOrderTour(String tourCode, Client client, ArrayList<Object> objects) {
+        ArrayList<Tour> tours = (ArrayList<Tour>) idbHandlerTour.getList().clone();
+        if (checkTour(tourCode, tours)) {
             for (Tour t : tours) {
                 if (tourCode.equals(t.getTourCode())) {
                     Order order = new Order();
                     order.setClientCode(client.getClientCode());
                     order.setTourCode(t.getTourCode());
-                    boolean flagAddOrder = idbHandlerOrder.addObj(order);
-                    System.out.println("i am flag add order if ==> " + flagAddOrder);
-                    return flagAddOrder;
+                    return idbHandlerOrder.addObj(order);
                 }
             }
-        } else {
-            return false;
         }
-        /*for (Tour t : tourArrayList) {
-            if (tourCode.equals(t.getTourCode())) {
-                Order order = new Order();
-                order.setClientCode(client.getClientCode());
-                order.setTourCode(t.getTourCode());
-                boolean flagAddOrder = idbHandlerOrder.addObj(order);
-                System.out.println("i am flag add order if ==> " + flagAddOrder);
-                return flagAddOrder;
-            }
-        }*/
         return false;
     }
 
     private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
         for (Tour t : tours) {
             if (tourCode.equals(t.getTourCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private ArrayList<Object> getClientOrder(String clientCode,ArrayList<Object> objects) {
+        ArrayList<Order> orders = new ArrayList<>();
+        ArrayList<Order> orderArrayList = (ArrayList<Order>) objects.clone();
+        for (Order o : orderArrayList) {
+            if (clientCode.equals(o.getClientCode())) {
+                orders.add(o);
+            }
+        }
+        return (ArrayList<Object>) orders.clone();
+    }
+
+    private boolean checkOrderClient(String clientCode, ArrayList<Object> objects) {
+        ArrayList<Order> orders = (ArrayList<Order>) objects.clone();
+        for (Order o : orders) {
+            if (clientCode.equals(o.getClientCode())) {
                 return true;
             }
         }

@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DBHClient implements IDBHandler {
+
     @Override
     public boolean addObj(Object obj) {
         try {

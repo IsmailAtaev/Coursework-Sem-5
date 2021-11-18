@@ -6,16 +6,17 @@ import java.net.ServerSocket;
 
 public class Main {
 
-    public static int port = 1122;
+    public static int port = 1112;
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
+                Object ob = new Object();
                 Thread.sleep(1000);
-                MyThread myThread = new MyThread(serverSocket);
+                MyThread myThread = new MyThread(serverSocket,ob);
                 myThread.start();
-                myThread.join();
+               //  myThread.join();
             }
         } catch (IOException e) {
             e.printStackTrace();

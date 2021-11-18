@@ -41,27 +41,33 @@ public class ServerController {
                         String login = connect.readLine();
                         String pass = connect.readLine();
                         ArrayList<Client> clients = (ArrayList<Client>) idbHandler.getList().clone();
-                        System.out.println(clients.toString());
                         int i = 0;
                         for (Client client : clients) {
                             if (pass.equals(client.getPassword()) && login.equals(client.getLogin())) {
                                 flag = false;
                                 connect.writeLine("true");
-                                if (client.getFlag() == 1) {
-                                    connect.writeLine("adminUI");
 
+                                if (client.getFlag() == 1) {
+
+                                    connect.writeLine("adminUI");
                                     IController iController = FactoryController.getType("admin");
                                     iController.start();
+
                                 } else if (client.getFlag() == 2) {
+
                                     connect.writeLine("clientUI");
                                     connect.writeObj(client);
+
                                     IController iController = FactoryController.getType("client");
                                     iController.start();
+
                                 } else {
+
                                     connect.writeLine("do not flags please view database and class Client");
                                     new MyException("do not flags please view database and class Client");
+
                                 }
-                                break;
+                                //break;
                             } else {
                                 ++i;
                             }
