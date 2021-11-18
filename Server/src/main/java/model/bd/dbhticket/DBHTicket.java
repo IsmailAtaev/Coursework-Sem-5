@@ -75,7 +75,16 @@ public class DBHTicket implements IDBHandler {
 
     @Override
     public boolean deleteObj(Object obj) {
-        return false;
+        try {
+            Ticket ticket = (Ticket) obj;
+            String DELETE = "DELETE FROM " + ConstTicket.TICKET_TABLE + " WHERE " + ConstTicket.TICKET_ID + "='" + ticket.getId() + "'; ";
+            PreparedStatement preparedStatementDelete = getDbConnection().prepareStatement(DELETE);
+            preparedStatementDelete.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
     }
 
     @Override

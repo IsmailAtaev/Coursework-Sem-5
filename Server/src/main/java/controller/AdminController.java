@@ -12,7 +12,6 @@ import model.bd.dbhticket.DBHTicket;
 import model.bd.dbhtour.DBHTour;
 import model.bd.idbhandler.IDBHandler;
 import model.delete.Delete;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,7 +22,6 @@ public class AdminController implements IController {
     private IDBHandler idbHandlerTour = new DBHTour();
     private IDBHandler idbHandlerOrder = new DBHOrder();
     private IDBHandler idbHandlerTicket = new DBHTicket();
-
 
     @Override
     public void saveDate(String msg) throws IOException, ClassNotFoundException {
@@ -305,7 +303,9 @@ public class AdminController implements IController {
                             ticket.setDepartureData(t.getTourDate());
                             ticket.setArrivalPoint(t.getCountryName() + "-" + t.getCityName());
                             flagAddTicket = idbHandlerTicket.addObj(ticket);
-                            return flagAddTicket;
+                             boolean ff = idbHandlerOrder.deleteObj(o);
+                             System.out.println("i am delete order flag -> " + ff);
+                             return flagAddTicket;
                         }
                     }
                 } else {
@@ -315,7 +315,5 @@ public class AdminController implements IController {
         }
         return false;
     }
-
-
 
 }

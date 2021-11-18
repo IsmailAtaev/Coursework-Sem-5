@@ -29,6 +29,9 @@ public class ClientController {
     private URL location;
 
     @FXML
+    private Label putTextULabel;
+
+    @FXML
     private Button closeBtn;
     @FXML
     private TabPane glvTabPane;
@@ -150,14 +153,17 @@ public class ClientController {
 
         toursBtn.setOnAction(ActionEvent -> {
             errorOrderTour.setText("");
+            putTextULabel.setText("Туры");
             glvTabPane.getSelectionModel().select(u1);
         });
 
         myTicketBtn.setOnAction(ActionEvent ->{
+            putTextULabel.setText("Мои Билеты");
             glvTabPane.getSelectionModel().select(u3);
         });
 
         myOrderBtn.setOnAction(ActionEvent -> {
+            putTextULabel.setText("Мои Заказы");
             glvTabPane.getSelectionModel().select(u4);
         });
 
@@ -169,6 +175,7 @@ public class ClientController {
          * */
         profileBtn.setOnAction(ActionEvent -> {
             errorOrderTour.setText("");
+            putTextULabel.setText("Профил");
             glvTabPane.getSelectionModel().select(u2);
 
             signUpFIOField.setText(profile.getFIO());

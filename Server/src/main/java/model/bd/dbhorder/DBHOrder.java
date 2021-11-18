@@ -3,9 +3,11 @@ package model.bd.dbhorder;
 import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
+import com.example.model.ticket.Ticket;
 import model.bd.idbhandler.IDBHandler;
 import model.configs.clientBD.ConstClient;
 import model.configs.orderBD.ConstOrder;
+import model.configs.ticketBD.ConstTicket;
 import model.configs.tourBD.ConstTour;
 
 import java.sql.PreparedStatement;
@@ -58,7 +60,16 @@ public class DBHOrder implements IDBHandler {
 
     @Override
     public boolean deleteObj(Object obj) {
-        return false;
+        try {
+            Order order = (Order) obj;
+            String DELETE = "DELETE FROM " + ConstOrder.ORDER_TABLE + " WHERE " + ConstOrder.ORDER_ID + "='" + order.getId() + "'; ";
+            PreparedStatement preparedStatementDelete = getDbConnection().prepareStatement(DELETE);
+            preparedStatementDelete.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
     }
 
     @Override
