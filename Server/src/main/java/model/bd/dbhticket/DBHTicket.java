@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * */
 
 public class DBHTicket implements IDBHandler {
+
     @Override
     public boolean addObj(Object obj) {
         try {
@@ -45,7 +46,6 @@ public class DBHTicket implements IDBHandler {
         return true;
 
     }
-
 
     @Override
     public ArrayList<Object> getList() {

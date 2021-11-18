@@ -70,16 +70,12 @@ public class AdminController implements IController {
                 }
                 break;
             }
-
-
         }
-
     }
 
     @Override
     public void deleteDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
-
             case "deleteUser": {
                 String login = connect.readLine();
                 String pass = connect.readLine();
@@ -92,7 +88,6 @@ public class AdminController implements IController {
                 }
                 break;
             }
-
             case "deleteTour": {
                 String idTour = connect.readLine();
                 Delete delete = new Delete();
@@ -128,6 +123,10 @@ public class AdminController implements IController {
         }
     }
 
+
+
+
+
     @Override
     public void start() {
         ++anInt;
@@ -160,9 +159,10 @@ public class AdminController implements IController {
                         connect.close();
                         return;
                     }
-                    default:
+                    default: {
                         new MyException("поличичли что-то не то  то client controller ");
                         break;
+                    }
                 }
             }
         } catch (IOException e) {
@@ -171,6 +171,10 @@ public class AdminController implements IController {
             new MyException(e);
         }
     }
+
+
+
+
 
 
     private void search(String msg) throws IOException {
@@ -188,14 +192,11 @@ public class AdminController implements IController {
                         connect.writeObj(c);
                     }
                 }
-
                 if (counter == 0) {
                     connect.writeLine("false");
                 }
                 break;
             }
-
-
         }
     }
 
@@ -211,7 +212,6 @@ public class AdminController implements IController {
      * @param idOrder
      * @param ticket
      */
-
     private String makeOrder(int idOrder, Ticket ticket) {
 
         int i = 0;

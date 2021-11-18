@@ -94,6 +94,11 @@ public class ClientController implements IController {
         }
     }
 
+
+
+
+
+
     @Override
     public void start() {
         ++anInt;
@@ -122,9 +127,10 @@ public class ClientController implements IController {
                         connect.close();
                         return;
                     }
-                    default:
+                    default: {
                         new MyException("поличичли что-то не то client controller ");
                         break;
+                    }
                 }
             }
         } catch (IOException e) {
@@ -133,6 +139,11 @@ public class ClientController implements IController {
             new MyException(e);
         }
     }
+
+
+
+
+
 
 
     private boolean makeOrderTour(String tourCode, Client client, ArrayList<Object> objects) {
@@ -150,15 +161,6 @@ public class ClientController implements IController {
         return false;
     }
 
-    private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
-        for (Tour t : tours) {
-            if (tourCode.equals(t.getTourCode())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private ArrayList<Object> getClientOrder(String clientCode,ArrayList<Object> objects) {
         ArrayList<Order> orders = new ArrayList<>();
         ArrayList<Order> orderArrayList = (ArrayList<Order>) objects.clone();
@@ -168,6 +170,15 @@ public class ClientController implements IController {
             }
         }
         return (ArrayList<Object>) orders.clone();
+    }
+
+    private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
+        for (Tour t : tours) {
+            if (tourCode.equals(t.getTourCode())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkOrderClient(String clientCode, ArrayList<Object> objects) {

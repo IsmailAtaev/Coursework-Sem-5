@@ -2,7 +2,8 @@ package controller;
 
 
 /**
- * @author Ataeyv Ismayyl
+ * @author Ataeyv I.M.
+ * Factory pattern
  * */
 
 public class FactoryController {

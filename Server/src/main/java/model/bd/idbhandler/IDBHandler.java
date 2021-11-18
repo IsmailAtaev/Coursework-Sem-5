@@ -1,7 +1,6 @@
 package model.bd.idbhandler;
 
 import model.configs.constBD.Const;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,5 +24,4 @@ public interface IDBHandler {
     boolean deleteObj(Object obj);
 
     boolean editObj(Object obj);
-
 }
