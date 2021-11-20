@@ -6,7 +6,6 @@ import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
-import com.mysql.cj.CacheAdapter;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
@@ -172,7 +171,7 @@ public class AdminController implements IController {
                     }
                     default: {
                         msg = null;
-                        connect.clearConnect();
+                        //connect.clearConnect();
                         new MyException("поличичли что-то не то  то client controller ");
                         break;
                     }

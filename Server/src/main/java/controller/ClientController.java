@@ -129,7 +129,7 @@ public class ClientController implements IController {
                     }
                     default: {
                         msg = null;
-                        connect.clearConnect();
+                        //connect.clearConnect();
                         new MyException("поличичли что-то не то client controller ");
                         break;
                     }

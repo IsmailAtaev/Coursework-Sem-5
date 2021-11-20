@@ -117,7 +117,7 @@ public class MainController {
     }
 
     public void getOpenSignUp(ActionEvent actionEvent) {
-        new InputDialog(actionEvent, "sign-up-ui.fxml");
+        new InputDialog(actionEvent, "sign-up-ui.fxml",678,400);
     }
 
 

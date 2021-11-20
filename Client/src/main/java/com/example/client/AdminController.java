@@ -619,20 +619,28 @@ public class AdminController {
             try {
                 String clientCode = searchClientCodeField.getText().trim();
                 if (Check.isString(clientCode)) {
-                    connect.writeLine("search");
-                    connect.writeLine("searchClient");
-                    connect.writeLine(clientCode);
-                    final String flag = connect.readLine();
-                    if (flag.equals("true")) {
-                        ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
+
+                    connect.writeLine("view");
+                    connect.writeLine("viewOrder");
+                    ArrayList<Order> orderArrayList = (ArrayList<Order>) connect.readObjList().clone();
+                    ArrayList<Order> orders = new ArrayList<>();
+
+                    for (Order o : orderArrayList) {
+                        if (clientCode.equals(o.getClientCode())) {
+                            orders.add(o);
+                        }
+                    }
+
+                    if (orders.isEmpty()) {
+                        errorOrderPane.setText("Нету стаким заказом клиент");
+                        tabViewOrdersSearch.getItems().clear();
+                    } else {
                         ObservableList<Order> observableList = FXCollections.observableArrayList(orders);
                         tabViewOrdersSearch.setItems(observableList);
                         tabViewOrdersSearch.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
                         tabViewOrdersSearch.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
                         tabViewOrdersSearch.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
-                    } else {
-                        errorOrderPane.setText("Нету стаким заказом клиент");
-                        tabViewOrdersSearch.getItems().clear();
+                        errorOrderPane.setText("");
                     }
                 } else {
                     Shake shakeSearch = new Shake(searchClientCodeField);
@@ -640,12 +648,9 @@ public class AdminController {
                     errorOrderPane.setText("Введите код клиента");
                     tabViewOrdersSearch.getItems().clear();
                 }
-                searchClientCodeField.setText("");
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
-            } catch (ClassNotFoundException e) {
-                new MyException(e);
-            }finally {
+            } finally {
                 searchTourCodeField.setText("");
                 searchClientCodeField.setText("");
             }
@@ -655,32 +660,37 @@ public class AdminController {
             try {
                 String tourCode = searchTourCodeField.getText().trim();
                 if (Check.isString(tourCode)) {
-                    connect.writeLine("search");
-                    connect.writeLine("searchTour");
-                    connect.writeLine(tourCode);
-                    final String flag = connect.readLine();
-                    if (flag.equals("true")) {
-                        ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
+
+                    connect.writeLine("view");
+                    connect.writeLine("viewOrder");
+                    ArrayList<Order> orderArrayList = (ArrayList<Order>) connect.readObjList().clone();
+                    ArrayList<Order> orders = new ArrayList<>();
+
+                    for (Order o : orderArrayList) {
+                        if (tourCode.equals(o.getTourCode())) {
+                            orders.add(o);
+                        }
+                    }
+
+                    if (orders.isEmpty()) {
+                        errorOrderPane.setText("Нету стаким заказом тура");
+                        tabViewOrdersSearch.getItems().clear();
+                    } else {
                         ObservableList<Order> observableList = FXCollections.observableArrayList(orders);
                         tabViewOrdersSearch.setItems(observableList);
                         tabViewOrdersSearch.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
                         tabViewOrdersSearch.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
                         tabViewOrdersSearch.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
-                    } else {
                         searchTourCodeField.setText("");
-                        errorOrderPane.setText("Нету стаким заказом тура");
-                        tabViewOrdersSearch.getItems().clear();
                     }
                 } else {
                     Shake shakeSearch = new Shake(searchTourCodeField);
                     shakeSearch.playAnim();
                     errorOrderPane.setText("Введите код тура");
                 }
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
-            } catch (ClassNotFoundException e) {
-                new MyException(e);
-            }finally {
+            } finally {
                 searchTourCodeField.setText("");
                 searchClientCodeField.setText("");
             }
@@ -760,7 +770,7 @@ public class AdminController {
 
     @FXML
     void checkAndCreateTicket(ActionEvent event) {
-        new InputDialog(event, "check-create-ticket.fxml", 530, 475);
+        new InputDialog(event, "check-create-ticket.fxml", 400, 400);
     }
 
     private void closeStage(ActionEvent event) {
