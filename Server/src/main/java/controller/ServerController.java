@@ -3,6 +3,8 @@ package controller;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
+import controller.factory.FactoryController;
+import controller.factory.IController;
 import model.bd.dbhclient.DBHClient;
 import model.bd.idbhandler.IDBHandler;
 import java.net.ServerSocket;
@@ -27,14 +29,15 @@ public class ServerController {
     }
 
 
-    public synchronized void work(ServerSocket serverSocket) {
+    public void work(ServerSocket serverSocket) {
         try {
+
+            IDBHandler idbHandler = new DBHClient();
             connect = new Connect(serverSocket);
 
             System.out.println("Client connect --> " + ++countClient);
 
-            IDBHandler idbHandler = new DBHClient();
-            boolean flag = true;
+
             while (true) {
                 String req = connect.readLine();
                 switch (req) {
@@ -43,10 +46,9 @@ public class ServerController {
                         String pass = connect.readLine();
 
                         ArrayList<Client> clients = (ArrayList<Client>) idbHandler.getList().clone();
-                        int i = 0;
+
                         for (Client client : clients) {
                             if (pass.equals(client.getPassword()) && login.equals(client.getLogin())) {
-                                flag = false;
                                 connect.writeLine("true");
 
                                 if (client.getFlag() == 1) {
@@ -54,6 +56,7 @@ public class ServerController {
                                     connect.writeLine("adminUI");
                                     IController iController = FactoryController.getType("admin");
                                     iController.start();
+                                    return;
 
                                 } else if (client.getFlag() == 2) {
 
@@ -62,21 +65,16 @@ public class ServerController {
 
                                     IController iController = FactoryController.getType("client");
                                     iController.start();
+                                    return;
 
                                 } else {
-                                    connect.writeLine("do not flags please view database and class Client");
                                     new MyException("do not flags please view database and class Client");
                                     break;
                                 }
-                            } else {
-                                ++i;
                             }
                         }
-                        if (i >= clients.size()) {
-                            flag = true;
-                            connect.writeLine("false");
-                            connect.writeLine("do not in database please Sign Up!");
-                        }
+                        connect.writeLine("false");
+                        connect.writeLine("false");
                         break;
                     }
                     case "signUp": {
@@ -87,10 +85,10 @@ public class ServerController {
                         }
                         break;
                     }
-                    default:
-                        req = null;
+                    default: {
                         new MyException("class ServerController switch(connect.readLine()) error");
                         break;
+                    }
                 }
             }
         } catch (Exception e) {

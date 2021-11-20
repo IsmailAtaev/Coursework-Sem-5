@@ -14,17 +14,13 @@ import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 public class ClientController {
 
     private Connect connect = MainController.connect;
-
     private Client profile = new Client();
 
     @FXML
@@ -32,12 +28,9 @@ public class ClientController {
     @FXML
     private URL location;
 
+    /**Main components*/
     @FXML
     private Label putTextULabel;
-
-    /**
-     * main components
-     * */
     @FXML
     private Button closeBtn;
     @FXML
@@ -50,16 +43,6 @@ public class ClientController {
     private Tab u3;
     @FXML
     private Tab u4;
-
-
-    @FXML
-    private TabPane secondTabPane;
-    @FXML
-    private Tab uu1;
-    @FXML
-    private Tab uu2;
-
-
     @FXML
     private Button toursBtn;
     @FXML
@@ -70,9 +53,7 @@ public class ClientController {
     private Button myTicketBtn;
 
 
-    /**
-     * Order
-     * */
+    /**Order*/
     @FXML
     private Label errorOrderClientLabel;
     @FXML
@@ -83,42 +64,18 @@ public class ClientController {
     private Button viewOrderClientBtn;
     @FXML
     private TableView<Order> tabViewOrdersClient;
-    @FXML
-    private TableColumn<Order, Integer> idOrderTabColumn;
-    @FXML
-    private TableColumn<Order, String> orderClientCodeTabColumn;
-    @FXML
-    private TableColumn<Order, String> orderTourCodeTabColumn;
 
 
-    /**
-     * Ticket
-     */
+    /**Ticket*/
     @FXML
     private Button ticketClientViewBtn;
     @FXML
     private Button ticketViewBtn;
     @FXML
     private TableView<Ticket> ticketTableColumn;
-    @FXML
-    private TableColumn<Ticket, Integer> idTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> ticketCodeTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> clientCodeTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> typeTransportTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> departurePointTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> arrivalPointTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> departureDateTicketTableColumn;
 
 
-    /**
-     * User
-     */
+    /**User*/
     @FXML
     private TextField signUpFIOField;
     @FXML
@@ -134,10 +91,7 @@ public class ClientController {
     @FXML
     private TextField signUpPasswordField;
 
-    /**
-     * Tour
-     */
-
+    /**Tour*/
     @FXML
     private Label errorOrderTour;
     @FXML
@@ -148,22 +102,6 @@ public class ClientController {
     private Button tourViewBtn;
     @FXML
     private TableView<Tour> tabViewTours;
-    @FXML
-    private TableColumn<Tour, String> countryTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> cityTourTabColumn;
-    @FXML
-    private TableColumn<Tour, Float> priceTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> durationTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> tourCodeTabColumn;
-    @FXML
-    private TableColumn<Tour, String> dateTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> nameTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> typeTourTabColumn;
 
 
     @FXML
@@ -203,14 +141,11 @@ public class ClientController {
         });
 
 
-        /**
-         * Профил пользователя
-         * */
+        /**Профил пользователя*/
         profileBtn.setOnAction(ActionEvent -> {
             errorOrderTour.setText("");
             putTextULabel.setText("Профил");
             glvTabPane.getSelectionModel().select(u2);
-
             signUpFIOField.setText(profile.getFIO());
             signUpClientCodeField.setText(profile.getClientCode());
             signUpPassportIdField.setText(profile.getPassportId());
@@ -220,13 +155,9 @@ public class ClientController {
             signUpPasswordField.setText(profile.getPassword());
         });
 
-        /**
-         * @throws IOException
-         * Броноруем тур
-         * */
+        /**Броноруем тур*/
         makeOrderTourBtn.setOnAction(ActionEvent -> {
             try {
-                errorOrderTour.setText("");
                 String inputTourCode = inputTourCodeMakeOrderField.getText().trim();
                 if (Check.isString(inputTourCode)) {
 
@@ -244,9 +175,8 @@ public class ClientController {
                     connect.writeLine("orderTour");
                     connect.writeLine(inputTourCode);
                     connect.writeObj(client);
-
                     String flagOrderAddOrNot = connect.readLine();
-                    System.out.println(flagOrderAddOrNot + " i am flag order");
+
                     if (flagOrderAddOrNot.equals("true")) {
                         errorOrderTour.setText("Тур забронирован");
                     } else if (flagOrderAddOrNot.equals("false")) {
@@ -258,21 +188,22 @@ public class ClientController {
                 } else {
                     Shake shakeOrderTour = new Shake(inputTourCodeMakeOrderField);
                     shakeOrderTour.playAnim();
-                    errorOrderTour.setText("ведите код тура");
+                    errorOrderTour.setText("Ведите код тура");
                 }
             } catch (IOException e) {
                 new MyException(e);
+            } finally {
+                inputTourCodeMakeOrderField.setText("");
             }
-            inputTourCodeMakeOrderField.setText("");
         });
 
+        /**Билеты*/
         ticketClientViewBtn.setOnAction(ActionEvent -> {
             try {
-                ArrayList<Ticket> tickets = new ArrayList<>();
-
                 connect.writeLine("view");
                 connect.writeLine("viewTicket");
                 ArrayList<Ticket> ticketArrayList = (ArrayList<Ticket>) connect.readObjList().clone();
+                ArrayList<Ticket> tickets = new ArrayList<>();
 
                 String clientCode = profile.getClientCode();
 
@@ -283,7 +214,7 @@ public class ClientController {
                 }
 
                 if (tickets.isEmpty()) {
-                    System.out.println(tickets.isEmpty() + " i am client ticket");
+                    ticketTableColumn.getItems().clear();
                 } else {
                     ObservableList<Ticket> observableList = FXCollections.observableArrayList(tickets);
                     ticketTableColumn.setItems(observableList);
@@ -301,6 +232,7 @@ public class ClientController {
 
         });
 
+        /**Туры*/
         tourViewBtn.setOnAction(ActionEvent -> {
             try {
                 connect.writeLine("view");
@@ -321,13 +253,14 @@ public class ClientController {
             }
         });
 
+        /**Заказы*/
         viewOrderClientBtn.setOnAction(ActionEvent -> {
             try {
                 connect.writeLine("view");
                 connect.writeLine("viewOrder");
                 connect.writeLine(profile.getClientCode());
                 final String flagOrder = connect.readLine();
-                 if (flagOrder.equals("true")) {
+                if (flagOrder.equals("true")) {
                     ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
                     ObservableList<Order> orderObservableList = FXCollections.observableArrayList(orders);
                     tabViewOrdersClient.setItems(orderObservableList);
@@ -335,17 +268,14 @@ public class ClientController {
                     tabViewOrdersClient.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
                     tabViewOrdersClient.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
                 } else if (flagOrder.equals("false")) {
+                    tabViewOrdersClient.getItems().clear();
                     errorOrderClientLabel.setText("У вас нет заказов");
                 } else {
-
+                    tabViewOrdersClient.getItems().clear();
                 }
-            } catch (IOException e) {
-                new MyException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
             }
-
-
         });
 
         /**Отменить заказа*/
@@ -358,11 +288,13 @@ public class ClientController {
                     connect.writeLine(profile.getClientCode());
                     final String flagOrder = connect.readLine();
                     if (flagOrder.equals("true")) {
+
                         connect.readObjList();
                         connect.writeLine("delete");
                         connect.writeLine("deleteOrder");
                         connect.writeLine(cancelOrderId);
                         String msg = connect.readLine();
+
                         if (msg.equals("true")) {
                             errorOrderClientLabel.setText("Заказ успешно удалён");
                         } else {
@@ -383,17 +315,9 @@ public class ClientController {
                 new MyException(e);
             } catch (ClassNotFoundException e) {
                 new MyException(e);
-            }finally {
+            } finally {
                 cancelOrderClientIdField.setText("");
             }
         });
-    }
-
-
-
-    private void closeStage(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

@@ -2,6 +2,7 @@ package model.bd.dbhtour;
 
 import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
+import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import model.bd.idbhandler.IDBHandler;
 import model.configs.clientBD.ConstClient;
@@ -33,12 +34,12 @@ public class DBHTour implements IDBHandler {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, tour.getCountryName());
             prSt.setString(2, tour.getCityName());
-            prSt.setFloat(3,tour.getPrice());
+            prSt.setFloat(3, tour.getPrice());
             prSt.setString(4, tour.getDuration());
-            prSt.setString(5,tour.getTourCode());
-            prSt.setString(6,tour.getTourDate());
-            prSt.setString(7,tour.getTourName());
-            prSt.setString(8,tour.getTourType());
+            prSt.setString(5, tour.getTourCode());
+            prSt.setString(6, tour.getTourDate());
+            prSt.setString(7, tour.getTourName());
+            prSt.setString(8, tour.getTourType());
 
             prSt.executeUpdate();
 
@@ -96,6 +97,38 @@ public class DBHTour implements IDBHandler {
 
     @Override
     public boolean editObj(Object obj) {
-        return false;
+        try {
+            Tour t = (Tour) obj;
+            String update = "UPDATE " + ConstClient.CLIENT_TABLE +
+                    " SET "
+                    + ConstTour.TOUR_COUNTRY_NAME + "=?, "
+                    + ConstTour.TOUR_CITY_NAME + "=?, "
+                    + ConstTour.TOUR_PRICE + "=?, "
+                    + ConstTour.TOUR_DURATION + "=?, "
+                    + ConstTour.TOUR_CODE + "=?, "
+                    + ConstTour.TOUR_DATE + "=?, "
+                    + ConstTour.TOUR_NAME + "=?, "
+                    + ConstTour.TOUR_TYPE + "=? " +
+                    " WHERE " + ConstTour.TOUR_ID + "=?";
+
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(update);
+
+            preparedStatement.setString(1, t.getCountryName());
+            preparedStatement.setString(2, t.getCityName());
+            preparedStatement.setFloat(3, t.getPrice());
+            preparedStatement.setString(4, t.getDuration());
+            preparedStatement.setString(5, t.getTourCode());
+            preparedStatement.setString(6, t.getTourDate());
+            preparedStatement.setString(7, t.getTourName());
+            preparedStatement.setString(8, t.getTourType());
+            preparedStatement.setInt(9, t.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            new MyException(e);
+            return false;
+        }
+        return true;
     }
 }

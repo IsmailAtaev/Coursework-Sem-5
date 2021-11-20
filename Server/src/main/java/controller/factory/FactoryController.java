@@ -1,5 +1,7 @@
-package controller;
+package controller.factory;
 
+import controller.AdminController;
+import controller.ClientController;
 
 /**
  * @author Ataeyv I.M.
@@ -7,7 +9,7 @@ package controller;
  * */
 
 public class FactoryController {
-    public static synchronized IController getType(String type) {
+    public static IController getType(String type) {
         switch (type) {
             case "admin":
                 return new AdminController();

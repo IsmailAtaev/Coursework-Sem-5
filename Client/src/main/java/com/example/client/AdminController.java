@@ -22,19 +22,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-/**
- * @author Ataeyv I.M. (ataewisma@gmail.com)
- * */
+/**@author Ataeyv I.M. (ataewisma@gmail.com)*/
 
 public class AdminController {
 
     private Client clientSearch;
     private String flagSearchClient = "false";
     private Connect connect = MainController.connect;
+
     @FXML
     private ResourceBundle resources;
     @FXML
     private URL location;
+
     @FXML
     private TabPane glavnyPane;
     @FXML
@@ -50,6 +50,9 @@ public class AdminController {
     @FXML
     private Button closeBtn;
 
+    /**
+     * Main components
+     */
     @FXML
     private Button usersBtn;
     @FXML
@@ -76,20 +79,6 @@ public class AdminController {
     private Button ticketViewBtn;
     @FXML
     private TableView<Ticket> ticketTableColumn;
-    @FXML
-    private TableColumn<Ticket, Integer> idTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> ticketCodeTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> clientCodeTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> typeTransportTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> departurePointTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> arrivalPointTicketTableColumn;
-    @FXML
-    private TableColumn<Ticket, String> departureDateTicketTableColumn;
 
     /**
      * Order
@@ -108,13 +97,8 @@ public class AdminController {
     private TableView<Order> tabViewOrdersSearch;
     @FXML
     private TableView<Order> tabViewOrders;
-    @FXML
-    private TableColumn<Order, Integer> idOrderTabColumn;
-    @FXML
-    private TableColumn<Order, String> orderClientCodeTabColumn;
-    @FXML
-    private TableColumn<Order, String> orderTourCodeTabColumn;
     private ArrayList<Order> orderArrayList = new ArrayList<>();
+
 
     /**
      * Tour
@@ -133,48 +117,12 @@ public class AdminController {
     private Button deleteTourBtn;
     @FXML
     private Button addTourBtn;
-
     @FXML
     private TableView<Tour> tabViewTours;
-    @FXML
-    private TableColumn<Tour, Integer> idTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> countryTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> cityTourTabColumn;
-    @FXML
-    private TableColumn<Tour, Float> priceTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> durationTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> tourCodeTabColumn;
-    @FXML
-    private TableColumn<Tour, String> dateTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> nameTourTabColumn;
-    @FXML
-    private TableColumn<Tour, String> typeTourTabColumn;
 
-    /**
-     * Client and user
-     */
+    /**Client and User*/
     @FXML
     private TableView<Client> usersTableView;
-    @FXML
-    private TableColumn<Client, String> fioTableColumn;
-    @FXML
-    private TableColumn<Client, String> codeClientTableColumn;
-    @FXML
-    private TableColumn<Client, String> passportIdTableColumn;
-    @FXML
-    private TableColumn<Client, String> mailTableColumn;
-    @FXML
-    private TableColumn<Client, String> mobileNumberTableColumn;
-    @FXML
-    private TableColumn<Client, String> loginTableColumn;
-    @FXML
-    private TableColumn<Client, Integer> flagTableColumn;
-
     @FXML
     private TextField signUpFIOField;
     @FXML
@@ -208,7 +156,7 @@ public class AdminController {
     private Label errorEditLabel;
 
     /**
-     * edit table
+     * Edit table
      */
     @FXML
     private TextField signUpSearchFIOField;
@@ -259,6 +207,7 @@ public class AdminController {
 
         toursBtn.setOnAction(actionEvent -> {
             putText4.setText("Туры");
+            errorTourDeleteId.setText("");
             glavnyPane.getSelectionModel().select(u2);
         });
 
@@ -275,9 +224,8 @@ public class AdminController {
             glavnyPane.getSelectionModel().select(u4);
         });
 
-        /**
-         * User
-         * */
+
+        /**Просмотр пользователя*/
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
                 connect.writeLine("view");
@@ -298,17 +246,8 @@ public class AdminController {
             }
         });
 
+        /**Добавить пользователя*/
         addUserBtn.setOnAction(actionEvent -> {
-
-            Client client = new Client();
-            Shake shakeFIO = new Shake(signUpFIOField);
-            Shake shakeClientCode = new Shake(signUpClientCodeField);
-            Shake shakeMobileNumber = new Shake(signUpMobileNumberField);
-            Shake shakePassword = new Shake(signUpPasswordField);
-            Shake shakeMail = new Shake(signUpMailField);
-            Shake shakeLogin = new Shake(signUpLoginField);
-            Shake shakePassportId = new Shake(signUpPassportIdField);
-            Shake shakeFlag = new Shake(signUpFlagField);
 
             String fio = signUpFIOField.getText().trim();
             String clientCode = signUpClientCodeField.getText().trim();
@@ -332,6 +271,7 @@ public class AdminController {
                 signUpLoginField.setText("");
                 signUpPasswordField.setText("");
 
+                Client client = new Client();
                 client.setFIO(fio);
                 client.setClientCode(clientCode);
                 client.setPassportId(passportId);
@@ -361,6 +301,15 @@ public class AdminController {
                 }
 
             } else {
+                Shake shakeFIO = new Shake(signUpFIOField);
+                Shake shakeClientCode = new Shake(signUpClientCodeField);
+                Shake shakeMobileNumber = new Shake(signUpMobileNumberField);
+                Shake shakePassword = new Shake(signUpPasswordField);
+                Shake shakeMail = new Shake(signUpMailField);
+                Shake shakeLogin = new Shake(signUpLoginField);
+                Shake shakePassportId = new Shake(signUpPassportIdField);
+                Shake shakeFlag = new Shake(signUpFlagField);
+
                 shakeFlag.playAnim();
                 shakeClientCode.playAnim();
                 shakeFIO.playAnim();
@@ -373,6 +322,7 @@ public class AdminController {
             }
         });
 
+        /**Удалить пользователя*/
         deleteUsersBtn.setOnAction(actionEvent -> {
             try {
                 String loginDelete = loginDeleteField.getText().trim();
@@ -416,6 +366,7 @@ public class AdminController {
             }
         });
 
+        /**Поиск пользователя*/
         searchBtn.setOnAction(actionEvent -> {
             try {
                 errorSearchLabel.setText("");
@@ -564,9 +515,7 @@ public class AdminController {
             this.errorEditLabel.setText("");
         });
 
-        /**
-         * Ticket
-         * */
+        /**Просмотр билетов*/
         ticketViewBtn.setOnAction(actionEvent -> {
             try {
                 connect.writeLine("view");
@@ -586,6 +535,7 @@ public class AdminController {
             }
         });
 
+        /**Удалить билет*/
         ticketDeleteBtn.setOnAction(ActionEvent -> {
             try {
                 String idTicket = ticketIdDeleteField.getText().trim();
@@ -594,7 +544,6 @@ public class AdminController {
                     connect.writeLine("ticketDelete");
                     connect.writeLine(idTicket);
                     final String flag = connect.readLine();
-                    System.out.println(flag);
                     if (flag.equals("true")) {
                         errorTicketDeleteLabel.setText("БИЛЕТ УСПЕШНО УДАЛЁН");
                     } else if (flag.equals("false")) {
@@ -612,9 +561,7 @@ public class AdminController {
             }
         });
 
-        /**
-         * Order
-         * */
+        /**Поиск заказов по клиенту*/
         searchOrderClientCodeBtn.setOnAction(ActionEvent -> {
             try {
                 String clientCode = searchClientCodeField.getText().trim();
@@ -656,6 +603,7 @@ public class AdminController {
             }
         });
 
+        /**Поиск заказов по туру*/
         searchOrderTourCodeBtn.setOnAction(ActionEvent -> {
             try {
                 String tourCode = searchTourCodeField.getText().trim();
@@ -687,6 +635,7 @@ public class AdminController {
                     Shake shakeSearch = new Shake(searchTourCodeField);
                     shakeSearch.playAnim();
                     errorOrderPane.setText("Введите код тура");
+                    tabViewOrdersSearch.getItems().clear();
                 }
             } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
@@ -697,6 +646,7 @@ public class AdminController {
         });
     }
 
+    /**Удаление тура*/
     @FXML
     void deleteTour(ActionEvent event) {
         try {
@@ -711,7 +661,7 @@ public class AdminController {
                 if (flagDeleteTourServer.equals("true")) {
                     errorTourDeleteId.setText("Тур успешно удален");
                 } else {
-                    errorTourDeleteId.setText("Тур не удалён обратитесь к администруции");
+                    errorTourDeleteId.setText("Тур не удалён");
                 }
             } else {
                 Shake shakeTourDelete = new Shake(deleteIdTourField);
@@ -720,9 +670,12 @@ public class AdminController {
             }
         } catch (IOException e) {
             new MyException(e);
+        }finally {
+            deleteIdTourField.setText("");
         }
     }
 
+    /**Туры*/
     @FXML
     void getToursView(ActionEvent event) {
         try {
@@ -746,6 +699,7 @@ public class AdminController {
         }
     }
 
+    /**Заказы*/
     @FXML
     void getOrderView(ActionEvent event) {
         try {
@@ -763,6 +717,7 @@ public class AdminController {
         }
     }
 
+    /**Добавить тур*/
     @FXML
     void addTour(ActionEvent event) {
         new InputDialog(event, "add-tour.fxml", 530, 475);
@@ -773,9 +728,5 @@ public class AdminController {
         new InputDialog(event, "check-create-ticket.fxml", 400, 400);
     }
 
-    private void closeStage(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
+
 }

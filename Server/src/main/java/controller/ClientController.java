@@ -5,6 +5,7 @@ import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.tour.Tour;
+import controller.factory.IController;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;

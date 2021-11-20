@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
+import com.example.model.check.Check;
 import com.example.model.client.Client;
 import com.example.model.connect.Connect;
 import com.example.model.dialog.InputDialog;
@@ -44,7 +45,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 1232);
+        connect = new Connect("127.0.0.1", 1122);
     }
 
     @FXML
@@ -52,15 +53,71 @@ public class MainController {
 
         authSignInButton.setOnAction(actionEvent -> {
             try {
+
                 String login = login_field.getText().trim();
                 String pass = password_field.getText().trim();
 
-                connect.writeLine("signIn");
+                if (Check.isString(login) && Check.isString(pass)) {
+
+                    connect.writeLine("signIn");
+                    connect.writeLine(login);
+                    connect.writeLine(pass);
+
+                    String flag = connect.readLine();
+                    String flagAdminOrClient = connect.readLine();
+
+                    if (flag.equals("true")) {
+
+                        System.out.println(flag);
+                        System.out.println(flagAdminOrClient);
+
+                        if (flagAdminOrClient.equals("adminUI")) {
+
+                            System.out.println("admin");
+                            openNewScene("admin-ui.fxml");
+
+                        } else if (flagAdminOrClient.equals("clientUI")) {
+                            Client c = (Client) connect.readObj();
+                            client = c;
+                            System.out.println("client");
+                            openNewScene("client-ui.fxml");
+
+                        } else {
+                            login_field.setText("");
+                            password_field.setText("");
+                            System.out.println("do not user ");
+                        }
+                    } else {
+                        Shake shakeLogin = new Shake(login_field);
+                        Shake shakePass = new Shake(password_field);
+                        shakeLogin.playAnim();
+                        shakePass.playAnim();
+
+                        login_field.setText("");
+                        password_field.setText("");
+
+                        login = null;
+                        pass = null;
+                        flag = null;
+                        flagAdminOrClient = null;
+
+                    }
+                } else {
+                    login = null;
+                    pass = null;
+
+                    Shake shakeLogin = new Shake(login_field);
+                    Shake shakePass = new Shake(password_field);
+                    shakeLogin.playAnim();
+                    shakePass.playAnim();
+                }
+
+
+               /* connect.writeLine("signIn");
                 connect.writeLine(login);
                 connect.writeLine(pass);
 
                 String flag = connect.readLine();
-
                 String flagAdminOrClient = connect.readLine();
 
                 if (flag.equals("true")) {
@@ -79,7 +136,6 @@ public class MainController {
                         Client c = (Client) connect.readObj();
                         client = c;
                         System.out.println("client");
-                        //handleButtonClick("client-ui.fxml");
                         openNewScene("client-ui.fxml");
                         System.out.println(flagAdminOrClient);
 
@@ -91,11 +147,9 @@ public class MainController {
                     Shake shakePass = new Shake(password_field);
                     shakeLogin.playAnim();
                     shakePass.playAnim();
-                }
+                }*/
 
-            } catch (IOException e) {
-                new MyException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
             }
         });
@@ -117,24 +171,7 @@ public class MainController {
     }
 
     public void getOpenSignUp(ActionEvent actionEvent) {
-        new InputDialog(actionEvent, "sign-up-ui.fxml",678,400);
+        new InputDialog(actionEvent, "sign-up-ui.fxml", 678, 400);
     }
 
-
-    public void handleButtonClick(String win) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource(win));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
-            Scene scene = new Scene(fxmlLoader.load(), 600, 700);
-            Stage stage = new Stage();
-            stage.setTitle("New Window");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-        }
-    }
 }

@@ -1,15 +1,10 @@
 package model.bd.dbhtour;
 
-import com.example.model.client.Client;
 import com.example.model.tour.Tour;
-import model.bd.dbhclient.DBHClient;
 import model.bd.idbhandler.IDBHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DBHTourTest {
 
@@ -39,9 +34,5 @@ class DBHTourTest {
         t.setId(1);
         boolean actually = handler.deleteObj(t);
         Assertions.assertEquals(true, actually);
-    }
-
-    @Test
-    void editObj() {
     }
 }

@@ -8,10 +8,13 @@ import com.example.model.connect.Connect;
 import com.example.model.myexception.MyException;
 import com.example.model.rand.Rand;
 import com.example.model.ticket.Ticket;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -33,11 +36,12 @@ public class CheckAndCreateTicketController {
     @FXML
     private TextField idOrderField;
     @FXML
-    private TextField transportTypeField;
-    @FXML
     private TextField departurePointField;
     @FXML
     private Label errorIdOrderLabel;
+    @FXML
+    private ComboBox<String> boxTransportType;
+    ObservableList<String> list = FXCollections.observableArrayList("Самолёт","Автобус","Поезд","Корабль");
 
 
     @FXML
@@ -49,12 +53,14 @@ public class CheckAndCreateTicketController {
 
     @FXML
     void initialize() {
+        boxTransportType.setItems(list);
         createTicketBtn.setOnAction(ActionEvent -> {
             try {
                 String idOrder = idOrderField.getText().trim();
-                String transportType = transportTypeField.getText().trim();
+                String transportType = boxTransportType.getValue();
                 String departurePoint = departurePointField.getText().trim();
-
+                System.out.println(transportType);
+                System.out.println(transportType.length());
                 if (Check.isString(transportType) && Check.isString(departurePoint)) {
                     if (Check.isNumber(idOrder)) {
 

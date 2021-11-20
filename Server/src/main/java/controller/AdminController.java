@@ -6,6 +6,7 @@ import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
+import controller.factory.IController;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
@@ -47,7 +48,7 @@ public class AdminController implements IController {
             case "addTicket": {
                 String idOrder = connect.readLine();
                 Ticket ticket = (Ticket) connect.readObj();
-                boolean flag = makeOrderrr(Integer.parseInt(idOrder), ticket);
+                boolean flag = makeOrder(Integer.parseInt(idOrder), ticket);
                 if (flag) {
                     connect.writeLine("true");
                 } else {
@@ -171,15 +172,12 @@ public class AdminController implements IController {
                     }
                     default: {
                         msg = null;
-                        //connect.clearConnect();
                         new MyException("поличичли что-то не то  то client controller ");
                         break;
                     }
                 }
-              }
-        } catch (IOException e) {
-            new MyException(e);
-        } catch (ClassNotFoundException e) {
+            }
+        } catch (IOException | ClassNotFoundException e) {
             new MyException(e);
         }
     }
@@ -242,11 +240,8 @@ public class AdminController implements IController {
      * 2-й исход работы) Создаём счетчик int i
      * Возврашаем Order из бд прохотимся по списку заказов, если i равен нулю, то (NoOrder)
      * если i больше и менше или равно Order.size то,(NoIdOrder) нету такого заказа.
-     *
-     * @param idOrder
-     * @param ticket
      */
-    private String makeOrder(int idOrder, Ticket ticket) {
+    /*private String makeOrder(int idOrder, Ticket ticket) {
 
         int i = 0;
         boolean flag = false;
@@ -300,7 +295,7 @@ public class AdminController implements IController {
         } else {
             return "NoCreateTicket";
         }
-    }
+    }*/
 
 
 
@@ -353,7 +348,18 @@ public class AdminController implements IController {
         return false;
     }
 
-    private boolean makeOrderrr(int idOrder, Ticket ticket) {
+    /**
+     * 1-й исход работы) Возврашаем Order из бд прохотимся по списку заказов, и если есть такоей id,
+     * то вызываем запрос на добавление, если билет создан успешно, то возврашаем (CreateTicket),
+     * иначе (NoCreateTicket).
+     * <p>
+     * 2-й исход работы) Создаём счетчик int i
+     * Возврашаем Order из бд прохотимся по списку заказов, если i равен нулю, то (NoOrder)
+     * если i больше и менше или равно Order.size то,(NoIdOrder) нету такого заказа.
+     * @param idOrder
+     * @param ticket
+     */
+    private boolean makeOrder(int idOrder, Ticket ticket) {
 
         boolean flagAddTicket;
         boolean flagClient;
@@ -374,9 +380,9 @@ public class AdminController implements IController {
                             ticket.setDepartureData(t.getTourDate());
                             ticket.setArrivalPoint(t.getCountryName() + "-" + t.getCityName());
                             flagAddTicket = idbHandlerTicket.addObj(ticket);
-                             boolean ff = idbHandlerOrder.deleteObj(o);
-                             System.out.println("i am delete order flag -> " + ff);
-                             return flagAddTicket;
+                            boolean ff = idbHandlerOrder.deleteObj(o);
+                            System.out.println("i am delete order flag -> " + ff);
+                            return flagAddTicket;
                         }
                     }
                 } else {

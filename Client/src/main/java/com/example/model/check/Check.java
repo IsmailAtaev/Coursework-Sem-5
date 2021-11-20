@@ -28,6 +28,7 @@ public class Check {
 
     /**
      * Check value zero and null.
+     * @param str
      */
     public static boolean isString(String str) {
         return !str.equals("") && str != null;

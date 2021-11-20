@@ -1,6 +1,4 @@
-package controller;
-
-import com.example.model.connect.Connect;
+package controller.factory;
 
 import java.io.IOException;
 
