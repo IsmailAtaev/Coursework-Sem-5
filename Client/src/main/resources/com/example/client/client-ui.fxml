@@ -19,7 +19,7 @@
                         <TextField fx:id="inputTourCodeMakeOrderField" alignment="CENTER" layoutX="357.0" layoutY="14.0" prefHeight="26.0" prefWidth="151.0" promptText="Ведите код тура" />
                         <Line endX="-141.2000274658203" endY="-25.99999237060547" layoutX="348.0" layoutY="40.0" startX="-141.2000274658203" startY="7.62939453125E-6" />
                         <Label fx:id="errorOrderTour" alignment="CENTER" layoutX="525.0" layoutY="14.0" prefHeight="26.0" prefWidth="277.0" textFill="RED" />
-                        <TableView fx:id="tabViewTours" layoutX="-3.0" layoutY="54.0" prefHeight="613.0" prefWidth="858.0" AnchorPane.bottomAnchor="-53.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="54.0">
+                        <TableView fx:id="tabViewTours" layoutX="5.0" layoutY="54.0" prefHeight="613.0" prefWidth="835.0" AnchorPane.bottomAnchor="-53.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="54.0">
                            <columns>
                               <TableColumn fx:id="countryTourTabColumn" prefWidth="127.99996566772461" text="Страна" />
                               <TableColumn fx:id="cityTourTabColumn" prefWidth="116.80006408691406" text="Город" />
@@ -28,7 +28,7 @@
                               <TableColumn fx:id="tourCodeTabColumn" prefWidth="105.5999755859375" text="Код тура" />
                               <TableColumn fx:id="dateTourTabColumn" prefWidth="87.199951171875" text="Дата" />
                               <TableColumn fx:id="nameTourTabColumn" minWidth="0.0" prefWidth="120.00006103515625" text="Название тура" />
-                              <TableColumn fx:id="typeTourTabColumn" maxWidth="365.5999633789063" prefWidth="116.79998779296875" text="Тип тура" />
+                              <TableColumn fx:id="typeTourTabColumn" maxWidth="365.5999633789063" prefWidth="99.9999877929688" text="Тип тура" />
                            </columns>
                         </TableView>
                             </children></AnchorPane>

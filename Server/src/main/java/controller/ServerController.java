@@ -36,10 +36,12 @@ public class ServerController {
             IDBHandler idbHandler = new DBHClient();
             boolean flag = true;
             while (true) {
-                switch (connect.readLine()) {
+                String req = connect.readLine();
+                switch (req) {
                     case "signIn": {
                         String login = connect.readLine();
                         String pass = connect.readLine();
+
                         ArrayList<Client> clients = (ArrayList<Client>) idbHandler.getList().clone();
                         int i = 0;
                         for (Client client : clients) {
@@ -62,12 +64,10 @@ public class ServerController {
                                     iController.start();
 
                                 } else {
-
                                     connect.writeLine("do not flags please view database and class Client");
                                     new MyException("do not flags please view database and class Client");
-
+                                    break;
                                 }
-                                //break;
                             } else {
                                 ++i;
                             }
@@ -88,12 +88,13 @@ public class ServerController {
                         break;
                     }
                     default:
+                        req = null;
                         new MyException("class ServerController switch(connect.readLine()) error");
                         break;
                 }
             }
         } catch (Exception e) {
-
+            new MyException(e);
         }
     }
 }

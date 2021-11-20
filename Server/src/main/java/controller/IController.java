@@ -1,5 +1,7 @@
 package controller;
 
+import com.example.model.connect.Connect;
+
 import java.io.IOException;
 
 public interface IController {

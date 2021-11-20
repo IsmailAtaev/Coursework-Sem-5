@@ -6,6 +6,7 @@ import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
+import com.mysql.cj.CacheAdapter;
 import model.bd.dbhclient.DBHClient;
 import model.bd.dbhorder.DBHOrder;
 import model.bd.dbhticket.DBHTicket;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 
 public class AdminController implements IController {
 
-    static int anInt;
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
@@ -98,6 +98,16 @@ public class AdminController implements IController {
                 }
                 break;
             }
+            case "ticketDelete": {
+                String idTicket = connect.readLine();
+                Delete delete = new Delete();
+                if (delete.deleteTicket(Integer.parseInt(idTicket), idbHandlerTicket.getList())) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
         }
     }
 
@@ -129,12 +139,11 @@ public class AdminController implements IController {
 
     @Override
     public void start() {
-        ++anInt;
         System.out.println("start admin controller");
         try {
             while (true) {
-                System.out.println("while true admin controller" + anInt);
-                switch (connect.readLine()) {
+                String msg = connect.readLine();
+                switch (msg) {
                     case "view": {
                         this.getDate(connect.readLine());
                         break;
@@ -148,7 +157,9 @@ public class AdminController implements IController {
                         break;
                     }
                     case "search": {
-                        this.search(connect.readLine());
+                        String req = connect.readLine();
+                        this.search(req);
+                        req = null;
                         break;
                     }
                     case "edit": {
@@ -160,11 +171,13 @@ public class AdminController implements IController {
                         return;
                     }
                     default: {
+                        msg = null;
+                        connect.clearConnect();
                         new MyException("поличичли что-то не то  то client controller ");
                         break;
                     }
                 }
-            }
+              }
         } catch (IOException e) {
             new MyException(e);
         } catch (ClassNotFoundException e) {
@@ -193,6 +206,28 @@ public class AdminController implements IController {
                     }
                 }
                 if (counter == 0) {
+                    connect.writeLine("false");
+                }
+                break;
+            }
+            case "searchClient": {
+                final String clientCode = connect.readLine();
+                if (checkOrderClientCode(clientCode)) {
+                    ArrayList<Object> objects = getSearchOrders(clientCode);
+                    connect.writeLine("true");
+                    connect.writeObjList(objects);
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
+            case "searchTour": {
+                final String tourCode = connect.readLine();
+                if (checkOrderTourCode(tourCode)) {
+                    ArrayList<Object> objects = getSearchOrdersTour(tourCode);
+                    connect.writeLine("true");
+                    connect.writeObjList(objects);
+                } else {
                     connect.writeLine("false");
                 }
                 break;
@@ -271,6 +306,26 @@ public class AdminController implements IController {
 
 
 
+    private boolean checkOrderTourCode(String tourCode) {
+        ArrayList<Order> orders = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        for (Order o : orders) {
+            if (tourCode.equals(o.getTourCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkOrderClientCode(String clientCode) {
+        ArrayList<Order> orders = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        for (Order o : orders) {
+            if (clientCode.equals(o.getClientCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean checkClient(String clientCode,ArrayList<Client> clients) {
         for (Client c : clients) {
             if (clientCode.equals(c.getClientCode())) {
@@ -283,6 +338,16 @@ public class AdminController implements IController {
     private boolean checkTour(String tourCode, ArrayList<Tour> tours) {
         for (Tour t : tours) {
             if (tourCode.equals(t.getTourCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkTicket(int id) {
+        ArrayList<Ticket> tickets = (ArrayList<Ticket>) idbHandlerTicket.getList().clone();
+        for (Ticket t : tickets) {
+            if (id == t.getId()) {
                 return true;
             }
         }
@@ -321,6 +386,28 @@ public class AdminController implements IController {
             }
         }
         return false;
+    }
+
+    private ArrayList<Object> getSearchOrders(String clientCode) {
+        ArrayList<Order> orders = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        ArrayList<Object> objects = new ArrayList<>();
+        for (Order o : orders) {
+            if (clientCode.equals(o.getClientCode())) {
+                objects.add(o);
+            }
+        }
+        return objects;
+    }
+
+    private ArrayList<Object> getSearchOrdersTour(String tourCode) {
+        ArrayList<Order> orders = (ArrayList<Order>) idbHandlerOrder.getList().clone();
+        ArrayList<Object> objects = new ArrayList<>();
+        for (Order o : orders) {
+            if (tourCode.equals(o.getTourCode())) {
+                objects.add(o);
+            }
+        }
+        return objects;
     }
 
 }

@@ -44,7 +44,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 1112);
+        connect = new Connect("127.0.0.1", 1232);
     }
 
     @FXML
@@ -72,12 +72,14 @@ public class MainController {
 
                         System.out.println("admin");
                         openNewScene("admin-ui.fxml");
+                        //handleButtonClick("admin-ui.fxml");
                         System.out.println(flagAdminOrClient);
 
                     } else if (flagAdminOrClient.equals("clientUI")) {
                         Client c = (Client) connect.readObj();
                         client = c;
                         System.out.println("client");
+                        //handleButtonClick("client-ui.fxml");
                         openNewScene("client-ui.fxml");
                         System.out.println(flagAdminOrClient);
 
@@ -118,4 +120,21 @@ public class MainController {
         new InputDialog(actionEvent, "sign-up-ui.fxml");
     }
 
+
+    public void handleButtonClick(String win) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(win));
+            /*
+             * if "fx:controller" is not set in fxml
+             * fxmlLoader.setController(NewWindowController);
+             */
+            Scene scene = new Scene(fxmlLoader.load(), 600, 700);
+            Stage stage = new Stage();
+            stage.setTitle("New Window");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+        }
+    }
 }

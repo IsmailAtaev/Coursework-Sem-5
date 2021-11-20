@@ -4,14 +4,15 @@ import controller.mythread.MyThread;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class Main {
+public class MainS {
 
-    public static int port = 1112;
+    public static int port = 1232;
 
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
+                //serverSocket = new ServerSocket(port);
                 Object ob = new Object();
                 Thread.sleep(1000);
                 MyThread myThread = new MyThread(serverSocket,ob);

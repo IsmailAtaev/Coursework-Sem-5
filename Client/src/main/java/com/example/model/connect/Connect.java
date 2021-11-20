@@ -90,6 +90,12 @@ public class Connect implements Closeable {
         oos.flush();
     }
 
+    public void clearConnect() throws IOException {
+        oos.flush();
+        bufferedWriter.newLine();
+        bufferedWriter.flush();
+    }
+
     @Override
     public void close() {
         try {

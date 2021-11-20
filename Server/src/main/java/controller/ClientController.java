@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class ClientController implements IController {
 
-    static int anInt;
     public Connect connect = ServerController.connect;
     private IDBHandler idbHandler = new DBHClient();
     private IDBHandler idbHandlerTour = new DBHTour();
@@ -80,6 +79,7 @@ public class ClientController implements IController {
             case "viewOrder": {
                 final String clientCode = connect.readLine();
                 boolean flagOrder = checkOrderClient(clientCode, idbHandlerOrder.getList());
+
                 if (flagOrder) {
                     connect.writeLine("true");
                 } else {
@@ -90,6 +90,7 @@ public class ClientController implements IController {
                     ArrayList<Object> objects = getClientOrder(clientCode, idbHandlerOrder.getList());
                     connect.writeObjList(objects);
                 }
+                break;
             }
         }
     }
@@ -101,12 +102,11 @@ public class ClientController implements IController {
 
     @Override
     public void start() {
-        ++anInt;
         System.out.println("start client controller");
         try {
             while (true) {
-                System.out.println("while true client controller" + anInt);
-                switch (connect.readLine()) {
+                String msg = connect.readLine();
+                switch (msg) {
                     case "view": {
                         this.getDate(connect.readLine());
                         break;
@@ -128,6 +128,8 @@ public class ClientController implements IController {
                         return;
                     }
                     default: {
+                        msg = null;
+                        connect.clearConnect();
                         new MyException("поличичли что-то не то client controller ");
                         break;
                     }
@@ -139,7 +141,6 @@ public class ClientController implements IController {
             new MyException(e);
         }
     }
-
 
 
 

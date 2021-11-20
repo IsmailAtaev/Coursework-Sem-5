@@ -174,7 +174,7 @@ public class ClientController {
             try {
                 connect.writeLine("close");
                 tabViewTours = null;
-                ticketTableColumn  = null;
+                ticketTableColumn = null;
                 connect.close();
                 connect = null;
                 profile = null;
@@ -196,6 +196,8 @@ public class ClientController {
         });
 
         myOrderBtn.setOnAction(ActionEvent -> {
+            errorOrderClientLabel.setText("");
+            cancelOrderClientIdField.setText("");
             putTextULabel.setText("Мои Заказы");
             glvTabPane.getSelectionModel().select(u4);
         });
@@ -325,7 +327,7 @@ public class ClientController {
                 connect.writeLine("viewOrder");
                 connect.writeLine(profile.getClientCode());
                 final String flagOrder = connect.readLine();
-                if (flagOrder.equals("true")) {
+                 if (flagOrder.equals("true")) {
                     ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
                     ObservableList<Order> orderObservableList = FXCollections.observableArrayList(orders);
                     tabViewOrdersClient.setItems(orderObservableList);
@@ -333,7 +335,7 @@ public class ClientController {
                     tabViewOrdersClient.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
                     tabViewOrdersClient.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
                 } else if (flagOrder.equals("false")) {
-                    System.out.println(" нету заказов ");
+                    errorOrderClientLabel.setText("У вас нет заказов");
                 } else {
 
                 }
@@ -351,22 +353,38 @@ public class ClientController {
             try {
                 String cancelOrderId = cancelOrderClientIdField.getText().trim();
                 if (Check.isNumber(cancelOrderId)) {
-                    connect.writeLine("delete");
-                    connect.writeLine("deleteOrder");
-                    connect.writeLine(cancelOrderId);
-                    String msg = connect.readLine();
-                    if (msg.equals("true")) {
-                        errorOrderClientLabel.setText("Заказ успешно удалён");
+                    connect.writeLine("view");
+                    connect.writeLine("viewOrder");
+                    connect.writeLine(profile.getClientCode());
+                    final String flagOrder = connect.readLine();
+                    if (flagOrder.equals("true")) {
+                        connect.readObjList();
+                        connect.writeLine("delete");
+                        connect.writeLine("deleteOrder");
+                        connect.writeLine(cancelOrderId);
+                        String msg = connect.readLine();
+                        if (msg.equals("true")) {
+                            errorOrderClientLabel.setText("Заказ успешно удалён");
+                        } else {
+                            cancelOrderClientIdField.setText("");
+                            errorOrderClientLabel.setText("Заказ не удалён");
+                        }
                     } else {
-                        errorOrderClientLabel.setText("Заказ не удалён");
+                        cancelOrderClientIdField.setText("");
+                        errorOrderClientLabel.setText("У вас нету такого заказа");
                     }
                 } else {
                     Shake shakeOrderId = new Shake(cancelOrderClientIdField);
                     shakeOrderId.playAnim();
+                    cancelOrderClientIdField.setText("");
                     errorOrderClientLabel.setText("Введите id заказа ");
                 }
             } catch (IOException e) {
                 new MyException(e);
+            } catch (ClassNotFoundException e) {
+                new MyException(e);
+            }finally {
+                cancelOrderClientIdField.setText("");
             }
         });
     }

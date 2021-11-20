@@ -67,6 +67,12 @@ public class AdminController {
      * Ticket
      */
     @FXML
+    private Label errorTicketDeleteLabel;
+    @FXML
+    private TextField ticketIdDeleteField;
+    @FXML
+    private Button ticketDeleteBtn;
+    @FXML
     private Button ticketViewBtn;
     @FXML
     private TableView<Ticket> ticketTableColumn;
@@ -88,7 +94,18 @@ public class AdminController {
     /**
      * Order
      */
-    private ArrayList<Order> orderArrayList = new ArrayList<>();
+    @FXML
+    private Label errorOrderPane;
+    @FXML
+    private TextField searchClientCodeField;
+    @FXML
+    private TextField searchTourCodeField;
+    @FXML
+    private Button searchOrderClientCodeBtn;
+    @FXML
+    private Button searchOrderTourCodeBtn;
+    @FXML
+    private TableView<Order> tabViewOrdersSearch;
     @FXML
     private TableView<Order> tabViewOrders;
     @FXML
@@ -97,6 +114,7 @@ public class AdminController {
     private TableColumn<Order, String> orderClientCodeTabColumn;
     @FXML
     private TableColumn<Order, String> orderTourCodeTabColumn;
+    private ArrayList<Order> orderArrayList = new ArrayList<>();
 
     /**
      * Tour
@@ -250,10 +268,16 @@ public class AdminController {
         });
 
         orderBtn.setOnAction(ActionEvent -> {
+            errorOrderPane.setText("");
+            searchTourCodeField.setText("");
+            searchClientCodeField.setText("");
             putText4.setText("Заказы");
             glavnyPane.getSelectionModel().select(u4);
         });
 
+        /**
+         * User
+         * */
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
                 connect.writeLine("view");
@@ -559,6 +583,106 @@ public class AdminController {
                 ticketTableColumn.getColumns().get(6).setCellValueFactory(new PropertyValueFactory("departureData"));
             } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
+            }
+        });
+
+        ticketDeleteBtn.setOnAction(ActionEvent -> {
+            try {
+                String idTicket = ticketIdDeleteField.getText().trim();
+                if (Check.isNumber(idTicket)) {
+                    connect.writeLine("delete");
+                    connect.writeLine("ticketDelete");
+                    connect.writeLine(idTicket);
+                    final String flag = connect.readLine();
+                    System.out.println(flag);
+                    if (flag.equals("true")) {
+                        errorTicketDeleteLabel.setText("БИЛЕТ УСПЕШНО УДАЛЁН");
+                    } else if (flag.equals("false")) {
+                        errorTicketDeleteLabel.setText("НЕТУ ТАКОГО БИЛЕТ С ТАКИМ ID");
+                    }
+                } else {
+                    Shake shake = new Shake(ticketIdDeleteField);
+                    shake.playAnim();
+                    errorTicketDeleteLabel.setText("ВВЕДИТЕ ЧИСЛО");
+                }
+            } catch (IOException e) {
+                new MyException(e);
+            } finally {
+                ticketIdDeleteField.setText("");
+            }
+        });
+
+        /**
+         * Order
+         * */
+        searchOrderClientCodeBtn.setOnAction(ActionEvent -> {
+            try {
+                String clientCode = searchClientCodeField.getText().trim();
+                if (Check.isString(clientCode)) {
+                    connect.writeLine("search");
+                    connect.writeLine("searchClient");
+                    connect.writeLine(clientCode);
+                    final String flag = connect.readLine();
+                    if (flag.equals("true")) {
+                        ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
+                        ObservableList<Order> observableList = FXCollections.observableArrayList(orders);
+                        tabViewOrdersSearch.setItems(observableList);
+                        tabViewOrdersSearch.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+                        tabViewOrdersSearch.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
+                        tabViewOrdersSearch.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
+                    } else {
+                        errorOrderPane.setText("Нету стаким заказом клиент");
+                        tabViewOrdersSearch.getItems().clear();
+                    }
+                } else {
+                    Shake shakeSearch = new Shake(searchClientCodeField);
+                    shakeSearch.playAnim();
+                    errorOrderPane.setText("Введите код клиента");
+                    tabViewOrdersSearch.getItems().clear();
+                }
+                searchClientCodeField.setText("");
+            } catch (IOException e) {
+                new MyException(e);
+            } catch (ClassNotFoundException e) {
+                new MyException(e);
+            }finally {
+                searchTourCodeField.setText("");
+                searchClientCodeField.setText("");
+            }
+        });
+
+        searchOrderTourCodeBtn.setOnAction(ActionEvent -> {
+            try {
+                String tourCode = searchTourCodeField.getText().trim();
+                if (Check.isString(tourCode)) {
+                    connect.writeLine("search");
+                    connect.writeLine("searchTour");
+                    connect.writeLine(tourCode);
+                    final String flag = connect.readLine();
+                    if (flag.equals("true")) {
+                        ArrayList<Order> orders = (ArrayList<Order>) connect.readObjList().clone();
+                        ObservableList<Order> observableList = FXCollections.observableArrayList(orders);
+                        tabViewOrdersSearch.setItems(observableList);
+                        tabViewOrdersSearch.getColumns().get(0).setCellValueFactory(new PropertyValueFactory("id"));
+                        tabViewOrdersSearch.getColumns().get(1).setCellValueFactory(new PropertyValueFactory("clientCode"));
+                        tabViewOrdersSearch.getColumns().get(2).setCellValueFactory(new PropertyValueFactory("tourCode"));
+                    } else {
+                        searchTourCodeField.setText("");
+                        errorOrderPane.setText("Нету стаким заказом тура");
+                        tabViewOrdersSearch.getItems().clear();
+                    }
+                } else {
+                    Shake shakeSearch = new Shake(searchTourCodeField);
+                    shakeSearch.playAnim();
+                    errorOrderPane.setText("Введите код тура");
+                }
+            } catch (IOException e) {
+                new MyException(e);
+            } catch (ClassNotFoundException e) {
+                new MyException(e);
+            }finally {
+                searchTourCodeField.setText("");
+                searchClientCodeField.setText("");
             }
         });
     }
