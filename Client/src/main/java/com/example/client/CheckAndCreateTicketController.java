@@ -41,7 +41,7 @@ public class CheckAndCreateTicketController {
     private Label errorIdOrderLabel;
     @FXML
     private ComboBox<String> boxTransportType;
-    ObservableList<String> list = FXCollections.observableArrayList("Самолёт","Автобус","Поезд","Корабль");
+    ObservableList<String> list = FXCollections.observableArrayList("Самолёт", "Автобус", "Поезд", "Корабль");
 
 
     @FXML
@@ -59,8 +59,7 @@ public class CheckAndCreateTicketController {
                 String idOrder = idOrderField.getText().trim();
                 String transportType = boxTransportType.getValue();
                 String departurePoint = departurePointField.getText().trim();
-                System.out.println(transportType);
-                System.out.println(transportType.length());
+
                 if (Check.isString(transportType) && Check.isString(departurePoint)) {
                     if (Check.isNumber(idOrder)) {
 
@@ -81,6 +80,7 @@ public class CheckAndCreateTicketController {
                         } else {
                             errorIdOrderLabel.setText("БИЛЕТ НЕ СОЗДАН");
                         }
+
                     } else {
                         errorIdOrderLabel.setText("Введите число в поле id заказов!!!");
                     }

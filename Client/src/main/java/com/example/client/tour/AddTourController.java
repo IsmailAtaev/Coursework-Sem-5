@@ -5,13 +5,12 @@ import com.example.model.animation.Shake;
 import com.example.model.check.Check;
 import com.example.model.connect.Connect;
 import com.example.model.tour.Tour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -59,6 +58,14 @@ public class AddTourController {
     private DatePicker dateTourField;
 
     @FXML
+    private ComboBox<String> boxTourType;
+
+    ObservableList<String> boxTourTypeObservableList = FXCollections.observableArrayList("Самолёт", "На море",
+            "Экскурсия", "Горные лыжи", "Экскурсия с отдам на море",
+            "Новый год", "Оздоровление", "Проезд", "Детский отдых");
+
+
+    @FXML
     void addTourPane(ActionEvent event) {
         Tour tour = new Tour();
         String price = priceTourField.getText().trim();
@@ -70,14 +77,13 @@ public class AddTourController {
             tour.setDuration(duration);
             tour.setTourDate(dateTour.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
             tour.setTourName(tourNameField.getText().trim());
-            tour.setTourType(tourTypeField.getText().trim());
+            tour.setTourType(boxTourType.getValue());
             tour.setCountryName(countryNameField.getText().trim());
             tour.setCityName(cityNameField.getText().trim());
             int a = 10;
             int b = 10000;
             int x = a + (int) (Math.random() * ((b - a) + 1));
             tour.setTourCode("T" + String.valueOf(x));
-            //System.out.println(tour.toString());
 
             try {
                 connect.writeLine("add");
@@ -112,5 +118,11 @@ public class AddTourController {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+
+    @FXML
+    void initialize() {
+        boxTourType.setItems(boxTourTypeObservableList);
     }
 }
