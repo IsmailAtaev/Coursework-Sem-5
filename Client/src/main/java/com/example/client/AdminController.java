@@ -2,6 +2,8 @@ package com.example.client;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.example.model.animation.Shake;
@@ -13,13 +15,16 @@ import com.example.model.myexception.MyException;
 import com.example.model.order.Order;
 import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
+import eu.hansolo.tilesfx.chart.SunburstChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 /**@author Ataeyv I.M. (ataewisma@gmail.com)*/
@@ -100,9 +105,38 @@ public class AdminController {
     private ArrayList<Order> orderArrayList = new ArrayList<>();
 
 
-    /**
-     * Tour
-     */
+    /**Tour*/
+    @FXML
+    private Button searchTourIdBtn;
+    @FXML
+    private Button editTourBtn;
+    @FXML
+    private Label errorMsgEditTourLabel;
+    @FXML
+    private TextField searchIdTourEditFiled;
+
+    /**Edit*/
+    @FXML
+    private TextField idTourEditFiled;
+    @FXML
+    private TextField countryTourEditField;
+    @FXML
+    private TextField cityTourEditField;
+    @FXML
+    private TextField priceTourEditField;
+    @FXML
+    private TextField durationTourEditField;
+    @FXML
+    private TextField codeTourEditField;
+    @FXML
+    private TextField nameTourEditField;
+    @FXML
+    private TextField typeTourEditField;
+    @FXML
+    private DatePicker dateTourEditField;
+
+
+
     @FXML
     private Button orderBtn;
     @FXML
@@ -155,9 +189,7 @@ public class AdminController {
     @FXML
     private Label errorEditLabel;
 
-    /**
-     * Edit table
-     */
+    /**Edit table*/
     @FXML
     private TextField signUpSearchFIOField;
     @FXML
@@ -187,6 +219,9 @@ public class AdminController {
 
     private ArrayList<Tour> tourArrayList = new ArrayList<>();
 
+
+
+
     @FXML
     void initialize() {
 
@@ -207,7 +242,7 @@ public class AdminController {
 
         toursBtn.setOnAction(actionEvent -> {
             putText4.setText("Туры");
-            errorTourDeleteId.setText("");
+            //errorTourDeleteId.setText("");
             glavnyPane.getSelectionModel().select(u2);
         });
 
@@ -438,6 +473,7 @@ public class AdminController {
             signUpSearchPasswordField.setText("");
         });
 
+        /**Изменение пользователя*/
         editBtn.setOnAction(actionEvent -> {
             Shake shakeFIO = new Shake(signUpEditFIOField);
             Shake shakeClientCode = new Shake(signUpEditClientCodeField);
@@ -644,6 +680,103 @@ public class AdminController {
                 searchClientCodeField.setText("");
             }
         });
+
+        /**Поиск тура*/
+        searchTourIdBtn.setOnAction(ActionEvent -> {
+            try {
+                String id = searchIdTourEditFiled.getText().trim();
+                if (Check.isNumber(id)) {
+                    int idTour = Integer.parseInt(id);
+                    connect.writeLine("view");
+                    connect.writeLine("viewTour");
+                    ArrayList<Tour> tours = (ArrayList<Tour>) connect.readObjList().clone();
+                    int i = 0;
+
+                    for (Tour t : tours) {
+                        if (idTour == t.getId()) {
+                            ++i;
+                            idTourEditFiled.setText(String.valueOf(t.getId()));
+                            countryTourEditField.setText(t.getCountryName());
+                            cityTourEditField.setText(t.getCityName());
+                            priceTourEditField.setText(String.valueOf(t.getPrice()));
+                            durationTourEditField.setText(t.getDuration());
+                            codeTourEditField.setText(t.getTourCode());
+                            nameTourEditField.setText(t.getTourName());
+                            typeTourEditField.setText(t.getTourType());
+                        }
+                    }
+                    if (i == 0) {
+                        errorMsgEditTourLabel.setText("Нету тура с таким Id");
+                    }
+                } else {
+                    Shake shake = new Shake(searchIdTourEditFiled);
+                    shake.playAnim();
+                    errorMsgEditTourLabel.setText("Введите Id тура");
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                new MyException(e);
+            } finally {
+                searchIdTourEditFiled.setText("");
+            }
+        });
+
+        /**Изменение тура*/
+        editTourBtn.setOnAction(ActionEvent -> {
+            try {
+                String idTour = idTourEditFiled.getText().trim();
+                String countryTour = countryTourEditField.getText().trim();
+                String cityTour = cityTourEditField.getText().trim();
+                String priceTour = priceTourEditField.getText().trim();
+                String durationTour = durationTourEditField.getText().trim();
+                String codeTour = codeTourEditField.getText().trim();
+                String nameTour = nameTourEditField.getText().trim();
+                String typeTour = typeTourEditField.getText().trim();
+                LocalDate localDate = dateTourEditField.getValue();
+                dateTourEditField.setAccessibleText("hi ella");
+
+                if (Check.isNumber(idTour) && Check.isNumber(durationTour) && Check.isFloat(priceTour) && Check.isString(countryTour)
+                        && Check.isString(cityTour) && Check.isString(codeTour) && Check.isString(nameTour) && Check.isString(typeTour) && Check.isString(localDate.toString())) {
+
+                    Tour t = new Tour();
+                    t.setId(Integer.parseInt(idTour));
+                    t.setCountryName(countryTour);
+                    t.setCityName(cityTour);
+                    t.setPrice(Float.parseFloat(priceTour));
+                    t.setDuration(durationTour);
+                    t.setTourCode(codeTour);
+                    t.setTourName(nameTour);
+                    t.setTourType(typeTour);
+                    t.setTourDate(localDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+
+                    connect.writeLine("edit");
+                    connect.writeLine("editTour");
+                    connect.writeObj(t);
+                    String flag = connect.readLine();
+
+                    if (flag.equals("true")) {
+                        errorMsgEditTourLabel.setText("Тур успешно редактировано");
+                    } else {
+                        errorMsgEditTourLabel.setText("Тур не редактировано");
+                    }
+
+                } else {
+                    errorMsgEditTourLabel.setText("Нажмите кнопку поиск");
+                }
+            } catch (IOException e) {
+                new MyException(e);
+            } finally {
+                idTourEditFiled.setText("");
+                countryTourEditField.setText("");
+                cityTourEditField.setText("");
+                priceTourEditField.setText("");
+                durationTourEditField.setText("");
+                codeTourEditField.setText("");
+                nameTourEditField.setText("");
+                typeTourEditField.setText("s");
+            }
+        });
+
+
     }
 
     /**Удаление тура*/
@@ -662,20 +795,22 @@ public class AdminController {
                     errorTourDeleteId.setText("Тур успешно удален");
                 } else {
                     errorTourDeleteId.setText("Тур не удалён");
+                    System.out.println("Тур не удалён");
                 }
             } else {
                 Shake shakeTourDelete = new Shake(deleteIdTourField);
                 shakeTourDelete.playAnim();
-                errorTourDeleteId.setText("Введите число");
+               // errorTourDeleteId.setText("");
+                System.out.println("Введите число");
             }
         } catch (IOException e) {
             new MyException(e);
-        }finally {
+        } finally {
             deleteIdTourField.setText("");
         }
     }
 
-    /**Туры*/
+    /**Просмотр Туров*/
     @FXML
     void getToursView(ActionEvent event) {
         try {
@@ -699,7 +834,7 @@ public class AdminController {
         }
     }
 
-    /**Заказы*/
+    /**Просмотр Заказов*/
     @FXML
     void getOrderView(ActionEvent event) {
         try {
@@ -723,10 +858,10 @@ public class AdminController {
         new InputDialog(event, "add-tour.fxml", 530, 475);
     }
 
+    /**Создать билет*/
     @FXML
     void checkAndCreateTicket(ActionEvent event) {
         new InputDialog(event, "check-create-ticket.fxml", 400, 400);
     }
-
 
 }

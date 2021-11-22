@@ -1,13 +1,10 @@
 package model.bd.dbhtour;
 
-import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
-import com.example.model.ticket.Ticket;
 import com.example.model.tour.Tour;
 import model.bd.idbhandler.IDBHandler;
 import model.configs.clientBD.ConstClient;
 import model.configs.tourBD.ConstTour;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -99,7 +96,8 @@ public class DBHTour implements IDBHandler {
     public boolean editObj(Object obj) {
         try {
             Tour t = (Tour) obj;
-            String update = "UPDATE " + ConstClient.CLIENT_TABLE +
+            System.out.println(t);
+            String update = "UPDATE " + ConstTour.TOUR_TABLE +
                     " SET "
                     + ConstTour.TOUR_COUNTRY_NAME + "=?, "
                     + ConstTour.TOUR_CITY_NAME + "=?, "

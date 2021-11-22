@@ -70,6 +70,15 @@ public class AdminController implements IController {
                 }
                 break;
             }
+            case "editTour": {
+                Object ob = connect.readObj();
+                if (idbHandlerTour.editObj(ob)) {
+                    connect.writeLine("true");
+                } else {
+                    connect.writeLine("false");
+                }
+                break;
+            }
         }
     }
 

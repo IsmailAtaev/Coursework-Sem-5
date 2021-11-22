@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -30,6 +31,15 @@ public class MainController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Tooltip addTourToolTip;
+
+    @FXML
+    private Tooltip passToolTip;
+
+    @FXML
+    private Tooltip loginToolTip;
 
     @FXML
     private TextField login_field;
@@ -50,7 +60,9 @@ public class MainController {
 
     @FXML
     void initialize() {
-
+        authSignInButton.setTooltip(addTourToolTip);
+        password_field.setTooltip(passToolTip);
+        login_field.setTooltip(loginToolTip);
         authSignInButton.setOnAction(actionEvent -> {
             try {
 

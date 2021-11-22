@@ -91,6 +91,7 @@ public class AddTourController {
                 connect.writeObj(tour);
                 String flagAddTout = connect.readLine();
                 if(flagAddTout.equals("true")){
+
                     flagTourAddLabel.setText("Тур успешно добавлен!");
                 }else {
                     flagTourAddLabel.setText("Тур не добавлен!");

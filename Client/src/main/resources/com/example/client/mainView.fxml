@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,16 +21,25 @@
             <font>
                 <Font size="19.0" />
             </font>
+         <tooltip>
+            <Tooltip fx:id="loginToolTip" text="Введите логн" />
+         </tooltip>
         </TextField>
         <PasswordField fx:id="password_field" layoutX="166.0" layoutY="262.0" prefHeight="42.0" prefWidth="318.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: silver; -fx-border-radius: 5;">
             <font>
                 <Font size="19.0" />
             </font>
+         <tooltip>
+            <Tooltip fx:id="passToolTip" text="Введите пароль" />
+         </tooltip>
         </PasswordField>
         <Button fx:id="authSignInButton" layoutX="268.0" layoutY="329.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" style="-fx-background-color: #003FFF;" text="Войти" textFill="WHITE">
             <font>
                 <Font name="Dyuthi Regular" size="20.0" />
             </font>
+         <tooltip>
+            <Tooltip fx:id="addTourToolTip" text="Войти в систему" />
+         </tooltip>
         </Button>
         <AnchorPane prefHeight="94.0" prefWidth="693.0" style="-fx-background-color: #003FFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
