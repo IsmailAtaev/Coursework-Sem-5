@@ -38,7 +38,10 @@ public class ClientController implements IController {
                 }
                 break;
             }
-
+            default: {
+                new MyException("клиент сервер заказ тура case default ");
+                break;
+            }
         }
     }
 
@@ -57,6 +60,10 @@ public class ClientController implements IController {
                 } else {
                     connect.writeLine("false");
                 }
+                break;
+            }
+            default: {
+                new MyException("client server do not response deleteOrder case default");
                 break;
             }
         }
@@ -93,12 +100,12 @@ public class ClientController implements IController {
                 }
                 break;
             }
+            default: {
+                new MyException("client server view default case ");
+                break;
+            }
         }
     }
-
-
-
-
 
 
     @Override
@@ -144,10 +151,6 @@ public class ClientController implements IController {
     }
 
 
-
-
-
-
     private boolean makeOrderTour(String tourCode, Client client, ArrayList<Object> objects) {
         ArrayList<Tour> tours = (ArrayList<Tour>) idbHandlerTour.getList().clone();
         if (checkTour(tourCode, tours)) {
@@ -163,7 +166,7 @@ public class ClientController implements IController {
         return false;
     }
 
-    private ArrayList<Object> getClientOrder(String clientCode,ArrayList<Object> objects) {
+    private ArrayList<Object> getClientOrder(String clientCode, ArrayList<Object> objects) {
         ArrayList<Order> orders = new ArrayList<>();
         ArrayList<Order> orderArrayList = (ArrayList<Order>) objects.clone();
         for (Order o : orderArrayList) {

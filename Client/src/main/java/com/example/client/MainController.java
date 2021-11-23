@@ -63,7 +63,7 @@ public class MainController {
         authSignInButton.setTooltip(addTourToolTip);
         password_field.setTooltip(passToolTip);
         login_field.setTooltip(loginToolTip);
-        authSignInButton.setOnAction(actionEvent -> {
+        authSignInButton.setOnAction( actionEvent -> {
             try {
 
                 String login = login_field.getText().trim();
