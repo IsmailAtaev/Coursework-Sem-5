@@ -325,7 +325,7 @@ public class AdminController {
                     if (flagAddClient.equals("true")) {
                         outPutErrorAddUserLabel.setText("Ползователь добавлен в базу");
                     } else if (flagAddClient.equals("false")) {
-                        outPutErrorAddUserLabel.setText("Ползователь не добавлен в базу пожалуйста обратитесь к администрации");
+                        outPutErrorAddUserLabel.setText("Ползователь не добавлен");
                     } else {
                         outPutErrorAddUserLabel.setText(" ошибка дабавления обратитесь к администрации ");
                     }
