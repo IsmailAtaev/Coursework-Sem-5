@@ -23,7 +23,6 @@ public class ClientController implements IController {
     private IDBHandler idbHandlerOrder = new DBHOrder();
     private IDBHandler idbHandlerTicket = new DBHTicket();
 
-
     @Override
     public void saveDate(String msg) throws IOException, ClassNotFoundException {
         switch (msg) {
@@ -137,7 +136,6 @@ public class ClientController implements IController {
                     }
                     default: {
                         msg = null;
-                        //connect.clearConnect();
                         new MyException("поличичли что-то не то client controller ");
                         break;
                     }
@@ -195,5 +193,4 @@ public class ClientController implements IController {
         }
         return false;
     }
-
 }

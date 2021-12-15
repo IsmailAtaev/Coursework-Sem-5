@@ -3,7 +3,6 @@ package model.bd.dbhtour;
 import com.example.model.myexception.MyException;
 import com.example.model.tour.Tour;
 import model.bd.idbhandler.IDBHandler;
-import model.configs.clientBD.ConstClient;
 import model.configs.tourBD.ConstTour;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +26,6 @@ public class DBHTour implements IDBHandler {
                     + ConstTour.TOUR_NAME + ","
                     + ConstTour.TOUR_TYPE + ")" + "VALUES(?,?,?,?,?,?,?,?)";
 
-
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, tour.getCountryName());
             prSt.setString(2, tour.getCityName());
@@ -37,9 +35,7 @@ public class DBHTour implements IDBHandler {
             prSt.setString(6, tour.getTourDate());
             prSt.setString(7, tour.getTourName());
             prSt.setString(8, tour.getTourType());
-
             prSt.executeUpdate();
-
         } catch (SQLException e) {
             new MyException(e);
             return false;
@@ -110,7 +106,6 @@ public class DBHTour implements IDBHandler {
                     " WHERE " + ConstTour.TOUR_ID + "=?";
 
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(update);
-
             preparedStatement.setString(1, t.getCountryName());
             preparedStatement.setString(2, t.getCityName());
             preparedStatement.setFloat(3, t.getPrice());
@@ -120,9 +115,7 @@ public class DBHTour implements IDBHandler {
             preparedStatement.setString(7, t.getTourName());
             preparedStatement.setString(8, t.getTourType());
             preparedStatement.setInt(9, t.getId());
-
             preparedStatement.executeUpdate();
-
         } catch (SQLException | ClassNotFoundException e) {
             new MyException(e);
             return false;

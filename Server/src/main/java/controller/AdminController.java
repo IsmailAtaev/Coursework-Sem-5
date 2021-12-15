@@ -142,10 +142,6 @@ public class AdminController implements IController {
         }
     }
 
-
-
-
-
     @Override
     public void start() {
         System.out.println("start admin controller");
@@ -241,74 +237,6 @@ public class AdminController implements IController {
         }
     }
 
-    /**
-     * 1-й исход работы) Возврашаем Order из бд прохотимся по списку заказов, и если есть такоей id,
-     * то вызываем запрос на добавление, если билет создан успешно, то возврашаем (CreateTicket),
-     * иначе (NoCreateTicket).
-     * <p>
-     * 2-й исход работы) Создаём счетчик int i
-     * Возврашаем Order из бд прохотимся по списку заказов, если i равен нулю, то (NoOrder)
-     * если i больше и менше или равно Order.size то,(NoIdOrder) нету такого заказа.
-     */
-    /*private String makeOrder(int idOrder, Ticket ticket) {
-
-        int i = 0;
-        boolean flag = false;
-        boolean flagAddTicket = false;
-        boolean flagClient = false;
-        boolean flagTour = false;
-        boolean flagCT = false; // client and tour
-        ArrayList<Tour> tourArrayList = (ArrayList<Tour>) idbHandlerTour.getList().clone();
-        ArrayList<Order> orderArrayList = (ArrayList<Order>) idbHandlerOrder.getList().clone();
-        ArrayList<Client> clientArrayList = (ArrayList<Client>) idbHandler.getList().clone();
-
-
-        System.out.println(" i am idOrder " + idOrder);
-        for (Order a : orderArrayList) {
-            System.out.println(a.toString());
-        }
-
-        for (Order o : orderArrayList) {
-            if (idOrder == o.getId()) {
-                flagClient = checkClient(o.getClientCode(), clientArrayList);
-                flagTour = checkTour(o.getTourCode(), tourArrayList);
-                if (flagClient == true && flagTour == true) {
-                    ticket.setUserCode(o.getClientCode());
-                    for (Tour t : tourArrayList) {
-                        if (o.getTourCode().equals(t.getTourCode())) {
-                            ticket.setDepartureData(t.getTourDate());
-                            ticket.setArrivalPoint(t.getCountryName() + "-" + t.getCityName());
-                            flagAddTicket = idbHandlerTicket.addObj(ticket);
-                            flagCT = true;
-                            i = 0;
-                            break;
-                        }
-                    }
-                } else {
-                    flagCT = false;
-                    break;
-                }
-            }
-            flag = true;
-            ++i;
-        }
-
-        if (flagCT == false && flagClient == false || flagTour == false) {
-            return "NoClientOrTour";
-        } else if (flagAddTicket == true) {
-            return "CreateTicket";
-        } else if (flag == false) {
-            return "NoOrder";
-        } else if (i > 0 && i <= orderArrayList.size()) {
-            return "NoIdOrder";
-        } else {
-            return "NoCreateTicket";
-        }
-    }*/
-
-
-
-
     private boolean checkOrderTourCode(String tourCode) {
         ArrayList<Order> orders = (ArrayList<Order>) idbHandlerOrder.getList().clone();
         for (Order o : orders) {
@@ -369,7 +297,6 @@ public class AdminController implements IController {
      * @param ticket
      */
     private boolean makeOrder(int idOrder, Ticket ticket) {
-
         boolean flagAddTicket;
         boolean flagClient;
         boolean flagTour;

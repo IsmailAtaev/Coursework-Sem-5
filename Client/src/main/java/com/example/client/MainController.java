@@ -55,7 +55,7 @@ public class MainController {
 
 
     static {
-        connect = new Connect("127.0.0.1", 1122);
+        connect = new Connect("127.0.0.1", 1024);
     }
 
     @FXML
@@ -90,6 +90,7 @@ public class MainController {
 
                         } else if (flagAdminOrClient.equals("clientUI")) {
                             Client c = (Client) connect.readObj();
+                            System.out.println(c.toString());
                             client = c;
                             System.out.println("client");
                             openNewScene("client-ui.fxml");
@@ -123,44 +124,6 @@ public class MainController {
                     shakeLogin.playAnim();
                     shakePass.playAnim();
                 }
-
-
-               /* connect.writeLine("signIn");
-                connect.writeLine(login);
-                connect.writeLine(pass);
-
-                String flag = connect.readLine();
-                String flagAdminOrClient = connect.readLine();
-
-                if (flag.equals("true")) {
-
-                    System.out.println(flag);
-                    System.out.println(flagAdminOrClient);
-
-                    if (flagAdminOrClient.equals("adminUI")) {
-
-                        System.out.println("admin");
-                        openNewScene("admin-ui.fxml");
-                        //handleButtonClick("admin-ui.fxml");
-                        System.out.println(flagAdminOrClient);
-
-                    } else if (flagAdminOrClient.equals("clientUI")) {
-                        Client c = (Client) connect.readObj();
-                        client = c;
-                        System.out.println("client");
-                        openNewScene("client-ui.fxml");
-                        System.out.println(flagAdminOrClient);
-
-                    } else {
-                        System.out.println("do not user ");
-                    }
-                } else if (flag.equals("false")) {
-                    Shake shakeLogin = new Shake(login_field);
-                    Shake shakePass = new Shake(password_field);
-                    shakeLogin.playAnim();
-                    shakePass.playAnim();
-                }*/
-
             } catch (IOException | ClassNotFoundException e) {
                 new MyException(e);
             }

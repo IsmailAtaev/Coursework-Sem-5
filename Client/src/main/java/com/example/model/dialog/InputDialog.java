@@ -12,7 +12,6 @@ import java.io.IOException;
 public class InputDialog {
 
     public InputDialog(ActionEvent actionEvent) {
-
         Stage stage = new Stage();
         Parent root = null;
         try {
@@ -20,7 +19,6 @@ public class InputDialog {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         stage.setTitle("Новое окно");
         stage.setScene(new Scene(root, 300, 300));
         stage.initModality(Modality.WINDOW_MODAL);
@@ -29,7 +27,6 @@ public class InputDialog {
     }
 
     public InputDialog(ActionEvent actionEvent, String path) {
-
         Stage stage = new Stage();
         Parent root = null;
         try {
@@ -37,7 +34,6 @@ public class InputDialog {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         stage.setTitle("Новое окно");
         stage.setScene(new Scene(root, 300, 300));
         stage.initModality(Modality.WINDOW_MODAL);
@@ -46,7 +42,6 @@ public class InputDialog {
     }
 
     public InputDialog(ActionEvent actionEvent, String path, int h, int w) {
-
         Stage stage = new Stage();
         Parent root = null;
         try {
@@ -54,7 +49,6 @@ public class InputDialog {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         stage.setTitle("Новое окно");
         stage.setScene(new Scene(root, h, w));
         stage.initModality(Modality.WINDOW_MODAL);

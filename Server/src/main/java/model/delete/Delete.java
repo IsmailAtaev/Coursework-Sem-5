@@ -18,7 +18,7 @@ public class Delete {
     private IDBHandler idbHandlerOrder = new DBHOrder();
     private IDBHandler idbHandlerTicket = new DBHTicket();
 
-    public boolean deleteOrder(int id,ArrayList<Object> objects) {
+    public boolean deleteOrder(int id, ArrayList<Object> objects) {
         ArrayList<Order> orders = (ArrayList<Order>) objects.clone();
         for (Order o : orders) {
             if (id == o.getId()) {
@@ -48,7 +48,7 @@ public class Delete {
         return false;
     }
 
-    public boolean deleteTicket(int id,ArrayList<Object> objects) {
+    public boolean deleteTicket(int id, ArrayList<Object> objects) {
         ArrayList<Ticket> tickets = (ArrayList<Ticket>) objects.clone();
         for (Ticket t : tickets) {
             if (id == t.getId()) {
@@ -57,5 +57,4 @@ public class Delete {
         }
         return false;
     }
-
 }

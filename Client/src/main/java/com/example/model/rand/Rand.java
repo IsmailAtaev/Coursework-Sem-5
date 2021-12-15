@@ -1,6 +1,5 @@
 package com.example.model.rand;
 
-
 /**
  * @author Ataeyv I.M.
  *  It is class generates random number.

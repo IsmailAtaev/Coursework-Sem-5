@@ -1,6 +1,5 @@
 package com.example.model.check;
 
-
 /**
  * @author Ataev Ismayll
  * class Check intended for check String and Integer.

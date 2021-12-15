@@ -259,7 +259,6 @@ public class AdminController {
             glavnyPane.getSelectionModel().select(u4);
         });
 
-
         /**Просмотр пользователя*/
         viewUsersBtn.setOnAction(actionEvent -> {
             try {
@@ -283,7 +282,6 @@ public class AdminController {
 
         /**Добавить пользователя*/
         addUserBtn.setOnAction(actionEvent -> {
-
             String fio = signUpFIOField.getText().trim();
             String clientCode = signUpClientCodeField.getText().trim();
             String passportId = signUpPassportIdField.getText().trim();

@@ -24,12 +24,10 @@ public class DBHOrder implements IDBHandler {
            String insert = "INSERT INTO " + ConstOrder.ORDER_TABLE + "("
                    + ConstOrder.ORDER_CLIENT_CODE + ","
                    + ConstOrder.ORDER_TOUR_CODE + ")" + "VALUES(?,?)";
-
            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
            prSt.setString(1, order.getClientCode());
            prSt.setString(2, order.getTourCode());
            prSt.executeUpdate();
-
        } catch (ClassNotFoundException | SQLException e) {
            new MyException(e);
            return false;

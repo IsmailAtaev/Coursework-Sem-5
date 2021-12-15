@@ -1,6 +1,5 @@
 package com.example.model.order;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 

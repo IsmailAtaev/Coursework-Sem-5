@@ -43,7 +43,6 @@ public class CheckAndCreateTicketController {
     private ComboBox<String> boxTransportType;
     ObservableList<String> list = FXCollections.observableArrayList("Самолёт", "Автобус", "Поезд", "Корабль");
 
-
     @FXML
     void closeCreateTicketPane(ActionEvent event) {
         Node source = (Node) event.getSource();

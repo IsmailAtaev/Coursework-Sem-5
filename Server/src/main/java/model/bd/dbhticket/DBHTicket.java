@@ -1,10 +1,8 @@
 package model.bd.dbhticket;
 
-import com.example.model.client.Client;
 import com.example.model.myexception.MyException;
 import com.example.model.ticket.Ticket;
 import model.bd.idbhandler.IDBHandler;
-import model.configs.clientBD.ConstClient;
 import model.configs.ticketBD.ConstTicket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,14 +35,12 @@ public class DBHTicket implements IDBHandler {
             prSt.setString(4, ticket.getDeparturePoint());
             prSt.setString(5, ticket.getArrivalPoint());
             prSt.setString(6, ticket.getDepartureData());
-
             prSt.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             new MyException(e);
             return false;
         }
         return true;
-
     }
 
     @Override

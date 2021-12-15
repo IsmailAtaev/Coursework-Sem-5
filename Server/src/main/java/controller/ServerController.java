@@ -28,15 +28,11 @@ public class ServerController {
         countClient++;
     }
 
-
     public void work(ServerSocket serverSocket) {
         try {
-
             IDBHandler idbHandler = new DBHClient();
             connect = new Connect(serverSocket);
-
             System.out.println("Client connect --> " + ++countClient);
-
 
             while (true) {
                 String req = connect.readLine();
@@ -44,10 +40,10 @@ public class ServerController {
                     case "signIn": {
                         String login = connect.readLine();
                         String pass = connect.readLine();
-
                         ArrayList<Client> clients = (ArrayList<Client>) idbHandler.getList().clone();
 
                         for (Client client : clients) {
+                            System.out.println(client.toString());
                             if (pass.equals(client.getPassword()) && login.equals(client.getLogin())) {
                                 connect.writeLine("true");
 
@@ -59,7 +55,7 @@ public class ServerController {
                                     return;
 
                                 } else if (client.getFlag() == 2) {
-
+                                    System.out.println(client.toString());
                                     connect.writeLine("clientUI");
                                     connect.writeObj(client);
 

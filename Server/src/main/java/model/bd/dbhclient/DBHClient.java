@@ -104,9 +104,7 @@ public class DBHClient implements IDBHandler {
             preparedStatement.setString(7, client.getPassword());
             preparedStatement.setInt(8, client.getFlag());
             preparedStatement.setInt(9, client.getId());
-
             preparedStatement.executeUpdate();
-
         } catch (SQLException | ClassNotFoundException e) {
             new MyException(e);
             return false;

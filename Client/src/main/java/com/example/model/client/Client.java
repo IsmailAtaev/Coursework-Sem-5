@@ -1,6 +1,5 @@
 package com.example.model.client;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -25,7 +24,6 @@ public class Client implements Serializable {
     private int flag;
 
     public Client() {
-
     }
 
     public Client(String FIO, String clientCode, String passportId, String mail,
